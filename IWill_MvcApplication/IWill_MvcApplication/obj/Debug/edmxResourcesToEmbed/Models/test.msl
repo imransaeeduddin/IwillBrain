@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ImranIwillDbModel1StoreContainer" CdmEntityContainer="test">
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.City">
+        <MappingFragment StoreEntitySet="City">
+          <ScalarProperty Name="CTID" ColumnName="CTID" />
+          <ScalarProperty Name="CName" ColumnName="CName" />
+          <ScalarProperty Name="CIPAddress" ColumnName="CIPAddress" />
+          <ScalarProperty Name="FkCTRYID" ColumnName="FkCTRYID" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoachTaughtBies">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.CoachTaughtBy">
+        <MappingFragment StoreEntitySet="CoachTaughtBy">
+          <ScalarProperty Name="CTID" ColumnName="CTID" />
+          <ScalarProperty Name="FKCID" ColumnName="FKCID" />
+          <ScalarProperty Name="CTName" ColumnName="CTName" />
+          <ScalarProperty Name="CTUniversityName" ColumnName="CTUniversityName" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="PicUrl" ColumnName="PicUrl" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="CTRYID" ColumnName="CTRYID" />
+          <ScalarProperty Name="CTName" ColumnName="CTName" />
+          <ScalarProperty Name="CntyIPAddress" ColumnName="CntyIPAddress" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.Course">
+        <MappingFragment StoreEntitySet="Course">
+          <ScalarProperty Name="CID" ColumnName="CID" />
+          <ScalarProperty Name="CoachID" ColumnName="CoachID" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+          <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+          <ScalarProperty Name="TotalDurationDays" ColumnName="TotalDurationDays" />
+          <ScalarProperty Name="TotalQuizes" ColumnName="TotalQuizes" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="FkCCID" ColumnName="FkCCID" />
+          <ScalarProperty Name="CourseSessionID" ColumnName="CourseSessionID" />
+          <ScalarProperty Name="Pricing" ColumnName="Pricing" />
+          <ScalarProperty Name="TotalSessions" ColumnName="TotalSessions" />
+          <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+          <ScalarProperty Name="Commitment" ColumnName="Commitment" />
+          <ScalarProperty Name="CourseLanguage" ColumnName="CourseLanguage" />
+          <ScalarProperty Name="LogoUrl" ColumnName="LogoUrl" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="HowToPass" ColumnName="HowToPass" />
+          <ScalarProperty Name="LearningLevel" ColumnName="LearningLevel" />
+          <ScalarProperty Name="UserRatings" ColumnName="UserRatings" />
+          <ScalarProperty Name="CoachUniversityName" ColumnName="CoachUniversityName" />
+          <ScalarProperty Name="IsCertificateGiven" ColumnName="IsCertificateGiven" />
+          <ScalarProperty Name="BackgroundPicUrl" ColumnName="BackgroundPicUrl" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CerticationDescription" ColumnName="CerticationDescription" />
+          <ScalarProperty Name="CourseImportance" ColumnName="CourseImportance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseCategories">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.CourseCategory">
+        <MappingFragment StoreEntitySet="CourseCategory">
+          <ScalarProperty Name="CCID" ColumnName="CCID" />
+          <ScalarProperty Name="CCName" ColumnName="CCName" />
+          <ScalarProperty Name="CCDescription" ColumnName="CCDescription" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseCoaches">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.CourseCoach">
+        <MappingFragment StoreEntitySet="CourseCoaches">
+          <ScalarProperty Name="CCID" ColumnName="CCID" />
+          <ScalarProperty Name="FKCID" ColumnName="FKCID" />
+          <ScalarProperty Name="FKUID" ColumnName="FKUID" />
+          <ScalarProperty Name="CTUniversityName" ColumnName="CTUniversityName" />
+          <ScalarProperty Name="CTName" ColumnName="CTName" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="PicUrl" ColumnName="PicUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseDetails">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.CourseDetail">
+        <MappingFragment StoreEntitySet="CourseDetail">
+          <ScalarProperty Name="CDID" ColumnName="CDID" />
+          <ScalarProperty Name="FKCID" ColumnName="FKCID" />
+          <ScalarProperty Name="SesssionName" ColumnName="SesssionName" />
+          <ScalarProperty Name="SesssionCode" ColumnName="SesssionCode" />
+          <ScalarProperty Name="SessionDescription" ColumnName="SessionDescription" />
+          <ScalarProperty Name="SessionTotalSummary" ColumnName="SessionTotalSummary" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseMaterialTypes">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.CourseMaterialType">
+        <MappingFragment StoreEntitySet="CourseMaterialType">
+          <ScalarProperty Name="CMTID" ColumnName="CMTID" />
+          <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseOutlines">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.CourseOutline">
+        <MappingFragment StoreEntitySet="CourseOutline">
+          <ScalarProperty Name="COTID" ColumnName="COTID" />
+          <ScalarProperty Name="FKCDID" ColumnName="FKCDID" />
+          <ScalarProperty Name="FKCMTID" ColumnName="FKCMTID" />
+          <ScalarProperty Name="OName" ColumnName="OName" />
+          <ScalarProperty Name="Olink" ColumnName="Olink" />
+          <ScalarProperty Name="ODescription" ColumnName="ODescription" />
+          <ScalarProperty Name="IsRecStarted" ColumnName="IsRecStarted" />
+          <ScalarProperty Name="IsRecFinished" ColumnName="IsRecFinished" />
+          <ScalarProperty Name="LecDate" ColumnName="LecDate" />
+          <ScalarProperty Name="LecStartingTime" ColumnName="LecStartingTime" />
+          <ScalarProperty Name="LecEndingTime" ColumnName="LecEndingTime" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="LecCode" ColumnName="LecCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Genders">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.Gender">
+        <MappingFragment StoreEntitySet="Gender">
+          <ScalarProperty Name="GID" ColumnName="GID" />
+          <ScalarProperty Name="GenderType" ColumnName="GenderType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MartialStatus">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.MartialStatu">
+        <MappingFragment StoreEntitySet="MartialStatus">
+          <ScalarProperty Name="MID" ColumnName="MID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.Question">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="QSID" ColumnName="QSID" />
+          <ScalarProperty Name="FKQZID" ColumnName="FKQZID" />
+          <ScalarProperty Name="FKQTID" ColumnName="FKQTID" />
+          <ScalarProperty Name="QuesDesc" ColumnName="QuesDesc" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuestionsDetails">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.QuestionsDetail">
+        <MappingFragment StoreEntitySet="QuestionsDetail">
+          <ScalarProperty Name="QDID" ColumnName="QDID" />
+          <ScalarProperty Name="FKQSID" ColumnName="FKQSID" />
+          <ScalarProperty Name="QuesOptionName" ColumnName="QuesOptionName" />
+          <ScalarProperty Name="IsRight" ColumnName="IsRight" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuestionTypes">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.QuestionType">
+        <MappingFragment StoreEntitySet="QuestionType">
+          <ScalarProperty Name="QTID" ColumnName="QTID" />
+          <ScalarProperty Name="QTName" ColumnName="QTName" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quizs">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.Quiz">
+        <MappingFragment StoreEntitySet="Quiz">
+          <ScalarProperty Name="QZID" ColumnName="QZID" />
+          <ScalarProperty Name="FKCID" ColumnName="FKCID" />
+          <ScalarProperty Name="QName" ColumnName="QName" />
+          <ScalarProperty Name="QuizDescription" ColumnName="QuizDescription" />
+          <ScalarProperty Name="QuizCode" ColumnName="QuizCode" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="TotalAttemps" ColumnName="TotalAttemps" />
+          <ScalarProperty Name="ValidTill" ColumnName="ValidTill" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="RID" ColumnName="RID" />
+          <ScalarProperty Name="RName" ColumnName="RName" />
+          <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UID" ColumnName="UID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FkGenderID" ColumnName="FkGenderID" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="AboutMe" ColumnName="AboutMe" />
+          <ScalarProperty Name="WebUrl" ColumnName="WebUrl" />
+          <ScalarProperty Name="FacebookUrl" ColumnName="FacebookUrl" />
+          <ScalarProperty Name="PlusGoogleUrl" ColumnName="PlusGoogleUrl" />
+          <ScalarProperty Name="GitHubUrl" ColumnName="GitHubUrl" />
+          <ScalarProperty Name="PicUrl" ColumnName="PicUrl" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="EmergenyNumber" ColumnName="EmergenyNumber" />
+          <ScalarProperty Name="IsStudent" ColumnName="IsStudent" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="Religion" ColumnName="Religion" />
+          <ScalarProperty Name="FkCityID" ColumnName="FkCityID" />
+          <ScalarProperty Name="FkCountryID" ColumnName="FkCountryID" />
+          <ScalarProperty Name="MartialStatus" ColumnName="MartialStatus" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+          <ScalarProperty Name="MotherLanguage" ColumnName="MotherLanguage" />
+          <ScalarProperty Name="FirstLoginUrl" ColumnName="FirstLoginUrl" />
+          <ScalarProperty Name="IsFirstLoggedIn" ColumnName="IsFirstLoggedIn" />
+          <ScalarProperty Name="LinkedInUrl" ColumnName="LinkedInUrl" />
+          <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="LoggedIn" ColumnName="LoggedIn" />
+          <ScalarProperty Name="RegQuesPercentage" ColumnName="RegQuesPercentage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserEnrollCourses">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.UserEnrollCourse">
+        <MappingFragment StoreEntitySet="UserEnrollCourse">
+          <ScalarProperty Name="UECID" ColumnName="UECID" />
+          <ScalarProperty Name="FKUID" ColumnName="FKUID" />
+          <ScalarProperty Name="FKCID" ColumnName="FKCID" />
+          <ScalarProperty Name="CardName" ColumnName="CardName" />
+          <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+          <ScalarProperty Name="CardExpMonth" ColumnName="CardExpMonth" />
+          <ScalarProperty Name="CardExpYear" ColumnName="CardExpYear" />
+          <ScalarProperty Name="FKCNTRYID" ColumnName="FKCNTRYID" />
+          <ScalarProperty Name="CVV" ColumnName="CVV" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="PaidOn" ColumnName="PaidOn" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsCertified" ColumnName="IsCertified" />
+          <ScalarProperty Name="CertifiedOn" ColumnName="CertifiedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserGivenQuesAns">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.UserGivenQuesAn">
+        <MappingFragment StoreEntitySet="UserGivenQuesAns">
+          <ScalarProperty Name="UQAID" ColumnName="UQAID" />
+          <ScalarProperty Name="FkUQDID" ColumnName="FkUQDID" />
+          <ScalarProperty Name="FkUQID" ColumnName="FkUQID" />
+          <ScalarProperty Name="FkUserID" ColumnName="FkUserID" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsOptionRight" ColumnName="IsOptionRight" />
+          <ScalarProperty Name="IsUserRight" ColumnName="IsUserRight" />
+          <ScalarProperty Name="OptionName" ColumnName="OptionName" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserQuestionDetails">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.UserQuestionDetail">
+        <MappingFragment StoreEntitySet="UserQuestionDetail">
+          <ScalarProperty Name="UQDID" ColumnName="UQDID" />
+          <ScalarProperty Name="FkQID" ColumnName="FkQID" />
+          <ScalarProperty Name="QuesOptionName" ColumnName="QuesOptionName" />
+          <ScalarProperty Name="IsRight" ColumnName="IsRight" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserQuestions">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.UserQuestion">
+        <MappingFragment StoreEntitySet="UserQuestions">
+          <ScalarProperty Name="UQID" ColumnName="UQID" />
+          <ScalarProperty Name="UQuestion" ColumnName="UQuestion" />
+          <ScalarProperty Name="FkUQType" ColumnName="FkUQType" />
+          <ScalarProperty Name="IsStudent" ColumnName="IsStudent" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserQuizAnswers">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.UserQuizAnswer">
+        <MappingFragment StoreEntitySet="UserQuizAnswer">
+          <ScalarProperty Name="UQAID" ColumnName="UQAID" />
+          <ScalarProperty Name="FkUQID" ColumnName="FkUQID" />
+          <ScalarProperty Name="FkQSID" ColumnName="FkQSID" />
+          <ScalarProperty Name="FkQDID" ColumnName="FkQDID" />
+          <ScalarProperty Name="QAns" ColumnName="QAns" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserQuizAttemps">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.UserQuizAttemp">
+        <MappingFragment StoreEntitySet="UserQuizAttemp">
+          <ScalarProperty Name="UQID" ColumnName="UQID" />
+          <ScalarProperty Name="FkQZID" ColumnName="FkQZID" />
+          <ScalarProperty Name="FkUID" ColumnName="FkUID" />
+          <ScalarProperty Name="Marks" ColumnName="Marks" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="TotalAttempts" ColumnName="TotalAttempts" />
+          <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CompletedOn" ColumnName="CompletedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="ImranIwillDbModel1.UserRole">
+        <MappingFragment StoreEntitySet="UserRole">
+          <ScalarProperty Name="URID" ColumnName="URID" />
+          <ScalarProperty Name="FKUID" ColumnName="FKUID" />
+          <ScalarProperty Name="FKRID" ColumnName="FKRID" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreadtedBy" ColumnName="CreadtedBy" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

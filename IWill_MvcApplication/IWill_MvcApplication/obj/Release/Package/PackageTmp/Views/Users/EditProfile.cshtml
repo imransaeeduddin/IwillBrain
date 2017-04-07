@@ -1,0 +1,599 @@
+﻿@model IWill_MvcApplication.Models.ModelUserRegister
+
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Profile</h2>
+
+<style>
+    .loader {
+        background: url('../../Images/loading.gif');
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 150px;
+        height: 150px;
+        opacity: 0.5;
+        display: none;
+    }
+
+    .mar {
+        margin-top: 20px;
+    }
+
+    .row {
+        margin-top: 20px;
+    }
+
+        .row > div {
+            margin-left: 20px;
+            float: left;
+        }
+
+    textarea {
+        width: 100%;
+        height: 100px;
+        resize: none;
+        border-radius: 11px;
+        box-shadow: 1px 1px 4px;
+    }
+
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+        margin: 10px;
+    }
+
+        .fileUpload input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+</style>
+
+@using (Html.BeginForm("UpdateUserProfile", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="form-horizontal" style="float:left">
+        <h4>User Profile</h4>
+
+        @{
+            Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+        }
+
+        @Html.HiddenFor(model => model.UID, new { htmlAttributes = new { @class = "form-control" } })
+
+
+
+
+        <div id="R1" class="row">
+            <div>
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label " })
+                <div class="">
+                    @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label " })
+                <div class="">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>@*FirstName MiddleName LastName*@
+
+
+        <div id="R2" class="row">
+            <div>
+                @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @id = "txtEmail", @class = "form-control", @readonly = true } })
+
+                    <div style="display:none" id="loading">Email checking<img src="~/Images/loading.gif" style="width:30px;height:30px" /></div>
+                    @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @id = "MsgEmailAddress", @class = "text-danger" })
+                    <span style="color:red; font-size:12px; display:none" id="EmailErrorMessage"> this Email already registered, try another </span>
+
+                </div>
+            </div>
+            @*<div>
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label " })
+
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label " })
+
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+
+                </div>*@
+
+
+        </div> @*Email and Password and confirm password*@
+
+        <div class="row">
+
+            <div style="width:200px">
+                @Html.LabelFor(model => model.GID, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.DropDownListFor(model => model.GID, (IEnumerable<SelectListItem>)ViewBag.Gender, "Select Gender", new { @id = "ddlGender", @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.GID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.WebUrl, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.EditorFor(model => model.WebUrl, new { htmlAttributes = new { @class = "form-control", @id = "WebUrl" } })
+                    @Html.ValidationMessageFor(model => model.WebUrl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.FacebookUrl, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.EditorFor(model => model.FacebookUrl, new { htmlAttributes = new { @class = "form-control", @id = "FacebookUrl" } })
+                    @Html.ValidationMessageFor(model => model.FacebookUrl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+        </div>@*Gender and
+        *@
+
+
+
+
+
+
+        <div id="R4" class="row mar">
+            <div>
+                @Html.LabelFor(model => model.PlusGoogleUrl, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.EditorFor(model => model.PlusGoogleUrl, new { htmlAttributes = new { @class = "form-control", @id = "PlusGoogleUrl" } })
+                    @Html.ValidationMessageFor(model => model.PlusGoogleUrl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.LinkedInUrl, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.EditorFor(model => model.LinkedInUrl, new { htmlAttributes = new { @class = "form-control", @id = "LinkedInUrl" } })
+                    @Html.ValidationMessageFor(model => model.LinkedInUrl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.file, htmlAttributes: new { @class = "control-label " })
+                <div>
+
+
+                    <div style="float: left; width: 100px; height: 100px;">
+                        <img id="imgUploadThumbnail" alt="Uploaded Thumbnail" src="~/Images/blankImage.png" style="width: 100px; height: 100px" />
+                    </div>
+
+
+
+                    <div style="display:none" id="loadingPic"><img src="~/Images/loading.gif" style="width:30px;height:30px" /></div>
+                    <div>
+                        <input type="file" class="form-control fileUpload " name='file' id="fuImage" multiple />
+                        @Html.HiddenFor(i => i.fileName, new { @id = "hdnFrontFileName" })
+
+                    </div>
+                    <div id="dvRemovepic" style="display:none">
+                        <a href="#" id="removepic" onclick="RevomePic()">Remove Pic </a>
+                    </div>
+                    <div id="dvEditRemovePic" style="display:none">
+                        <a href="#" id="removepic" onclick="EditRemovePic()">Remove Pic </a>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.file, "", new { @class = "text-danger" })
+                </div>
+
+                
+
+
+
+            </div>
+        </div>
+
+        <div id="R5" class="row mar">
+
+
+            <div>
+                @Html.LabelFor(model => model.ContactNumber, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @id = "txtContactNumber", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.CTID, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @*@Html.DropDownList(model => model.CTID, (IEnumerable<SelectListItem>)ViewBag.City, "Select City", new { @id = "ddlCity", @class = "form-control",@disabled = false })*@
+                    @if (ViewBag.City != null)
+                    {
+                        @Html.DropDownListFor(model => model.CTID, (IEnumerable<SelectListItem>)ViewBag.CIty, "Select Country", new { @id = "ddlCity", @class = "form-control" })
+                    }
+                    else
+                    {
+                        <select id="ddlCity" class="form-control" disabled name="CTID">
+                            <option value="0"> Select City </option>
+                        </select>
+                    }
+
+                    @Html.ValidationMessageFor(model => model.CTID, "", new { @class = "text-danger" })
+                    <span id="ErrDdlCity" style="color:red; display:none"> Please Select City </span>
+                </div>
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.CTRYID, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.DropDownListFor(model => model.CTRYID, (IEnumerable<SelectListItem>)ViewBag.Country, "Select Country", new { @id = "ddlCountry", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CTRYID, "", new { @class = "text-danger" })
+                </div>
+
+
+            </div>
+            <div style="display:none" id="loadingCities"><img src="~/Images/loading.gif" style="width:30px;height:30px" /></div>
+
+        </div>
+
+        <div id="9" class="row">
+            <div>
+                @Html.LabelFor(model => model.Religion, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div style="width:500">
+                @Html.LabelFor(model => model.MotherLanguage, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.EditorFor(model => model.MotherLanguage, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MotherLanguage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @*@Html.DisplayFor(model => model.DateOfBirth)*@
+                    @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", @id = "editDOB" } });
+                    @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+        <div id="R3" class="row mar">
+            <div style="width:350px">
+                @Html.LabelFor(model => model.AboutMe, htmlAttributes: new { @class = "control-label " })
+                <div>
+                    @Html.TextAreaFor(model => model.AboutMe, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AboutMe, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div style="width:500px">
+                    <div style="margin-top:50px;">
+                        @Html.LabelFor(model => model.IsStudent, htmlAttributes: new { @class = "control-label " })
+                        @Html.CheckBoxFor(model => model.IsStudent, new { @class = "checkbox-inline", style = "margin-left:10px; width:30px;" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(model => model.IsStudent, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>*@
+
+        </div>
+
+
+    </div>
+    <div style="float:right">
+        @if (ViewBag.RegisterBy != null)
+                {
+            <div>You are Getting Registered By </div> @ViewBag.RegisterBy
+            <div><img style="width:100px; height:100px" src='@Model.SUrl' /></div>
+
+        }
+    </div>
+    <div style="clear:both">
+
+    </div>
+
+    <div class="form-group mar">
+
+        <input type="submit" value="Update" class="btn btn-default" onclick="return SubmitValidateEmail()" />
+
+    </div>
+
+                }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    $().ready(function () {
+        var fileName = "@Model.fileName";
+        if (fileName == null || fileName == "")
+            $("#imgUploadThumbnail").attr("src", "../Images/blankImage.png");
+        else {
+            $("#imgUploadThumbnail").attr("src", "../Images/UserImages/" + fileName);
+            $("#dvRemovepic").hide();
+            $("#dvEditRemovePic").show();
+            $("#fuImage").hide();
+        }
+
+    });
+
+
+
+
+
+    function getFileExtension(name) {
+        var found = name.lastIndexOf('.') + 1;
+        return (parseInt(found) > 0 ? name.substr(found) : "");
+    }
+
+    function SubmitValidateEmail() {
+        $(".loader").show();
+
+        //var Display = $("#EmailErrorMessage").css("display");
+        //if (Display == "inline" || Display == "block") {
+        //    $("#txtEmail").focus();
+        //    return false;
+        //}
+
+        if ($("#ddlCity > option").length > 2 && $('#ddlCity option:selected').val() == "0") {
+            $("#ddlCity").focus();
+            $("#ErrDdlCity").show();
+            // $("#ErrDdlCity").val('Please Select City');
+
+            return false;
+        }
+        else
+            $("#ErrDdlCity").hide();
+
+        return true;
+
+
+    }
+
+    //function OnEmailBlur() {
+
+    //    $("#loading").show();
+    //    $("#MsgEmailAddress").hide();
+    //    $("#EmailErrorMessage").hide();
+    //    $("#txtEmail").css("background", "");
+    //    $("#txtEmail").css("color", "");
+
+    //    var id = $('#txtEmail').val().trim();
+
+    //    var obj = {
+    //        id: $('#txtEmail').val().trim()
+    //    }
+
+    //    $.ajax({
+    //        url: "/Users/IsEmailRegistered",
+    //        type: 'GET',
+
+
+    //        data: { id: id },
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        success: function (data) {
+    //            if (data == 'yes') {
+    //                $("#txtEmail").css("background", "#c46d96");
+    //                $("#txtEmail").css("color", "white");
+    //                $("#EmailErrorMessage").show();
+    //            }
+
+    //            $("#MsgEmailAddress").css("display", "block");
+    //            $("#loading").hide();
+
+    //        },
+    //        error: function (ex) {
+    //            $("#loading").hide();
+    //            //$("#MsgEmailAddress").show();
+    //            alert(ex.responseText)
+    //        }
+
+    //    });
+
+    //}
+
+    $("#fuImage").change(function () {
+        $("#loadingPic").show();
+
+        var fileName = $("#fuImage").val();
+        var maxFileSize = 2 * 1024 * 1024;
+
+        if (fileName.length > 0) {
+            var ext = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert('invalid file type!');
+                return;
+            }
+            if ($("#fuImage")[0].files[0].size > maxFileSize) {
+                alert('only 2 MB file could be uploaded');
+                return;
+            }
+
+
+            var formData = new FormData();
+            var totalFiles = document.getElementById("fuImage").files.length;
+            for (var i = 0; i < totalFiles; i++) {
+                var file = document.getElementById("fuImage").files[i];
+
+                formData.append("fuImage", file);
+            }
+
+            $.ajax({
+                url: "/Users/UserFileUpload",
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+
+                success: function (data) {
+                    var IsSaved = data.split('^')[0];
+
+                    if (IsSaved == 'saved') {
+                        var FileName = data.split('^')[1];
+                        //var AbsolutePath = "~/Images/UserImages/" + FileName;
+                        $("#imgUploadThumbnail").attr("src", "../Images/UserImages/" + FileName);
+                        $("#loadingPic").hide();
+                        $("#dvRemovepic").show();
+                        $("#fuImage").hide();
+
+                        $("#hdnFrontFileName").val(FileName);
+                        //alert($("#hdnFrontFileName").val());
+
+                    }
+                    else
+
+                        if (data.indexOf("notsaved") == 0) {
+                            $("#loadingPic").hide();
+                            $("#dvRemovepic").show();
+                            $("#fuImage").prop('disabled', true);
+                            alert("picture is not saved")
+                        }
+
+                    if (data.IndexOf("exists"))
+                        alert("this file already exists")
+
+                },
+                error: function (ex) {
+                    //$("#Picloading").hide();
+                    alert(ex.responseText)
+                }
+
+            });
+
+
+
+        }
+        //submit the form here
+    });
+
+    function RevomePic() {
+        $("#loadingPic").show();
+
+        var file = $("#imgUploadThumbnail").attr("src").filename();
+        var ext = getFileExtension($("#imgUploadThumbnail").attr("src"));
+        FileName = file + "." + ext;
+        $.ajax({
+            url: "/Users/RemoveFrontPic",
+            type: 'GET',
+            data: { FileName: FileName },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "deleted") {
+                    $("#dvRemovepic").hide();
+                    $("#fuImage").show();
+                    $("#imgUploadThumbnail").attr("src", "../Images/blankImage.png")
+
+                    $("#fuImage").val('');
+
+                }
+                $("#loadingPic").hide();
+            },
+            error: function (ex) { alert(ex.responseText) }
+        });
+
+
+    }
+
+    function EditRemovePic() {
+
+        $("#loadingPic").show();
+        var FileName = "";
+        var EmailAddress = $("#txtEmail").val();
+        var UpdatefileName = "@Model.fileName";
+
+
+        $.ajax({
+            url: "/Users/EditRemovePic",
+            type: 'GET',
+            data: { FileName: UpdatefileName, Email: EmailAddress },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "deleted") {
+                    $("#dvRemovepic").hide();
+                    $("#dvEditRemovePic").hide();
+                    $("#fuImage").show();
+                    $("#imgUploadThumbnail").attr("src", "../Images/blankImage.png")
+
+                    $("#fuImage").val('');
+
+                }
+                $("#loadingPic").hide();
+            },
+            error: function (ex) { alert(ex.responseText) }
+        });
+
+
+    }
+
+    $('#ddlCountry').change(function () {
+
+        $("#loadingCities").show();
+        Cid = $('#ddlCountry').val();
+        $("#ErrDdlCity").hide();
+        var data = { id: Cid };
+        $.getJSON('/Users/GetAllCities', data,
+            function success(data) {
+
+                if (data.length > 0) {
+                    $("#ddlCity").attr("disabled", false);
+                    var i = 0;
+                    $(data).each(function (index, optionText) {
+                        $("#ddlCity").append($('<option />').attr('value', data[i].CTID).text(data[i].CName));
+                        i++;
+                    });
+
+
+                }
+                else {
+                    $('#ddlCity option').remove();
+                    $("#ddlCity").append($('<option />').attr('value', "0").text("Select City"));
+                    $("#ddlCity").attr("disabled", true);
+                }
+
+            });
+        $("#loadingCities").hide();
+        //GetAllCities
+    });
+
+    String.prototype.filename = function (extension) {
+        var s = this.replace(/\\/g, '/');
+        s = s.substring(s.lastIndexOf('/') + 1);
+        return extension ? s.replace(/[?#].+$/, '') : s.split('.')[0];
+    }
+
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+} 

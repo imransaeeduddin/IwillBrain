@@ -1,0 +1,1196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ImranIwillDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="IwillDbEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="spSearhUser" ReturnType="Collection(ImranIwillDbModel.spSearhUser_Result)">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="RID" Mode="In" Type="Int32" />
+      <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="spSearchUserRegestrationQuestions" ReturnType="Collection(ImranIwillDbModel.spSearchUserRegestrationQuestions_Result)">
+      <Parameter Name="Ques" Mode="In" Type="String" />
+      <Parameter Name="IsStudent" Mode="In" Type="Boolean" />
+      <Parameter Name="QuestionType" Mode="In" Type="Int32" />
+      <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="spGetRegUserQuestion" ReturnType="Collection(ImranIwillDbModel.spGetRegUserQuestion_Result)">
+      <Parameter Name="UID" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <EntitySet Name="Cities" EntityType="ImranIwillDbModel.City" />
+    <EntitySet Name="CoachTaughtBies" EntityType="ImranIwillDbModel.CoachTaughtBy" />
+    <EntitySet Name="Countries" EntityType="ImranIwillDbModel.Country" />
+    <EntitySet Name="Courses" EntityType="ImranIwillDbModel.Course" />
+    <EntitySet Name="CourseCategories" EntityType="ImranIwillDbModel.CourseCategory" />
+    <EntitySet Name="CourseCoaches" EntityType="ImranIwillDbModel.CourseCoach" />
+    <EntitySet Name="CourseDetails" EntityType="ImranIwillDbModel.CourseDetail" />
+    <EntitySet Name="CourseLanguages" EntityType="ImranIwillDbModel.CourseLanguage" />
+    <EntitySet Name="CourseMaterialTypes" EntityType="ImranIwillDbModel.CourseMaterialType" />
+    <EntitySet Name="CourseOutlines" EntityType="ImranIwillDbModel.CourseOutline" />
+    <EntitySet Name="EducationTypes" EntityType="ImranIwillDbModel.EducationType" />
+    <EntitySet Name="Genders" EntityType="ImranIwillDbModel.Gender" />
+    <EntitySet Name="Languages" EntityType="ImranIwillDbModel.Language" />
+    <EntitySet Name="MartialStatus" EntityType="ImranIwillDbModel.MartialStatu" />
+    <EntitySet Name="Questions" EntityType="ImranIwillDbModel.Question" />
+    <EntitySet Name="QuestionsDetails" EntityType="ImranIwillDbModel.QuestionsDetail" />
+    <EntitySet Name="QuestionTypes" EntityType="ImranIwillDbModel.QuestionType" />
+    <EntitySet Name="Quizs" EntityType="ImranIwillDbModel.Quiz" />
+    <EntitySet Name="Roles" EntityType="ImranIwillDbModel.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="ImranIwillDbModel.sysdiagram" />
+    <EntitySet Name="TempPics" EntityType="ImranIwillDbModel.TempPic" />
+    <EntitySet Name="Users" EntityType="ImranIwillDbModel.User" />
+    <EntitySet Name="UserEducations" EntityType="ImranIwillDbModel.UserEducation" />
+    <EntitySet Name="UserEnrollCourses" EntityType="ImranIwillDbModel.UserEnrollCourse" />
+    <EntitySet Name="UserExperiences" EntityType="ImranIwillDbModel.UserExperience" />
+    <EntitySet Name="UserGivenQuesAns" EntityType="ImranIwillDbModel.UserGivenQuesAn" />
+    <EntitySet Name="UserQuestionDetails" EntityType="ImranIwillDbModel.UserQuestionDetail" />
+    <EntitySet Name="UserQuestions" EntityType="ImranIwillDbModel.UserQuestion" />
+    <EntitySet Name="UserQuizAnswers" EntityType="ImranIwillDbModel.UserQuizAnswer" />
+    <EntitySet Name="UserQuizAttemps" EntityType="ImranIwillDbModel.UserQuizAttemp" />
+    <EntitySet Name="UserRoles" EntityType="ImranIwillDbModel.UserRole" />
+    <AssociationSet Name="FK_City_Country" Association="ImranIwillDbModel.FK_City_Country">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseTaughtBy_Course" Association="ImranIwillDbModel.FK_CourseTaughtBy_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="CoachTaughtBy" EntitySet="CoachTaughtBies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Course_CourseCategory" Association="ImranIwillDbModel.FK_Course_CourseCategory">
+      <End Role="CourseCategory" EntitySet="CourseCategories" />
+      <End Role="Course" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseCoaches_Course" Association="ImranIwillDbModel.FK_CourseCoaches_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="CourseCoach" EntitySet="CourseCoaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseDetail_Course" Association="ImranIwillDbModel.FK_CourseDetail_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="CourseDetail" EntitySet="CourseDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseLanguage_Course" Association="ImranIwillDbModel.FK_CourseLanguage_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="CourseLanguage" EntitySet="CourseLanguages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Quiz_Course" Association="ImranIwillDbModel.FK_Quiz_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Quiz" EntitySet="Quizs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserEnrollCourse_Course" Association="ImranIwillDbModel.FK_UserEnrollCourse_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="UserEnrollCourse" EntitySet="UserEnrollCourses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseCoaches_User" Association="ImranIwillDbModel.FK_CourseCoaches_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="CourseCoach" EntitySet="CourseCoaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseOutline_CourseDetail" Association="ImranIwillDbModel.FK_CourseOutline_CourseDetail">
+      <End Role="CourseDetail" EntitySet="CourseDetails" />
+      <End Role="CourseOutline" EntitySet="CourseOutlines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseLanguage_Language" Association="ImranIwillDbModel.FK_CourseLanguage_Language">
+      <End Role="Language" EntitySet="Languages" />
+      <End Role="CourseLanguage" EntitySet="CourseLanguages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseOutline_CourseMaterialType" Association="ImranIwillDbModel.FK_CourseOutline_CourseMaterialType">
+      <End Role="CourseMaterialType" EntitySet="CourseMaterialTypes" />
+      <End Role="CourseOutline" EntitySet="CourseOutlines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserEducation_EducationType" Association="ImranIwillDbModel.FK_UserEducation_EducationType">
+      <End Role="EducationType" EntitySet="EducationTypes" />
+      <End Role="UserEducation" EntitySet="UserEducations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questions_QuestionType" Association="ImranIwillDbModel.FK_Questions_QuestionType">
+      <End Role="QuestionType" EntitySet="QuestionTypes" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questions_Quiz" Association="ImranIwillDbModel.FK_Questions_Quiz">
+      <End Role="Quiz" EntitySet="Quizs" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuestionsDetail_Questions" Association="ImranIwillDbModel.FK_QuestionsDetail_Questions">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="QuestionsDetail" EntitySet="QuestionsDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuizAnswer_Questions" Association="ImranIwillDbModel.FK_UserQuizAnswer_Questions">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="UserQuizAnswer" EntitySet="UserQuizAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuizAnswer_QuestionsDetail" Association="ImranIwillDbModel.FK_UserQuizAnswer_QuestionsDetail">
+      <End Role="QuestionsDetail" EntitySet="QuestionsDetails" />
+      <End Role="UserQuizAnswer" EntitySet="UserQuizAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuestions_QuestionType" Association="ImranIwillDbModel.FK_UserQuestions_QuestionType">
+      <End Role="QuestionType" EntitySet="QuestionTypes" />
+      <End Role="UserQuestion" EntitySet="UserQuestions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuizAttemp_Quiz" Association="ImranIwillDbModel.FK_UserQuizAttemp_Quiz">
+      <End Role="Quiz" EntitySet="Quizs" />
+      <End Role="UserQuizAttemp" EntitySet="UserQuizAttemps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_Role" Association="ImranIwillDbModel.FK_UserRole_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserEducation_User" Association="ImranIwillDbModel.FK_UserEducation_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserEducation" EntitySet="UserEducations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserEnrollCourse_User" Association="ImranIwillDbModel.FK_UserEnrollCourse_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserEnrollCourse" EntitySet="UserEnrollCourses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserExperience_User" Association="ImranIwillDbModel.FK_UserExperience_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserExperience" EntitySet="UserExperiences" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGivenQuesAns_User" Association="ImranIwillDbModel.FK_UserGivenQuesAns_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserGivenQuesAn" EntitySet="UserGivenQuesAns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuizAttemp_User" Association="ImranIwillDbModel.FK_UserQuizAttemp_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserQuizAttemp" EntitySet="UserQuizAttemps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_User" Association="ImranIwillDbModel.FK_UserRole_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGivenQuesAns_UserQuestionDetail" Association="ImranIwillDbModel.FK_UserGivenQuesAns_UserQuestionDetail">
+      <End Role="UserQuestionDetail" EntitySet="UserQuestionDetails" />
+      <End Role="UserGivenQuesAn" EntitySet="UserGivenQuesAns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGivenQuesAns_UserQuestions" Association="ImranIwillDbModel.FK_UserGivenQuesAns_UserQuestions">
+      <End Role="UserQuestion" EntitySet="UserQuestions" />
+      <End Role="UserGivenQuesAn" EntitySet="UserGivenQuesAns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuestionDetail_UserQuestions" Association="ImranIwillDbModel.FK_UserQuestionDetail_UserQuestions">
+      <End Role="UserQuestion" EntitySet="UserQuestions" />
+      <End Role="UserQuestionDetail" EntitySet="UserQuestionDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuizAnswer_UserQuizAttemp" Association="ImranIwillDbModel.FK_UserQuizAnswer_UserQuizAttemp">
+      <End Role="UserQuizAttemp" EntitySet="UserQuizAttemps" />
+      <End Role="UserQuizAnswer" EntitySet="UserQuizAnswers" />
+    </AssociationSet>
+    <EntitySet Name="UserFollowers" EntityType="ImranIwillDbModel.UserFollower" />
+    <AssociationSet Name="FK_UserFollowers_User" Association="ImranIwillDbModel.FK_UserFollowers_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserFollower" EntitySet="UserFollowers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserFollowers_User1" Association="ImranIwillDbModel.FK_UserFollowers_User1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserFollower" EntitySet="UserFollowers" />
+    </AssociationSet>
+    <EntitySet Name="Years" EntityType="ImranIwillDbModel.Year" />
+  </EntityContainer>
+  <ComplexType Name="spViewRegQuestions_Result">
+    <Property Type="Int64" Name="UQID" Nullable="false" />
+    <Property Type="Int64" Name="FkUQType" Nullable="true" />
+    <Property Type="String" Name="UQuestion" Nullable="true" />
+    <Property Type="Int64" Name="UQDID" Nullable="false" />
+    <Property Type="String" Name="QuesOptionName" Nullable="true" MaxLength="2000" />
+    <Property Type="Boolean" Name="IsRight" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spSearhUser_Result">
+    <Property Type="Int64" Name="UID" Nullable="false" />
+    <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="100" />
+    <Property Type="Int64" Name="FKRID" Nullable="false" />
+    <Property Type="Decimal" Name="RegQuesPercentage" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="RName" Nullable="true" MaxLength="100" />
+    <Property Type="Boolean" Name="IsActive" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spSearchUserRegestrationQuestions_Result">
+    <Property Type="Int64" Name="UQID" Nullable="false" />
+    <Property Type="String" Name="UQuestion" Nullable="true" />
+    <Property Type="Int64" Name="FkUQType" Nullable="true" />
+    <Property Type="Boolean" Name="IsStudent" Nullable="true" />
+    <Property Type="Boolean" Name="IsActive" Nullable="true" />
+    <Property Type="DateTime" Name="CreatedOn" Nullable="true" Precision="23" />
+    <Property Type="Int64" Name="CreatedBy" Nullable="true" />
+    <Property Type="DateTime" Name="UpdatedOn" Nullable="true" Precision="23" />
+    <Property Type="Int64" Name="UpdatedBy" Nullable="true" />
+    <Property Type="String" Name="QTName" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="spGetRegUserQuestion_Result">
+    <Property Type="String" Name="Question" Nullable="true" />
+    <Property Type="Int64" Name="FkUQID" Nullable="true" />
+    <Property Type="String" Name="Answer" Nullable="true" />
+    <Property Type="Int64" Name="FkQTID" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="CTID" />
+    </Key>
+    <Property Name="CTID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CIPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FkCTRYID" Type="Int64" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <NavigationProperty Name="Country" Relationship="ImranIwillDbModel.FK_City_Country" FromRole="City" ToRole="Country" />
+  </EntityType>
+  <EntityType Name="CoachTaughtBy">
+    <Key>
+      <PropertyRef Name="CTID" />
+    </Key>
+    <Property Name="CTID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FKCID" Type="Int64" Nullable="false" />
+    <Property Name="CTName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CTUniversityName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="PicUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <NavigationProperty Name="Course" Relationship="ImranIwillDbModel.FK_CourseTaughtBy_Course" FromRole="CoachTaughtBy" ToRole="Course" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CTRYID" />
+    </Key>
+    <Property Name="CTRYID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CTName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CntyIPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <NavigationProperty Name="Cities" Relationship="ImranIwillDbModel.FK_City_Country" FromRole="Country" ToRole="City" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="CID" />
+    </Key>
+    <Property Name="CID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CoachID" Type="Int64" />
+    <Property Name="CourseName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CourseDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TotalDurationDays" Type="Int32" />
+    <Property Name="TotalQuizes" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="FkCCID" Type="Int64" />
+    <Property Name="CourseSessionID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Pricing" Type="Int32" />
+    <Property Name="TotalSessions" Type="Int32" />
+    <Property Name="CourseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Commitment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CourseLanguage" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="LogoUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="HowToPass" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="LearningLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserRatings" Type="Int32" />
+    <Property Name="CoachUniversityName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="IsCertificateGiven" Type="Boolean" />
+    <Property Name="BackgroundPicUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <Property Name="CerticationDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CourseImportance" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StartedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CoachTaughtBies" Relationship="ImranIwillDbModel.FK_CourseTaughtBy_Course" FromRole="Course" ToRole="CoachTaughtBy" />
+    <NavigationProperty Name="CourseCategory" Relationship="ImranIwillDbModel.FK_Course_CourseCategory" FromRole="Course" ToRole="CourseCategory" />
+    <NavigationProperty Name="CourseCoaches" Relationship="ImranIwillDbModel.FK_CourseCoaches_Course" FromRole="Course" ToRole="CourseCoach" />
+    <NavigationProperty Name="CourseDetails" Relationship="ImranIwillDbModel.FK_CourseDetail_Course" FromRole="Course" ToRole="CourseDetail" />
+    <NavigationProperty Name="CourseLanguages" Relationship="ImranIwillDbModel.FK_CourseLanguage_Course" FromRole="Course" ToRole="CourseLanguage" />
+    <NavigationProperty Name="Quizs" Relationship="ImranIwillDbModel.FK_Quiz_Course" FromRole="Course" ToRole="Quiz" />
+    <NavigationProperty Name="UserEnrollCourses" Relationship="ImranIwillDbModel.FK_UserEnrollCourse_Course" FromRole="Course" ToRole="UserEnrollCourse" />
+  </EntityType>
+  <EntityType Name="CourseCategory">
+    <Key>
+      <PropertyRef Name="CCID" />
+    </Key>
+    <Property Name="CCID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CCName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CCDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <NavigationProperty Name="Courses" Relationship="ImranIwillDbModel.FK_Course_CourseCategory" FromRole="CourseCategory" ToRole="Course" />
+    <Property Name="CImagePath" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="BackImgLeft" Type="Int32" />
+    <Property Name="BackImgTop" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CourseCoach">
+    <Key>
+      <PropertyRef Name="CCID" />
+    </Key>
+    <Property Name="CCID" Type="Int64" Nullable="false" />
+    <Property Name="FKCID" Type="Int64" />
+    <Property Name="FKUID" Type="Int64" />
+    <Property Name="CTUniversityName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="CTName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="PicUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Course" Relationship="ImranIwillDbModel.FK_CourseCoaches_Course" FromRole="CourseCoach" ToRole="Course" />
+    <NavigationProperty Name="User" Relationship="ImranIwillDbModel.FK_CourseCoaches_User" FromRole="CourseCoach" ToRole="User" />
+  </EntityType>
+  <EntityType Name="CourseDetail">
+    <Key>
+      <PropertyRef Name="CDID" />
+    </Key>
+    <Property Name="CDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FKCID" Type="Int64" />
+    <Property Name="SesssionName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="SesssionCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SessionDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SessionTotalSummary" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <NavigationProperty Name="Course" Relationship="ImranIwillDbModel.FK_CourseDetail_Course" FromRole="CourseDetail" ToRole="Course" />
+    <NavigationProperty Name="CourseOutlines" Relationship="ImranIwillDbModel.FK_CourseOutline_CourseDetail" FromRole="CourseDetail" ToRole="CourseOutline" />
+  </EntityType>
+  <EntityType Name="CourseLanguage">
+    <Key>
+      <PropertyRef Name="CLID" />
+    </Key>
+    <Property Name="CLID" Type="Int64" Nullable="false" />
+    <Property Name="FkLID" Type="Int64" />
+    <Property Name="FkCID" Type="Int64" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <NavigationProperty Name="Course" Relationship="ImranIwillDbModel.FK_CourseLanguage_Course" FromRole="CourseLanguage" ToRole="Course" />
+    <NavigationProperty Name="Language" Relationship="ImranIwillDbModel.FK_CourseLanguage_Language" FromRole="CourseLanguage" ToRole="Language" />
+  </EntityType>
+  <EntityType Name="CourseMaterialType">
+    <Key>
+      <PropertyRef Name="CMTID" />
+    </Key>
+    <Property Name="CMTID" Type="Int64" Nullable="false" />
+    <Property Name="MaterialID" Type="Int32" />
+    <Property Name="MaterialName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <NavigationProperty Name="CourseOutlines" Relationship="ImranIwillDbModel.FK_CourseOutline_CourseMaterialType" FromRole="CourseMaterialType" ToRole="CourseOutline" />
+  </EntityType>
+  <EntityType Name="CourseOutline">
+    <Key>
+      <PropertyRef Name="COTID" />
+    </Key>
+    <Property Name="COTID" Type="Int64" Nullable="false" />
+    <Property Name="FKCDID" Type="Int64" />
+    <Property Name="FKCMTID" Type="Int64" />
+    <Property Name="OName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Olink" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ODescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsRecStarted" Type="Boolean" />
+    <Property Name="IsRecFinished" Type="Boolean" />
+    <Property Name="LecDate" Type="DateTime" Precision="3" />
+    <Property Name="LecStartingTime" Type="Time" Precision="7" />
+    <Property Name="LecEndingTime" Type="Time" Precision="7" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <Property Name="LecCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CourseDetail" Relationship="ImranIwillDbModel.FK_CourseOutline_CourseDetail" FromRole="CourseOutline" ToRole="CourseDetail" />
+    <NavigationProperty Name="CourseMaterialType" Relationship="ImranIwillDbModel.FK_CourseOutline_CourseMaterialType" FromRole="CourseOutline" ToRole="CourseMaterialType" />
+  </EntityType>
+  <EntityType Name="EducationType">
+    <Key>
+      <PropertyRef Name="ETID" />
+    </Key>
+    <Property Name="ETID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UserEducations" Relationship="ImranIwillDbModel.FK_UserEducation_EducationType" FromRole="EducationType" ToRole="UserEducation" />
+  </EntityType>
+  <EntityType Name="Gender">
+    <Key>
+      <PropertyRef Name="GID" />
+    </Key>
+    <Property Name="GID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GenderType" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Language">
+    <Key>
+      <PropertyRef Name="LID" />
+    </Key>
+    <Property Name="LID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Language1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Ldescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <NavigationProperty Name="CourseLanguages" Relationship="ImranIwillDbModel.FK_CourseLanguage_Language" FromRole="Language" ToRole="CourseLanguage" />
+  </EntityType>
+  <EntityType Name="MartialStatu">
+    <Key>
+      <PropertyRef Name="MID" />
+    </Key>
+    <Property Name="MID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="QSID" />
+    </Key>
+    <Property Name="QSID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FKQZID" Type="Int64" />
+    <Property Name="FKQTID" Type="Int64" />
+    <Property Name="QuesDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <NavigationProperty Name="QuestionType" Relationship="ImranIwillDbModel.FK_Questions_QuestionType" FromRole="Question" ToRole="QuestionType" />
+    <NavigationProperty Name="Quiz" Relationship="ImranIwillDbModel.FK_Questions_Quiz" FromRole="Question" ToRole="Quiz" />
+    <NavigationProperty Name="QuestionsDetails" Relationship="ImranIwillDbModel.FK_QuestionsDetail_Questions" FromRole="Question" ToRole="QuestionsDetail" />
+    <NavigationProperty Name="UserQuizAnswers" Relationship="ImranIwillDbModel.FK_UserQuizAnswer_Questions" FromRole="Question" ToRole="UserQuizAnswer" />
+  </EntityType>
+  <EntityType Name="QuestionsDetail">
+    <Key>
+      <PropertyRef Name="QDID" />
+    </Key>
+    <Property Name="QDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FKQSID" Type="Int64" />
+    <Property Name="QuesOptionName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IsRight" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Question" Relationship="ImranIwillDbModel.FK_QuestionsDetail_Questions" FromRole="QuestionsDetail" ToRole="Question" />
+    <NavigationProperty Name="UserQuizAnswers" Relationship="ImranIwillDbModel.FK_UserQuizAnswer_QuestionsDetail" FromRole="QuestionsDetail" ToRole="UserQuizAnswer" />
+  </EntityType>
+  <EntityType Name="QuestionType">
+    <Key>
+      <PropertyRef Name="QTID" />
+    </Key>
+    <Property Name="QTID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QTName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <NavigationProperty Name="Questions" Relationship="ImranIwillDbModel.FK_Questions_QuestionType" FromRole="QuestionType" ToRole="Question" />
+    <NavigationProperty Name="UserQuestions" Relationship="ImranIwillDbModel.FK_UserQuestions_QuestionType" FromRole="QuestionType" ToRole="UserQuestion" />
+  </EntityType>
+  <EntityType Name="Quiz">
+    <Key>
+      <PropertyRef Name="QZID" />
+    </Key>
+    <Property Name="QZID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FKCID" Type="Int64" />
+    <Property Name="QName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="QuizDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="QuizCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="TotalAttemps" Type="Int32" />
+    <Property Name="ValidTill" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Course" Relationship="ImranIwillDbModel.FK_Quiz_Course" FromRole="Quiz" ToRole="Course" />
+    <NavigationProperty Name="Questions" Relationship="ImranIwillDbModel.FK_Questions_Quiz" FromRole="Quiz" ToRole="Question" />
+    <NavigationProperty Name="UserQuizAttemps" Relationship="ImranIwillDbModel.FK_UserQuizAttemp_Quiz" FromRole="Quiz" ToRole="UserQuizAttemp" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RID" />
+    </Key>
+    <Property Name="RID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="RoleDescription" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="RoleID" Type="Int32" />
+    <NavigationProperty Name="UserRoles" Relationship="ImranIwillDbModel.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TempPic">
+    <Key>
+      <PropertyRef Name="TPID" />
+    </Key>
+    <Property Name="TPID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TempPicName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="UserIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UID" />
+    </Key>
+    <Property Name="UID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FkGenderID" Type="Byte" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="Month" Type="Int32" />
+    <Property Name="Day" Type="Int32" />
+    <Property Name="AboutMe" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+    <Property Name="WebUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="FacebookUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="PlusGoogleUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="GitHubUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="PicUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ContactNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="EmergenyNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IsStudent" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="Nationality" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Religion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="FkCityID" Type="Int64" />
+    <Property Name="FkCountryID" Type="Int64" />
+    <Property Name="MartialStatus" Type="Boolean" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <Property Name="LastLogin" Type="DateTime" Precision="3" />
+    <Property Name="MotherLanguage" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="FirstLoginUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IsFirstLoggedIn" Type="Boolean" />
+    <Property Name="LinkedInUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ActivationCode" Type="Guid" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+    <Property Name="LoggedIn" Type="DateTime" Precision="3" />
+    <Property Name="RegQuesPercentage" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="BackgroundImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="UserIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BackImgLeft" Type="Int32" />
+    <Property Name="FrontImgTop" Type="Int32" />
+    <Property Name="FrontImgLeft" Type="Int32" />
+    <Property Name="IsBasicInfoRegistered" Type="Boolean" />
+    <Property Name="IsPersonalInfoRegistered" Type="Boolean" />
+    <Property Name="IsRegistrationQuestRegistered" Type="Boolean" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="BackImgTop" Type="Int32" />
+    <NavigationProperty Name="CourseCoaches" Relationship="ImranIwillDbModel.FK_CourseCoaches_User" FromRole="User" ToRole="CourseCoach" />
+    <NavigationProperty Name="UserEducations" Relationship="ImranIwillDbModel.FK_UserEducation_User" FromRole="User" ToRole="UserEducation" />
+    <NavigationProperty Name="UserEnrollCourses" Relationship="ImranIwillDbModel.FK_UserEnrollCourse_User" FromRole="User" ToRole="UserEnrollCourse" />
+    <NavigationProperty Name="UserExperiences" Relationship="ImranIwillDbModel.FK_UserExperience_User" FromRole="User" ToRole="UserExperience" />
+    <NavigationProperty Name="UserGivenQuesAns" Relationship="ImranIwillDbModel.FK_UserGivenQuesAns_User" FromRole="User" ToRole="UserGivenQuesAn" />
+    <NavigationProperty Name="UserQuizAttemps" Relationship="ImranIwillDbModel.FK_UserQuizAttemp_User" FromRole="User" ToRole="UserQuizAttemp" />
+    <NavigationProperty Name="UserRoles" Relationship="ImranIwillDbModel.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
+    <Property Name="Designation" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UserFollowers" Relationship="ImranIwillDbModel.FK_UserFollowers_User" FromRole="User" ToRole="UserFollower" />
+    <NavigationProperty Name="UserFollowers1" Relationship="ImranIwillDbModel.FK_UserFollowers_User1" FromRole="User" ToRole="UserFollower" />
+    <Property Name="TwitterUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="UserEducation">
+    <Key>
+      <PropertyRef Name="UEDID" />
+    </Key>
+    <Property Name="UEDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FkUID" Type="Int64" Nullable="false" />
+    <Property Name="FkETID" Type="Int64" />
+    <Property Name="FromYear" Type="Int64" />
+    <Property Name="ToYear" Type="Int64" />
+    <Property Name="NameOfInstitute" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="TotalDuration" Type="Int32" />
+    <Property Name="FromMonth" Type="Int32" />
+    <Property Name="ToMonth" Type="Int32" />
+    <Property Name="FromDay" Type="Int32" />
+    <Property Name="ToDay" Type="Int32" />
+    <Property Name="Descriptipn" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="IsPresent" Type="Boolean" />
+    <Property Name="UEpicUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Location" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EducationType" Relationship="ImranIwillDbModel.FK_UserEducation_EducationType" FromRole="UserEducation" ToRole="EducationType" />
+    <NavigationProperty Name="User" Relationship="ImranIwillDbModel.FK_UserEducation_User" FromRole="UserEducation" ToRole="User" />
+    <Property Name="MajorSubjects" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CourseTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="UserEnrollCourse">
+    <Key>
+      <PropertyRef Name="UECID" />
+    </Key>
+    <Property Name="UECID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FKUID" Type="Int64" />
+    <Property Name="FKCID" Type="Int64" />
+    <Property Name="CardName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CardNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CardExpMonth" Type="Int32" />
+    <Property Name="CardExpYear" Type="Int32" />
+    <Property Name="FKCNTRYID" Type="Int32" />
+    <Property Name="CVV" Type="Int32" />
+    <Property Name="PaidAmount" Type="Int32" />
+    <Property Name="PaidOn" Type="DateTime" Precision="3" />
+    <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsCertified" Type="Boolean" />
+    <Property Name="CertifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <NavigationProperty Name="Course" Relationship="ImranIwillDbModel.FK_UserEnrollCourse_Course" FromRole="UserEnrollCourse" ToRole="Course" />
+    <NavigationProperty Name="User" Relationship="ImranIwillDbModel.FK_UserEnrollCourse_User" FromRole="UserEnrollCourse" ToRole="User" />
+  </EntityType>
+  <EntityType Name="UserExperience">
+    <Key>
+      <PropertyRef Name="UEXID" />
+    </Key>
+    <Property Name="UEXID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FkUID" Type="Int64" />
+    <Property Name="CompanyName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="UserPost" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="TotalExperience" Type="Int32" />
+    <Property Name="FromYear" Type="Int32" />
+    <Property Name="FromMonth" Type="Int32" />
+    <Property Name="FromDay" Type="Int32" />
+    <Property Name="ToYear" Type="Int32" />
+    <Property Name="ToMonth" Type="Int32" />
+    <Property Name="ToDay" Type="Int32" />
+    <Property Name="IsPresent" Type="Boolean" />
+    <Property Name="Location" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CompLogoUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <NavigationProperty Name="User" Relationship="ImranIwillDbModel.FK_UserExperience_User" FromRole="UserExperience" ToRole="User" />
+  </EntityType>
+  <EntityType Name="UserGivenQuesAn">
+    <Key>
+      <PropertyRef Name="UQAID" />
+    </Key>
+    <Property Name="UQAID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FkUQDID" Type="Int64" />
+    <Property Name="FkUQID" Type="Int64" />
+    <Property Name="FkUserID" Type="Int64" />
+    <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="IsOptionRight" Type="Boolean" />
+    <Property Name="IsUserRight" Type="Boolean" />
+    <Property Name="OptionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FkQTID" Type="Int64" />
+    <NavigationProperty Name="User" Relationship="ImranIwillDbModel.FK_UserGivenQuesAns_User" FromRole="UserGivenQuesAn" ToRole="User" />
+    <NavigationProperty Name="UserQuestionDetail" Relationship="ImranIwillDbModel.FK_UserGivenQuesAns_UserQuestionDetail" FromRole="UserGivenQuesAn" ToRole="UserQuestionDetail" />
+    <NavigationProperty Name="UserQuestion" Relationship="ImranIwillDbModel.FK_UserGivenQuesAns_UserQuestions" FromRole="UserGivenQuesAn" ToRole="UserQuestion" />
+  </EntityType>
+  <EntityType Name="UserQuestionDetail">
+    <Key>
+      <PropertyRef Name="UQDID" />
+    </Key>
+    <Property Name="UQDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FkQID" Type="Int64" />
+    <Property Name="QuesOptionName" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="IsRight" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="UserGivenQuesAns" Relationship="ImranIwillDbModel.FK_UserGivenQuesAns_UserQuestionDetail" FromRole="UserQuestionDetail" ToRole="UserGivenQuesAn" />
+    <NavigationProperty Name="UserQuestion" Relationship="ImranIwillDbModel.FK_UserQuestionDetail_UserQuestions" FromRole="UserQuestionDetail" ToRole="UserQuestion" />
+  </EntityType>
+  <EntityType Name="UserQuestion">
+    <Key>
+      <PropertyRef Name="UQID" />
+    </Key>
+    <Property Name="UQID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UQuestion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FkUQType" Type="Int64" />
+    <Property Name="IsStudent" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <NavigationProperty Name="QuestionType" Relationship="ImranIwillDbModel.FK_UserQuestions_QuestionType" FromRole="UserQuestion" ToRole="QuestionType" />
+    <NavigationProperty Name="UserGivenQuesAns" Relationship="ImranIwillDbModel.FK_UserGivenQuesAns_UserQuestions" FromRole="UserQuestion" ToRole="UserGivenQuesAn" />
+    <NavigationProperty Name="UserQuestionDetails" Relationship="ImranIwillDbModel.FK_UserQuestionDetail_UserQuestions" FromRole="UserQuestion" ToRole="UserQuestionDetail" />
+  </EntityType>
+  <EntityType Name="UserQuizAnswer">
+    <Key>
+      <PropertyRef Name="UQAID" />
+    </Key>
+    <Property Name="UQAID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FkUQID" Type="Int64" />
+    <Property Name="FkQSID" Type="Int64" />
+    <Property Name="FkQDID" Type="Int64" />
+    <Property Name="QAns" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <NavigationProperty Name="Question" Relationship="ImranIwillDbModel.FK_UserQuizAnswer_Questions" FromRole="UserQuizAnswer" ToRole="Question" />
+    <NavigationProperty Name="QuestionsDetail" Relationship="ImranIwillDbModel.FK_UserQuizAnswer_QuestionsDetail" FromRole="UserQuizAnswer" ToRole="QuestionsDetail" />
+    <NavigationProperty Name="UserQuizAttemp" Relationship="ImranIwillDbModel.FK_UserQuizAnswer_UserQuizAttemp" FromRole="UserQuizAnswer" ToRole="UserQuizAttemp" />
+  </EntityType>
+  <EntityType Name="UserQuizAttemp">
+    <Key>
+      <PropertyRef Name="UQID" />
+    </Key>
+    <Property Name="UQID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FkQZID" Type="Int64" />
+    <Property Name="FkUID" Type="Int64" />
+    <Property Name="Marks" Type="Int32" />
+    <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Percentage" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TotalAttempts" Type="Int32" />
+    <Property Name="IsCompleted" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="CompletedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Quiz" Relationship="ImranIwillDbModel.FK_UserQuizAttemp_Quiz" FromRole="UserQuizAttemp" ToRole="Quiz" />
+    <NavigationProperty Name="User" Relationship="ImranIwillDbModel.FK_UserQuizAttemp_User" FromRole="UserQuizAttemp" ToRole="User" />
+    <NavigationProperty Name="UserQuizAnswers" Relationship="ImranIwillDbModel.FK_UserQuizAnswer_UserQuizAttemp" FromRole="UserQuizAttemp" ToRole="UserQuizAnswer" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="URID" />
+    </Key>
+    <Property Name="URID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FKUID" Type="Int64" Nullable="false" />
+    <Property Name="FKRID" Type="Int64" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreadtedBy" Type="Int64" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <NavigationProperty Name="Role" Relationship="ImranIwillDbModel.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
+    <NavigationProperty Name="User" Relationship="ImranIwillDbModel.FK_UserRole_User" FromRole="UserRole" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_City_Country">
+    <End Type="ImranIwillDbModel.Country" Role="Country" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.City" Role="City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CTRYID" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="FkCTRYID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseTaughtBy_Course">
+    <End Type="ImranIwillDbModel.Course" Role="Course" Multiplicity="1" />
+    <End Type="ImranIwillDbModel.CoachTaughtBy" Role="CoachTaughtBy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="CoachTaughtBy">
+        <PropertyRef Name="FKCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Course_CourseCategory">
+    <End Type="ImranIwillDbModel.CourseCategory" Role="CourseCategory" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.Course" Role="Course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseCategory">
+        <PropertyRef Name="CCID" />
+      </Principal>
+      <Dependent Role="Course">
+        <PropertyRef Name="FkCCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseCoaches_Course">
+    <End Type="ImranIwillDbModel.Course" Role="Course" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.CourseCoach" Role="CourseCoach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="CourseCoach">
+        <PropertyRef Name="FKCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseDetail_Course">
+    <End Type="ImranIwillDbModel.Course" Role="Course" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.CourseDetail" Role="CourseDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="CourseDetail">
+        <PropertyRef Name="FKCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseLanguage_Course">
+    <End Type="ImranIwillDbModel.Course" Role="Course" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.CourseLanguage" Role="CourseLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="CourseLanguage">
+        <PropertyRef Name="FkCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Quiz_Course">
+    <End Type="ImranIwillDbModel.Course" Role="Course" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.Quiz" Role="Quiz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="Quiz">
+        <PropertyRef Name="FKCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserEnrollCourse_Course">
+    <End Type="ImranIwillDbModel.Course" Role="Course" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserEnrollCourse" Role="UserEnrollCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="UserEnrollCourse">
+        <PropertyRef Name="FKCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseCoaches_User">
+    <End Type="ImranIwillDbModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.CourseCoach" Role="CourseCoach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="CourseCoach">
+        <PropertyRef Name="FKUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseOutline_CourseDetail">
+    <End Type="ImranIwillDbModel.CourseDetail" Role="CourseDetail" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.CourseOutline" Role="CourseOutline" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseDetail">
+        <PropertyRef Name="CDID" />
+      </Principal>
+      <Dependent Role="CourseOutline">
+        <PropertyRef Name="FKCDID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseLanguage_Language">
+    <End Type="ImranIwillDbModel.Language" Role="Language" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.CourseLanguage" Role="CourseLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="LID" />
+      </Principal>
+      <Dependent Role="CourseLanguage">
+        <PropertyRef Name="FkLID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseOutline_CourseMaterialType">
+    <End Type="ImranIwillDbModel.CourseMaterialType" Role="CourseMaterialType" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.CourseOutline" Role="CourseOutline" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseMaterialType">
+        <PropertyRef Name="CMTID" />
+      </Principal>
+      <Dependent Role="CourseOutline">
+        <PropertyRef Name="FKCMTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserEducation_EducationType">
+    <End Type="ImranIwillDbModel.EducationType" Role="EducationType" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserEducation" Role="UserEducation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EducationType">
+        <PropertyRef Name="ETID" />
+      </Principal>
+      <Dependent Role="UserEducation">
+        <PropertyRef Name="FkETID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Questions_QuestionType">
+    <End Type="ImranIwillDbModel.QuestionType" Role="QuestionType" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionType">
+        <PropertyRef Name="QTID" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="FKQTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Questions_Quiz">
+    <End Type="ImranIwillDbModel.Quiz" Role="Quiz" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quiz">
+        <PropertyRef Name="QZID" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="FKQZID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuestionsDetail_Questions">
+    <End Type="ImranIwillDbModel.Question" Role="Question" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.QuestionsDetail" Role="QuestionsDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="QSID" />
+      </Principal>
+      <Dependent Role="QuestionsDetail">
+        <PropertyRef Name="FKQSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuizAnswer_Questions">
+    <End Type="ImranIwillDbModel.Question" Role="Question" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserQuizAnswer" Role="UserQuizAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="QSID" />
+      </Principal>
+      <Dependent Role="UserQuizAnswer">
+        <PropertyRef Name="FkQSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuizAnswer_QuestionsDetail">
+    <End Type="ImranIwillDbModel.QuestionsDetail" Role="QuestionsDetail" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserQuizAnswer" Role="UserQuizAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionsDetail">
+        <PropertyRef Name="QDID" />
+      </Principal>
+      <Dependent Role="UserQuizAnswer">
+        <PropertyRef Name="FkQDID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuestions_QuestionType">
+    <End Type="ImranIwillDbModel.QuestionType" Role="QuestionType" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserQuestion" Role="UserQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionType">
+        <PropertyRef Name="QTID" />
+      </Principal>
+      <Dependent Role="UserQuestion">
+        <PropertyRef Name="FkUQType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuizAttemp_Quiz">
+    <End Type="ImranIwillDbModel.Quiz" Role="Quiz" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserQuizAttemp" Role="UserQuizAttemp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quiz">
+        <PropertyRef Name="QZID" />
+      </Principal>
+      <Dependent Role="UserQuizAttemp">
+        <PropertyRef Name="FkQZID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_Role">
+    <End Type="ImranIwillDbModel.Role" Role="Role" Multiplicity="1" />
+    <End Type="ImranIwillDbModel.UserRole" Role="UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RID" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="FKRID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserEducation_User">
+    <End Type="ImranIwillDbModel.User" Role="User" Multiplicity="1" />
+    <End Type="ImranIwillDbModel.UserEducation" Role="UserEducation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserEducation">
+        <PropertyRef Name="FkUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserEnrollCourse_User">
+    <End Type="ImranIwillDbModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserEnrollCourse" Role="UserEnrollCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserEnrollCourse">
+        <PropertyRef Name="FKUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserExperience_User">
+    <End Type="ImranIwillDbModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserExperience" Role="UserExperience" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserExperience">
+        <PropertyRef Name="FkUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGivenQuesAns_User">
+    <End Type="ImranIwillDbModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserGivenQuesAn" Role="UserGivenQuesAn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserGivenQuesAn">
+        <PropertyRef Name="FkUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuizAttemp_User">
+    <End Type="ImranIwillDbModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserQuizAttemp" Role="UserQuizAttemp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserQuizAttemp">
+        <PropertyRef Name="FkUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_User">
+    <End Type="ImranIwillDbModel.User" Role="User" Multiplicity="1" />
+    <End Type="ImranIwillDbModel.UserRole" Role="UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="FKUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGivenQuesAns_UserQuestionDetail">
+    <End Type="ImranIwillDbModel.UserQuestionDetail" Role="UserQuestionDetail" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserGivenQuesAn" Role="UserGivenQuesAn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserQuestionDetail">
+        <PropertyRef Name="UQDID" />
+      </Principal>
+      <Dependent Role="UserGivenQuesAn">
+        <PropertyRef Name="FkUQDID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGivenQuesAns_UserQuestions">
+    <End Type="ImranIwillDbModel.UserQuestion" Role="UserQuestion" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserGivenQuesAn" Role="UserGivenQuesAn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserQuestion">
+        <PropertyRef Name="UQID" />
+      </Principal>
+      <Dependent Role="UserGivenQuesAn">
+        <PropertyRef Name="FkUQID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuestionDetail_UserQuestions">
+    <End Type="ImranIwillDbModel.UserQuestion" Role="UserQuestion" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserQuestionDetail" Role="UserQuestionDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserQuestion">
+        <PropertyRef Name="UQID" />
+      </Principal>
+      <Dependent Role="UserQuestionDetail">
+        <PropertyRef Name="FkQID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuizAnswer_UserQuizAttemp">
+    <End Type="ImranIwillDbModel.UserQuizAttemp" Role="UserQuizAttemp" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserQuizAnswer" Role="UserQuizAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserQuizAttemp">
+        <PropertyRef Name="UQID" />
+      </Principal>
+      <Dependent Role="UserQuizAnswer">
+        <PropertyRef Name="FkUQID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="UserFollower">
+    <Key>
+      <PropertyRef Name="UFID" />
+    </Key>
+    <Property Name="UFID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FkUID" Type="Int64" />
+    <Property Name="FkFollowerID" Type="Int64" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsFollowed" Type="Boolean" />
+    <NavigationProperty Name="User" Relationship="ImranIwillDbModel.FK_UserFollowers_User" FromRole="UserFollower" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="ImranIwillDbModel.FK_UserFollowers_User1" FromRole="UserFollower" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_UserFollowers_User">
+    <End Type="ImranIwillDbModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserFollower" Role="UserFollower" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserFollower">
+        <PropertyRef Name="FkUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserFollowers_User1">
+    <End Type="ImranIwillDbModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ImranIwillDbModel.UserFollower" Role="UserFollower" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserFollower">
+        <PropertyRef Name="FkFollowerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Year">
+    <Key>
+      <PropertyRef Name="YID" />
+    </Key>
+    <Property Name="YID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Year1" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>

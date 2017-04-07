@@ -1,0 +1,587 @@
+﻿@using IWill_MvcApplication.Models;
+@model IWill_MvcApplication.Models.ModelUserRegister
+
+@{
+    ViewBag.Title = "NewUserProfile";
+    Layout = "~/Views/Shared/_MyIWillLayout.cshtml";
+}
+<script src="~/js/NewProfile_Employment.js"></script>
+<script src="~/js/NewProfile_ImageUpload.js"></script>
+<script src="~/js/NewProfile_Education.js"></script>
+
+<script src="~/js/tweenmax.min.js"></script>
+<script src="~/js/draggable.min.js"></script>
+
+@{
+    Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+}
+
+@Html.HiddenFor(i => i.BackFileName, new { @id = "hdnBackgroundFileName" })
+@Html.HiddenFor(i => i.BackImgTop, new { @id = "hdnBackTop" })
+@Html.HiddenFor(i => i.BackImgLeft, new { @id = "hdnBackLeft" })
+@Html.Hidden("IsBackPicEdit", false, new { @id = "IsBackPicEdit" })
+
+@Html.HiddenFor(i => i.fileName, new { @id = "hdnFrontFileName" })
+@Html.Hidden("IsFrontPicEdit", false, new { @id = "IsFrontPicEdit" })
+
+<!-- Profile Start -->
+
+<div id="dvBackgroundPic" class="dp-bg">
+    <div class="dvBack">
+
+        <div id="dvImageBackground">
+            <img id="imgBackUpload" alt="Uploaded Thumbnail" src="~/Images/blankImage.png" style="position:absolute;max-width:none !important; top:0;left:0;" />
+        </div>
+
+      
+    </div>
+
+    
+
+   
+
+    
+
+    <div id="dvFrontPicAndData" class="container dvFront" style="left:10%; position:absolute ;z-index:9999;">
+        <div class="row">
+            <div style="height: 120px; margin-top: 130px; background-color: rgba(255,255,255,.5);">
+
+                <div id="dvFrontImage" class="col-lg-2 col-md-2 col-sm-2 col-xs-12 text-center">
+
+                    <div class="profile-image">
+                        <img id="imgUploadThumbnail" src="~/images/blankImage.png">
+                        @*<a id="EditFrontImageIcon" href="#" onclick="EditFrontPic()"><div class="profile-img-edit">Edit</div></a>*@
+                    </div>
+
+                </div>
+
+                
+
+                
+
+                
+
+
+                @*Profile name details*@
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                    <h1 class="profile-name"> @Model.FirstName @Model.LastName   </h1>
+                    <h4 class="profile-desig">
+                        @Model.Designation
+                    </h4>
+                    <span class="profile-head-follow">
+
+
+                        @{
+                            float Folwers = Helper.GetUserFollowers(Model.UID).Count;
+                            if (Folwers >= 1000)
+                            {
+                                Folwers = (Folwers / 1000);
+                                <span>
+
+
+                                    <span class="follow-number">
+                                        @Folwers.ToString()k
+                                    </span>  Followers
+                                </span>
+                            }
+                            if (Folwers == 0)
+                            {
+
+                                <span> <span class="follow-number">0</span>  Followers </span>
+                            }
+
+                            else
+                            {<span> <span class="follow-number">@Folwers</span>  Followers </span>}
+                        }
+                    </span>
+                    <span class="profile-head-follow">
+
+
+                        @{
+                            float Folwing = Helper.GetUserFollowing(Model.UID).Count;
+                            if (Folwing >= 1000)
+                            {
+                                Folwing = (Folwers / 1000);
+                                <span>
+
+                                    <span class="follow-number">
+                                        @Folwing.ToString()k
+                                    </span>  Following
+                                </span>
+                            }
+                            if (Folwing == 0)
+                            {
+                                <span> <span class="follow-number">0</span>  Following </span>
+                            }
+                            else
+                            {<span> <span class="follow-number">@Folwing</span>  Following </span>}
+
+                        }
+                    </span>
+
+
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 profile-head-btn">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 profile-head-btn-lt">
+                        <button class="btn btn-iwill-white">Follow Me</button>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 profile-head-btn-rt">
+                        <button class="btn btn-iwill-white"><i class="fa fa-envelope"></i> Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div>
+                <div class="side-container">
+                    @*<div id="dvEditIconSocialLinks">
+                        <a id="EditIconSocialLinks" href="#" onclick="EditIconSocialLinks()" data-toggle="modal" data-target="#modalSocialLinksAndLocation" data-backdrop="static" data-keyboard="false">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </div>*@
+                    <div class="address-container">
+                        <span class="address-icon"><i class="fa fa-map-marker fa-fw fa-lg" aria-hidden="true"></i></span>
+                        <span class="address-text spnUserLocation">
+                            @{
+                                if (Model.CityName.Length > 0)
+                                {
+                                    <span>@Model.CityName , </span>
+                                }
+                            }
+
+                            @Model.CountryName
+                        </span>
+                    </div>
+                    <div class="address-container">
+                        <span class="address-icon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+                        <span class="address-text">@Model.EmailAddress</span>
+                    </div>
+                    <div class="address-container">
+                        <span class="address-icon"><i class="fa fa-phone fa-fw fa-lg" aria-hidden="true"></i></span>
+                        <span class="address-text spnUserContact">@Model.ContactNumber</span>
+                    </div>
+
+                    <div class="social-container">
+                        @{
+                            if (Model.FacebookUrl != null)
+                            {
+                                <a href="@Model.FacebookUrl" class="aFacebookUrl" target="_blank"><div class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></div></a>
+                                <input type="hidden" value="@Model.FacebookUrl" id="hdnFacebookUrl" />
+                            }
+                            else
+                            {
+                                <a href="#" class="aFacebookUrl" target="_blank"><div class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></div></a>
+                            }
+
+
+                            if (Model.TwitterUrl != null)
+                            {
+                                <a href="@Model.TwitterUrl" class="aTwitterUrl" target="_blank"><div class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></div></a>
+                                <input type="hidden" value="@Model.FacebookUrl" id="hdnTwitterUrl" />
+                            }
+                            else
+                            {
+                                <a href="#" class="aTwitterUrl"><div class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></div></a>
+                            }
+
+
+                            if (Model.PlusGoogleUrl != null)
+                            {
+                                <a href="@Model.PlusGoogleUrl" class="aPlusGoogleUrl" target="_blank"><div class="googleplus"><i class="fa fa-google-plus" aria-hidden="true"></i></div></a>
+                                <input type="hidden" value="@Model.FacebookUrl" id="hdnPlusGoogleUrl" />
+                            }
+                            else
+                            {
+                                <a href="#" class="aPlusGoogleUrl"><div class="googleplus"><i class="fa fa-google-plus" aria-hidden="true"></i></div></a>
+                            }
+
+
+                            if (Model.LinkedInUrl != null)
+                            {
+                                <a href="@Model.LinkedInUrl" class="aLinkedInUrl" target="_blank"><div class="linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></div></a>
+                                <input type="hidden" value="@Model.FacebookUrl" id="hdnLinkedInUrl" />
+                            }
+                            else
+                            {
+                                <a href="#" class="aLinkedInUrl"><div class="linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></div></a>
+                            }
+
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <div class="learn-press">
+                <div class="course-tabs">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                        <li role="presentation" class="active"><a href="#profile-iwill-tab" aria-controls="profile-iwill-tab" role="tab" data-toggle="tab">IWill</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content thim-login">
+                        <div role="tabpanel" class="tab-pane active" id="profile-iwill-tab">
+                            <div class="panel panel-default iwill-panel-default">
+                                <div class="panel-heading iwill-panel-heading">
+                                    <h3 class="panel-title iwill-panel-title">About Me <a href="#" data-toggle="modal" data-target="#modAboutMe" id="aEditAboutme" style="float:right;"><i class="fa fa-pencil" aria-hidden="true"></i></a></h3>
+                                </div>
+                                <div class="panel-body dvAboutMe" style="text-align:justify;">
+                                    @{
+                                        if (Model.AboutMe == null)
+                                        {
+                                            <div class="AboutMeDefault"> Describe about yourself !</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="AboutMe">@Model.AboutMe.Replace("\r\n", "\n\r") </div>
+                                        }
+                                    }
+
+
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default iwill-panel-default" id="dvEmployment">
+                               
+                            </div>
+
+                            <div class="panel panel-default iwill-panel-default" id="dvEducation">
+                               
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 scrollspy">
+            <div>
+                <div class="side-container-rt">
+                    @{
+                        if (ViewBag.UserFllwers != null)
+                        {
+                            <div class="follower-panel">
+                                <div class="head-follower">
+                                    <span>Followers</span>
+                                </div>
+                                @foreach (var f in ViewBag.UserFllwers)
+                                {
+                                    <div class="followers-body">
+                                        <div class="user-img"><img src="../Images/UserImages/@f.PicUrl"></div>
+                                        <div class="user-info">
+                                            <a href="#">
+                                                <div class="user-name">@f.FollwerFirstName @f.FollwerLastName</div>
+                                            </a>
+                                            <div class="user-desig">@f.FollwerDesignation</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+
+                                }
+                                @if (((List<ModelUserFollower>)ViewBag.UserFllwers).Count > 3)
+                                {
+                                    <div class="footer-follower">
+                                        <a href="#"><span>See All</span></a>
+                                    </div>
+                                }
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div> No  Followers </div>
+                        }
+                    }
+                </div>
+
+                <div class="side-container-rt">
+                    @{
+                        if (ViewBag.UserFllwngs != null)
+                        {
+                            <div class="follower-panel">
+                                <div class="head-follower">
+                                    <span>Followings</span>
+                                </div>
+                                @foreach (var f in ViewBag.UserFllwngs)
+                                {
+                                    <div class="followers-body">
+                                        <div class="user-img"><img src="../Images/UserImages/@f.PicUrl"></div>
+                                        <div class="user-info">
+                                            <a href="#">
+                                                <div class="user-name">@f.FollwerFirstName @f.FollwerLastName</div>
+                                            </a>
+                                            <div class="user-desig">@f.FollwerDesignation</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+
+                                }
+                                @if (((List<ModelUserFollower>)ViewBag.UserFllwngs).Count > 3)
+                                {
+                                    <div class="footer-follower">
+                                        <a href="#"><span>See All</span></a>
+                                    </div>
+                                }
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div> No  Following </div>
+                        }
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Profile End -->
+
+
+<script type="text/javascript">
+    $('#main-home-content').removeClass("container");
+    $('#myAffix').affix({
+        offset: {
+            offset: {
+                top: 0
+            },
+            bottom: 461
+        }
+    }),
+$('#myAffix1').affix({
+    offset: {
+        offset: {
+            top: 0
+        },
+        bottom: 461
+    }
+})
+</script>
+
+<script>
+    //$('#scJquParent').removeAttr();
+    var elemBack = $('#dvBackgroundPic .dvBack');
+    var elemFront = $('#dvBackgroundPic #dvFrontImage');
+
+
+
+    //*******************************************************************************************************************************************
+    //**************************************************Update Social Links*************************************************************
+    //*******************************************************************************************************************************************
+
+
+    function SubmitSocialLinksAndLocation() {
+
+        if (ValidateControl($("#ddlCountry")) == false)
+            return false;
+
+        if ($("#ddlCity > option").length > 2 && $('#ddlCity').val() == "0") {
+            $("#ddlCity").focus();
+            $("#ddlCity").css("border", "1px solid red");
+            return false;
+        }
+        else
+            $("#ddlCity").css("border", "");
+
+        var elem = $('#formEditSocialLinks');
+        elem.css("opacity", "0.5");
+        ShowLoading(elem);
+        $("#btnSubmitSocialLinksAndLocation").attr("disabled", true);
+
+
+        $.ajax({
+            url: "/Users/UpdateUserSocialLinksLocationContact",
+            data: $('form[id="formEditSocialLinks"]').serialize(),
+            type: 'POST',
+            success: function (data) {
+
+                if (data.CTRYID != null) {
+
+                    $(".aFacebookUrl").attr("href", data.FacebookUrl);
+                    $(".aTwitterUrl").attr("href", data.TwitterUrl);
+                    $(".aPlusGoogleUrl").attr("href", data.PlusGoogleUrl);
+                    $(".aLinkedInUrl").attr("href", data.LinkedInUrl);
+
+                    $(".spnUserLocation").html('');
+                    if (data.CityName.length > 0)
+                        $(".spnUserLocation").html(data.CityName + ", " + data.CountryName);
+                    else
+                        $(".spnUserLocation").html(data.CountryName);
+                    $(".spnUserContact").html(data.ContactNumber);
+
+                    //window.location.href = "/Users/VSuccessfullyRegistered?Reg=Reg"
+                }
+
+                if (data.toString().indexOf("Error") >= 0) {
+                    ErrorMsgTimeOut(data);
+
+                }
+                $("#btnSubmitSocialLinksAndLocation").attr("disabled", false);
+                $('#modalSocialLinksAndLocation').modal('hide');
+                HideLoading(elem);
+                elem.css("opacity", "1");
+
+            },
+            error: function (e) {
+                ErrorMsgTimeOut(e.error);
+                HideLoading(elem);
+                elem.css("opacity", "1");
+                $("#btnSubmitSocialLinksAndLocation").attr("disabled", false);
+            }
+        });
+
+
+
+    }
+
+    function changeCountry() {
+        // $("#loadingCities").show();
+        var Cid = $('#ddlCountry').val();
+        $("#ErrDdlCity").hide();
+        var data = { id: Cid };
+        $.getJSON('/Users/GetAllCities', data,
+            function success(data) {
+
+                if (data.length > 0) {
+                    $("#ddlCity").attr("disabled", false);
+                    var i = 0;
+                    $(data).each(function (index, optionText) {
+                        $("#ddlCity").append($('<option />').attr('value', data[i].CTID).text(data[i].CName));
+                        i++;
+                    });
+
+
+                }
+                else {
+                    $('#ddlCity option').remove();
+                    $("#ddlCity").append($('<option />').attr('value', "0").text("Select City"));
+                    $("#ddlCity").attr("disabled", true);
+                    $("#ddlCity").css("border", "");
+                }
+
+            });
+        //$("#loadingCities").hide();
+        //GetAllCities
+    }
+
+    //$("#ddlCountry").trigger("onchange")
+
+
+    //********************************************************************ENDED***********************************************************************
+
+    function UpdateAboutMe() {
+        var txtAboutMe = $("#txtaAboutMe").val();
+        if (txtAboutMe.length > 0 && txtAboutMe.length < 80) {
+            alert('please write at least 80 character about yourself');
+            return false;
+        }
+
+        var elem = $('#modAboutMe');
+        ShowLoading(elem);
+        $("#btnAboutMeSave").attr("disabled", true);
+
+
+
+        $.ajax({
+            url: "/Users/UpdateAboutMe",
+            type: 'POST',
+            data: { AboutMe: txtAboutMe },
+            dataType: "json",
+            success: function (data) {
+                var status = data.split('^')[0];
+                var text = data.split('^')[1];
+
+                if (status.indexOf('updated') >= 0) {
+                    $(".dvAboutMe").empty();
+                    if (text.length > 0) {
+                        $(".dvAboutMe").append(' <div class="AboutMe"> ' + text + '</div>');
+                    }
+                    else {
+
+                        $(".dvAboutMe").append('<div class="AboutMeDefault"> Describe about yourself !</div>');
+                    }
+                }
+                $("#btnAboutMeSave").attr("disabled", false);
+                $('#modAboutMe').modal('hide');
+                HideLoading(elem);
+            },
+            error: function (ex) {
+                HideLoading(elem);
+                alert(ex.responseText)
+            }
+        });
+
+
+
+    }
+
+    function UpdateProfile() {
+
+        var elem = $('#formUpdateProfile');
+        elem.css("opacity", "0.5");
+        ShowLoading(elem);
+        $("#btnEditProfile").attr("disabled", true);
+
+
+
+        $.ajax({
+            url: "/Users/UpdateProfile",
+            data: $('form[id="formUpdateProfile"]').serialize(),
+            type: 'POST',
+            success: function (data) {
+
+                if (data.FirstName != null) {
+                    //if (data.split('^')[0].indexOf('update') >= 0) {
+
+                    //  var updated =  data.split('^')[1]
+                    $("input[name='FirstName']").val(data.FirstName);
+                    $("input[name='LastName']").val(data.LastName);
+                    $("input[name='MotherLanguage']").val(data.MotherLanguage);
+                    $("input[name='Religion']").val(data.Religion);
+                    $("input[name='Designation']").val(data.Designation);
+
+                    $(".profile-name").html(data.FirstName + data.LastName);
+                    $(".profile-desig").html(data.Designation);
+
+                    HideLoading(elem);
+                    //}
+                }
+
+                if (data.toString().indexOf("Error") >= 0) {
+                    ErrorMsgTimeOut(data);
+
+                }
+                $("#btnEditProfile").attr("disabled", false);
+                $('#ModalEditProfile').modal('hide');
+                HideLoading(elem);
+                elem.css("opacity", "1");
+
+            },
+            error: function (e) {
+                ErrorMsgTimeOut(e.error);
+                HideLoading(elem);
+                elem.css("opacity", "1");
+                $("#btnEditProfile").attr("disabled", false);
+            }
+        });
+
+    }
+
+</script>

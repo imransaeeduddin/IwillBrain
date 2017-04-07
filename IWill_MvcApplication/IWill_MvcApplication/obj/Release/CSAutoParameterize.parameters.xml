@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-IWill_MvcApplication-20170125040136.mdf;Initial Catalog=aspnet-IWill_MvcApplication-20170125040136;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\IM\ Projects\\IWill_MvcApplication\\IWill_MvcApplication\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="IwillDbEntities-Web.config Connection String" description="IwillDbEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.IwillDataModel.csdl|res://*/Models.IwillDataModel.ssdl|res://*/Models.IwillDataModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=IMRANSAEED;initial catalog=ImranIwillDb;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\IM\ Projects\\IWill_MvcApplication\\IWill_MvcApplication\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='IwillDbEntities']/@connectionString" />
+  </parameter>
+</parameters>

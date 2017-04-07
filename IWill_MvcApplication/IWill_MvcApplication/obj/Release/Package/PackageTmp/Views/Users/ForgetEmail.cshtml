@@ -1,0 +1,146 @@
+﻿@model IWill_MvcApplication.Models.ModelForgetPassword
+
+@{
+    ViewBag.Title = "ForgetEmail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Forget Password</h2>
+
+@using (Html.BeginForm("SendPasswordChangeEmail", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div id="dvSendEmail" class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control", @placeholder = "mymail@mail.com", @id = "txtEmail", @name = "username", @onchange = "OnEmailBlur()" })
+                @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+            </div>
+            <div style="display:none" id="loading">Email checking<img src="~/Images/loading.gif" style="width:30px;height:30px" /></div>
+            <div style="color:red; margin-left:220px; font-size:12px; display:none" id="EmailErrorMessage"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="btnsubmit" value="Email me" class="btn btn-default" onclick="return SubmitValidateEmail()" />
+            </div>
+        </div>
+    </div>
+
+    <div style="float:left">
+        @{ if (ViewData["Error"]!= null)
+            {
+                if (TempData["Error"].ToString().IndexOf("Error:") == 0)
+                {
+                    <h5 style="color:red"> @TempData["Error"].ToString() </h5>
+                }
+                else
+
+                {
+                    <script>
+                        $('#dvSendEmail').hide();
+                    </script>
+                    <h5 style="color:green"> @TempData["Error"].ToString() </h5>
+                    <div>@Html.ActionLink("Log in here", "Login", "Users")</div>
+                }
+            }
+        }
+
+    </div>
+            }
+
+<div style="clear:left">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script>
+
+
+    function SubmitValidateEmail() {
+        var Display = $("#EmailErrorMessage").css("display");
+        if (Display == "inline" || Display == "block") {
+            $("#txtEmail").focus();
+            return false;
+        }
+        //$("#btnsubmit").attr("disabled", false);
+        if (OnEmailBlur())
+            return true;
+        return false;
+
+
+    }
+    function OnEmailBlur() {
+
+
+        $("#loading").show();
+        $("#MsgEmailAddress").hide();
+        $("#EmailErrorMessage").hide();
+        $("#txtEmail").css("background", "");
+        $("#txtEmail").css("color", "");
+
+        var id = $('#txtEmail').val().trim();
+
+
+        if (id.length == 0) {
+            $("#EmailErrorMessage").show();
+            $("#EmailErrorMessage").html('Email address Required');
+
+            $("#loading").hide();
+            
+            return false;
+        }
+        var pattern = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,6})?$/;
+        if (pattern.test(id) == true) {
+            var obj = {
+                id: $('#txtEmail').val().trim()
+            }
+
+            $.ajax({
+                url: "/Users/IsEmailRegistered",
+                type: 'GET',
+
+
+                data: { id: id },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data == 'no') {
+
+                        $("#txtEmail").css("background", "#c46d96");
+                        $("#txtEmail").css("color", "white");
+                        $("#EmailErrorMessage").html('Invalid Email, it is not registered');
+                        $("#EmailErrorMessage").show();
+                        return false;
+                    }
+                    //else $("#btnsubmit").attr("disabled", false);
+
+                    $("#MsgEmailAddress").css("display", "block");
+
+
+                },
+                error: function (ex) {
+                    $("#loading").hide();
+                    alert(ex.responseText);
+                    return false;
+                }
+
+            });
+        }
+        else {
+            $("#EmailErrorMessage").html('invalid Email address');
+            $("#EmailErrorMessage").show();
+            $("#loading").hide();
+            return false;
+        }
+        $("#loading").hide();
+        return true;
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

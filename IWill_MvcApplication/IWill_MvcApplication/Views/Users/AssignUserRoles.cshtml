@@ -1,0 +1,273 @@
+﻿@using IWill_MvcApplication.Models;
+@using PagedList;
+@using PagedList.Mvc
+
+@model IPagedList<spSearhUser_Result>
+
+@{
+    ViewBag.Title = "AssignUserRoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .mar {
+        margin-top: 20px;
+    }
+
+    .row {
+        margin-top: 20px;
+    }
+
+        .row > div {
+            margin-left: 20px;
+            float: left;
+        }
+</style>
+<h2>Assign Roles To Users</h2>
+
+
+@{
+    Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+}
+
+<div id="SearchUsers" class="form-horizontal col-md-12" style="margin:40px;">
+    @using (Html.BeginForm("AssignUserRoles", "Users", FormMethod.Get))
+    {
+
+
+
+        <div id="R1" class="row">
+            <div>
+                <label for="username" class="control-label" data-icon="u"> User Name or Email Address</label>
+
+            </div>
+            <div>
+                @Html.TextBox("UserName", "", new { @class = "form-control", @placeholder = "username or mymail@mail.com " })
+            </div>
+            <div>
+                <label for="Role" class="control-label" data-icon="u"> Select Role </label>
+
+            </div>
+            <div class="">
+                @Html.DropDownList("RoleID", new SelectList(Helper.GetRoles(), "RID", "RName", "0"), "Select Roles", new { @id = "ddlRoles", @class = "form-control" })
+
+            </div>
+            <div class="">
+                @Html.DropDownList("IsActive", Helper.GetActiveInActiveSelectList(), new { @id = "IsActive", @class = "form-control" })
+
+                @*<select class="form-control" id="IsActive" name="IsActive">
+                    <option value="0">All </option>
+                    <option value="1">Active</option>
+                    <option value="2">In Active</option>
+                </select>*@
+
+            </div>
+
+            <div>
+                <input type="submit" value="Search" class="btn btn-default" onclick="return load()" />
+            </div>
+        </div>
+
+
+
+
+
+    }
+
+</div>
+
+
+
+
+@using (Html.BeginForm("AssignUserRoles", "Users", FormMethod.Get))
+{
+    <table class="table">
+
+        @if (Model != null)
+        {
+            <tr>
+                <th>
+
+                    User ID
+
+                </th>
+                <th style="text-align: center; width: 12%">
+                    @Html.ActionLink("User Name", "AssignUserRoles",
+  /*new { sortOrder = "FirstName", CurrentSort = ViewBag.CurrentSort })*/
+  //sortOrder = TempData["sortOrder"],
+  new { CurrnetColumn = "FirstName" })
+
+
+                </th>
+
+                <th style="text-align: center; width: 12%">
+                    @Html.ActionLink("Email Address", "AssignUserRoles",
+             /*new { sortOrder = "EmailAddress", CurrentSort = ViewBag.CurrentSort })*/
+             new { CurrnetColumn = "EmailAddress" })
+
+
+                </th>
+                <th>
+                    Role
+                </th>
+                <th>
+                    Active
+                </th>
+                <th>
+                    User  Percen
+                </th>
+                <th>View User Reg Ques</th>
+                <th></th>
+            </tr>
+
+            foreach (var item in Model)
+            {
+                <tr class="@item.UID">
+                    <td>
+                        @Html.HiddenFor(modelItem => item.FKRID, new { @id = item.FKRID })
+                        @Html.DisplayFor(modelItem => item.UID)
+                    </td>
+                    <td class="username">
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmailAddress)
+                    </td>
+
+                    <td class="child">
+
+
+                        @*@Html.DropDownListFor(model => item.RID, (IEnumerable<SelectListItem>)ViewBag.Roles, "item.RID", new { @id = "ddlGender", @class = "form-control" })*@
+                        @Html.DropDownListFor(modelItem => item.FKRID, Helper.GetRoles(item.FKRID), new { @class = "form-control" })
+
+                    </td>
+                    <td>
+
+
+
+                        @{
+                            if (Convert.ToBoolean(item.IsActive))
+                            {
+                                <div> Not Activate</div>
+                            }
+                            else
+                            { <div> Active</div>
+
+                            }
+                        }
+
+                    </td>
+                    <td>
+                        @if (item.RegQuesPercentage != null)
+                        {
+                            <div>@item.RegQuesPercentage  %</div>
+                        }
+                        else
+                        {
+                            <div>Not Tested</div>
+                        }
+
+                    </td>
+                    <td>
+                        @Html.ActionLink("View Reg Question", "ViewUsersGivenRegQuestions", "UserRegQuestion", new { UserID = item.UID}, new {@id="lnk" });
+                    </td>
+                    <td>
+                        <a href="#" onclick="return UpdateRole(this)"> Update Role</a>
+                    </td>
+                </tr>
+                                }
+                            }
+
+
+    </table>
+
+                            if (Model != null)
+                            {
+                                if (Model.Count == 0)
+                                {
+                                    <div>
+                                        No Record found
+                                    </div>
+                                    }
+                                }
+                            }
+@if (Model != null)
+{
+    @Html.PagedListPager(Model,
+                  PageNumber => Url.Action("AssignUserRoles", "Users", new
+                  {
+                      PageNumber
+                      ,
+                      UserName = Request.QueryString["UserName"],
+                      RoleID = Request.QueryString["RoleID"],
+                      IsActive  = Request.QueryString["IsActive"]
+                      //, sortOrder = TempData["sortOrder"],
+
+                  }),
+                     new PagedListRenderOptions()
+                     {
+                         Display = PagedListDisplayMode.IfNeeded,
+                         DisplayPageCountAndCurrentLocation = true
+                     })
+}
+
+<script>
+
+    function load() {
+        $(".loader").show();
+        return true;
+    }
+    function UpdateRole(obj) {
+
+        var Rowobject = obj;
+        var UID = $(obj).parents("tr").attr('class');
+        var roleid = $(obj).parents().children(".child").children().val();
+        var userName = $(obj).parents().children(".username").html().trim();
+
+
+        var cf = confirm("are you sure want to update " + userName + " 's role");
+        if (cf) {
+            $(".loader").show();
+
+            var obj = {
+
+                UID: UID,
+                RID: roleid
+            }
+            $.ajax({
+
+                url: "/Users/UpdateRolesToUsers",
+                type: "POST",
+                data: JSON.stringify(obj),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    if (r == 'updated') {
+                        $(Rowobject).parents("tr").css("background-color", "lightgreen").fadeOut();
+                        $("div.success").fadeIn('slow');
+                        $("div.success").html('User ' + userName + ' role hase been pdated ')
+                        setTimeout(function () { $('.success').fadeOut('slow'); }, 3000);
+
+                        $(".loader").hide();
+                        //location.reload();
+                        ////$.post('/Users/Index')
+                    }
+                    else {
+
+                    }
+
+                },
+                error: function (ex) {
+
+                    $("div.error").fadeIn();
+                    $("div.error").html(ex.responseText)
+                    setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                    $(".loader").hide();
+                }
+            });
+
+        }
+
+
+    }
+</script>

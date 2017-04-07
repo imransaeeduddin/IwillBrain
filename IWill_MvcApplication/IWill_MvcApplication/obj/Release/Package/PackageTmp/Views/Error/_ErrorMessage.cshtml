@@ -1,0 +1,124 @@
+﻿
+
+
+<style>
+    .success {
+        background-color: #abf7c1;
+        position: absolute;
+        top: 50px;
+        color: green;
+        font-size: 20px;
+        width: 100%;
+    }
+      
+
+    .error {
+        background-color: #fbb3b3;
+        position: absolute;
+        top: 0px;
+        color: #ff0000;
+        font-size: 20px;
+        width: 80%;
+        height:auto;
+        z-index:1000;
+        
+    }
+
+      .loader {
+        background: url('../../Images/loading.gif');
+        position: absolute; 
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 200px;
+        height: 200px;
+        opacity: 0.5;
+        display: none;
+         /*background-color: #c1c0c0;*/
+    }
+
+
+
+</style>
+
+<div class="loader">
+
+</div>
+@*<div class="error">
+    @{ if (TempData["NotActivated"] != null)
+        {
+            <div>
+                <div style="padding:5px;">@TempData["NotActivated"].ToString()</div>
+
+                <a href="~/Users/ResendActivationEmail">Resend the Activation Email  </a>
+            </div>
+        }
+    }
+</div>*@
+
+<div class="success">
+    @{ if (TempData["success"] != null)
+            {
+            <div style="padding:5px;">@TempData["success"].ToString()</div>
+            <script>
+                setTimeout(function () {
+                    $('.success').fadeOut('slow');
+                }, 5000);
+                window.scrollTo(0,0);
+            </script>
+        }
+
+        //$('#selector').delay(5000).fadeOut('slow');
+    }
+
+</div>
+
+<div class="error">
+    @{ if (ViewData["Error"]!= null)
+            {
+            <div style="padding:5px;">@ViewData["Error"].ToString()</div>
+            <script>
+                setTimeout(function () {
+                    $('.error').fadeOut('slow');
+                }, 5000);
+                window.scrollTo(0, 0);
+            </script>
+            
+        }
+
+        //$('#selector').delay(5000).fadeOut('slow');
+    }
+
+</div>
+
+
+
+
+
+@*@{ if (ViewData["Error"]!= null)
+    {
+        if (TempData["Error"].ToString().IndexOf("Error:") == 0)
+        {
+            <div class="error"> @TempData["Error"].ToString() </div>
+            <script>
+                setTimeout(function () {
+                    $('.error').fadeOut('slow');
+                }, 5000);
+            </script>
+        }
+        else
+        {
+            <div class="success"> @TempData["Error"].ToString() </div>
+        }
+
+        <script>
+            setTimeout(function () {
+                $('.success').fadeOut('slow');
+            }, 5000);
+        </script>
+    }
+}*@
+
+
+
+

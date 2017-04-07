@@ -1,0 +1,1098 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ImranIwillDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="CTID" />
+    </Key>
+    <Property Name="CTID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CName" Type="varchar" MaxLength="500" />
+    <Property Name="CIPAddress" Type="varchar" MaxLength="50" />
+    <Property Name="FkCTRYID" Type="bigint" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="CoachTaughtBy">
+    <Key>
+      <PropertyRef Name="CTID" />
+    </Key>
+    <Property Name="CTID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FKCID" Type="bigint" Nullable="false" />
+    <Property Name="CTName" Type="varchar" MaxLength="500" />
+    <Property Name="CTUniversityName" Type="varchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="PicUrl" Type="varchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CTRYID" />
+    </Key>
+    <Property Name="CTRYID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CTName" Type="varchar" MaxLength="500" />
+    <Property Name="CntyIPAddress" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="CID" />
+    </Key>
+    <Property Name="CID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CoachID" Type="bigint" />
+    <Property Name="CourseName" Type="varchar" MaxLength="500" />
+    <Property Name="CourseDescription" Type="varchar(max)" />
+    <Property Name="TotalDurationDays" Type="int" />
+    <Property Name="TotalQuizes" Type="int" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="FkCCID" Type="bigint" />
+    <Property Name="CourseSessionID" Type="varchar" MaxLength="100" />
+    <Property Name="Pricing" Type="int" />
+    <Property Name="TotalSessions" Type="int" />
+    <Property Name="CourseCode" Type="varchar" MaxLength="50" />
+    <Property Name="Commitment" Type="varchar" MaxLength="50" />
+    <Property Name="CourseLanguage" Type="varchar" MaxLength="300" />
+    <Property Name="LogoUrl" Type="varchar" MaxLength="250" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="HowToPass" Type="varchar" MaxLength="500" />
+    <Property Name="LearningLevel" Type="varchar" MaxLength="50" />
+    <Property Name="UserRatings" Type="int" />
+    <Property Name="CoachUniversityName" Type="varchar" MaxLength="250" />
+    <Property Name="IsCertificateGiven" Type="bit" />
+    <Property Name="BackgroundPicUrl" Type="varchar" MaxLength="250" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+    <Property Name="CerticationDescription" Type="varchar(max)" />
+    <Property Name="CourseImportance" Type="varchar(max)" />
+    <Property Name="StartedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="CourseCategory">
+    <Key>
+      <PropertyRef Name="CCID" />
+    </Key>
+    <Property Name="CCID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CCName" Type="varchar" MaxLength="200" />
+    <Property Name="CCDescription" Type="varchar" MaxLength="1000" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+    <Property Name="CImagePath" Type="varchar" MaxLength="500" />
+    <Property Name="BackImgLeft" Type="int" />
+    <Property Name="BackImgTop" Type="int" />
+  </EntityType>
+  <EntityType Name="CourseCoaches">
+    <Key>
+      <PropertyRef Name="CCID" />
+    </Key>
+    <Property Name="CCID" Type="bigint" Nullable="false" />
+    <Property Name="FKCID" Type="bigint" />
+    <Property Name="FKUID" Type="bigint" />
+    <Property Name="CTUniversityName" Type="varchar" MaxLength="250" />
+    <Property Name="CTName" Type="varchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="PicUrl" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="CourseDetail">
+    <Key>
+      <PropertyRef Name="CDID" />
+    </Key>
+    <Property Name="CDID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FKCID" Type="bigint" />
+    <Property Name="SesssionName" Type="varchar" MaxLength="500" />
+    <Property Name="SesssionCode" Type="varchar" MaxLength="100" />
+    <Property Name="SessionDescription" Type="varchar(max)" />
+    <Property Name="SessionTotalSummary" Type="varchar" MaxLength="250" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="CourseLanguage">
+    <Key>
+      <PropertyRef Name="CLID" />
+    </Key>
+    <Property Name="CLID" Type="bigint" Nullable="false" />
+    <Property Name="FkLID" Type="bigint" />
+    <Property Name="FkCID" Type="bigint" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="CourseMaterialType">
+    <Key>
+      <PropertyRef Name="CMTID" />
+    </Key>
+    <Property Name="CMTID" Type="bigint" Nullable="false" />
+    <Property Name="MaterialID" Type="int" />
+    <Property Name="MaterialName" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="CourseOutline">
+    <Key>
+      <PropertyRef Name="COTID" />
+    </Key>
+    <Property Name="COTID" Type="bigint" Nullable="false" />
+    <Property Name="FKCDID" Type="bigint" />
+    <Property Name="FKCMTID" Type="bigint" />
+    <Property Name="OName" Type="varchar" MaxLength="250" />
+    <Property Name="Olink" Type="varchar" MaxLength="250" />
+    <Property Name="ODescription" Type="varchar(max)" />
+    <Property Name="IsRecStarted" Type="bit" />
+    <Property Name="IsRecFinished" Type="bit" />
+    <Property Name="LecDate" Type="datetime" />
+    <Property Name="LecStartingTime" Type="time" Precision="7" />
+    <Property Name="LecEndingTime" Type="time" Precision="7" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+    <Property Name="LecCode" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="EducationType">
+    <Key>
+      <PropertyRef Name="ETID" />
+    </Key>
+    <Property Name="ETID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EName" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Gender">
+    <Key>
+      <PropertyRef Name="GID" />
+    </Key>
+    <Property Name="GID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GenderType" Type="int" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="CreatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Language">
+    <Key>
+      <PropertyRef Name="LID" />
+    </Key>
+    <Property Name="LID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Language" Type="varchar" MaxLength="500" />
+    <Property Name="Ldescription" Type="varchar" MaxLength="500" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="MartialStatus">
+    <Key>
+      <PropertyRef Name="MID" />
+    </Key>
+    <Property Name="MID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nchar" MaxLength="10" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="UpdatedBy" Type="bigint" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Questions">
+    <Key>
+      <PropertyRef Name="QSID" />
+    </Key>
+    <Property Name="QSID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FKQZID" Type="bigint" />
+    <Property Name="FKQTID" Type="bigint" />
+    <Property Name="QuesDesc" Type="varchar(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="QuestionsDetail">
+    <Key>
+      <PropertyRef Name="QDID" />
+    </Key>
+    <Property Name="QDID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FKQSID" Type="bigint" />
+    <Property Name="QuesOptionName" Type="varchar" MaxLength="500" />
+    <Property Name="IsRight" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="QuestionType">
+    <Key>
+      <PropertyRef Name="QTID" />
+    </Key>
+    <Property Name="QTID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QTName" Type="varchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Quiz">
+    <Key>
+      <PropertyRef Name="QZID" />
+    </Key>
+    <Property Name="QZID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FKCID" Type="bigint" />
+    <Property Name="QName" Type="varchar" MaxLength="500" />
+    <Property Name="QuizDescription" Type="varchar(max)" />
+    <Property Name="QuizCode" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="TotalAttemps" Type="int" />
+    <Property Name="ValidTill" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RID" />
+    </Key>
+    <Property Name="RID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RName" Type="varchar" MaxLength="100" />
+    <Property Name="RoleDescription" Type="varchar" MaxLength="5000" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="RoleID" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TempPic">
+    <Key>
+      <PropertyRef Name="TPID" />
+    </Key>
+    <Property Name="TPID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TempPicName" Type="varchar(max)" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="UserIP" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UID" />
+    </Key>
+    <Property Name="UID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="100" />
+    <Property Name="LastName" Type="varchar" MaxLength="100" />
+    <Property Name="MiddleName" Type="varchar" MaxLength="100" />
+    <Property Name="FkGenderID" Type="tinyint" />
+    <Property Name="Year" Type="int" />
+    <Property Name="Month" Type="int" />
+    <Property Name="Day" Type="int" />
+    <Property Name="AboutMe" Type="varchar" MaxLength="8000" />
+    <Property Name="WebUrl" Type="varchar" MaxLength="200" />
+    <Property Name="FacebookUrl" Type="varchar" MaxLength="200" />
+    <Property Name="PlusGoogleUrl" Type="varchar" MaxLength="200" />
+    <Property Name="GitHubUrl" Type="varchar" MaxLength="200" />
+    <Property Name="PicUrl" Type="varchar" MaxLength="200" />
+    <Property Name="EmailAddress" Type="varchar" MaxLength="200" />
+    <Property Name="ContactNumber" Type="varchar" MaxLength="100" />
+    <Property Name="EmergenyNumber" Type="varchar" MaxLength="100" />
+    <Property Name="IsStudent" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="Nationality" Type="varchar" MaxLength="200" />
+    <Property Name="Religion" Type="varchar" MaxLength="200" />
+    <Property Name="FkCityID" Type="bigint" />
+    <Property Name="FkCountryID" Type="bigint" />
+    <Property Name="MartialStatus" Type="bit" />
+    <Property Name="Password" Type="varchar" MaxLength="100" />
+    <Property Name="Age" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+    <Property Name="LastLogin" Type="datetime" />
+    <Property Name="MotherLanguage" Type="varchar" MaxLength="200" />
+    <Property Name="FirstLoginUrl" Type="varchar" MaxLength="100" />
+    <Property Name="IsFirstLoggedIn" Type="bit" />
+    <Property Name="LinkedInUrl" Type="varchar" MaxLength="200" />
+    <Property Name="ActivationCode" Type="uniqueidentifier" />
+    <Property Name="DateOfBirth" Type="datetime" />
+    <Property Name="LoggedIn" Type="datetime" />
+    <Property Name="RegQuesPercentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="BackgroundImageUrl" Type="varchar(max)" />
+    <Property Name="UserIP" Type="varchar" MaxLength="50" />
+    <Property Name="BackImgLeft" Type="int" />
+    <Property Name="FrontImgTop" Type="int" />
+    <Property Name="FrontImgLeft" Type="int" />
+    <Property Name="IsBasicInfoRegistered" Type="bit" />
+    <Property Name="IsPersonalInfoRegistered" Type="bit" />
+    <Property Name="IsRegistrationQuestRegistered" Type="bit" />
+    <Property Name="Address" Type="varchar" MaxLength="500" />
+    <Property Name="BackImgTop" Type="int" />
+    <Property Name="Designation" Type="varchar" MaxLength="300" />
+    <Property Name="TwitterUrl" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="UserEducation">
+    <Key>
+      <PropertyRef Name="UEDID" />
+    </Key>
+    <Property Name="UEDID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FkUID" Type="bigint" Nullable="false" />
+    <Property Name="FkETID" Type="bigint" />
+    <Property Name="FromYear" Type="bigint" />
+    <Property Name="ToYear" Type="bigint" />
+    <Property Name="NameOfInstitute" Type="varchar" MaxLength="500" />
+    <Property Name="TotalDuration" Type="int" />
+    <Property Name="FromMonth" Type="int" />
+    <Property Name="ToMonth" Type="int" />
+    <Property Name="FromDay" Type="int" />
+    <Property Name="ToDay" Type="int" />
+    <Property Name="Descriptipn" Type="varchar(max)" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="IsPresent" Type="bit" />
+    <Property Name="UEpicUrl" Type="varchar" MaxLength="200" />
+    <Property Name="Location" Type="varchar" MaxLength="500" />
+    <Property Name="MajorSubjects" Type="varchar" MaxLength="500" />
+    <Property Name="CourseTitle" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="UserEnrollCourse">
+    <Key>
+      <PropertyRef Name="UECID" />
+    </Key>
+    <Property Name="UECID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FKUID" Type="bigint" />
+    <Property Name="FKCID" Type="bigint" />
+    <Property Name="CardName" Type="varchar" MaxLength="200" />
+    <Property Name="CardNumber" Type="varchar" MaxLength="200" />
+    <Property Name="CardExpMonth" Type="int" />
+    <Property Name="CardExpYear" Type="int" />
+    <Property Name="FKCNTRYID" Type="int" />
+    <Property Name="CVV" Type="int" />
+    <Property Name="PaidAmount" Type="int" />
+    <Property Name="PaidOn" Type="datetime" />
+    <Property Name="ExpiryDate" Type="datetime" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsCertified" Type="bit" />
+    <Property Name="CertifiedOn" Type="datetime" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="UserExperience">
+    <Key>
+      <PropertyRef Name="UEXID" />
+    </Key>
+    <Property Name="UEXID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FkUID" Type="bigint" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="500" />
+    <Property Name="UserPost" Type="varchar" MaxLength="200" />
+    <Property Name="TotalExperience" Type="int" />
+    <Property Name="FromYear" Type="int" />
+    <Property Name="FromMonth" Type="int" />
+    <Property Name="FromDay" Type="int" />
+    <Property Name="ToYear" Type="int" />
+    <Property Name="ToMonth" Type="int" />
+    <Property Name="ToDay" Type="int" />
+    <Property Name="IsPresent" Type="bit" />
+    <Property Name="Location" Type="varchar" MaxLength="500" />
+    <Property Name="CompLogoUrl" Type="varchar" MaxLength="500" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="UserFollowers">
+    <Key>
+      <PropertyRef Name="UFID" />
+    </Key>
+    <Property Name="UFID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FkUID" Type="bigint" />
+    <Property Name="FkFollowerID" Type="bigint" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="IsFollowed" Type="bit" />
+  </EntityType>
+  <EntityType Name="UserGivenQuesAns">
+    <Key>
+      <PropertyRef Name="UQAID" />
+    </Key>
+    <Property Name="UQAID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FkUQDID" Type="bigint" />
+    <Property Name="FkUQID" Type="bigint" />
+    <Property Name="FkUserID" Type="bigint" />
+    <Property Name="Answer" Type="varchar(max)" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="IsOptionRight" Type="bit" />
+    <Property Name="IsUserRight" Type="bit" />
+    <Property Name="OptionName" Type="varchar(max)" />
+    <Property Name="Question" Type="varchar(max)" />
+    <Property Name="FkQTID" Type="bigint" />
+  </EntityType>
+  <EntityType Name="UserQuestionDetail">
+    <Key>
+      <PropertyRef Name="UQDID" />
+    </Key>
+    <Property Name="UQDID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FkQID" Type="bigint" />
+    <Property Name="QuesOptionName" Type="varchar" MaxLength="2000" />
+    <Property Name="IsRight" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="UserQuestions">
+    <Key>
+      <PropertyRef Name="UQID" />
+    </Key>
+    <Property Name="UQID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UQuestion" Type="varchar(max)" />
+    <Property Name="FkUQType" Type="bigint" />
+    <Property Name="IsStudent" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="UserQuizAnswer">
+    <Key>
+      <PropertyRef Name="UQAID" />
+    </Key>
+    <Property Name="UQAID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FkUQID" Type="bigint" />
+    <Property Name="FkQSID" Type="bigint" />
+    <Property Name="FkQDID" Type="bigint" />
+    <Property Name="QAns" Type="varchar(max)" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="UserQuizAttemp">
+    <Key>
+      <PropertyRef Name="UQID" />
+    </Key>
+    <Property Name="UQID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FkQZID" Type="bigint" />
+    <Property Name="FkUID" Type="bigint" />
+    <Property Name="Marks" Type="int" />
+    <Property Name="Grade" Type="varchar" MaxLength="50" />
+    <Property Name="Percentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalAttempts" Type="int" />
+    <Property Name="IsCompleted" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="CompletedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="URID" />
+    </Key>
+    <Property Name="URID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FKUID" Type="bigint" Nullable="false" />
+    <Property Name="FKRID" Type="bigint" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreadtedBy" Type="bigint" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Year">
+    <Key>
+      <PropertyRef Name="YID" />
+    </Key>
+    <Property Name="YID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Year" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_City_Country">
+    <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+    <End Role="City" Type="Self.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CTRYID" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="FkCTRYID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Course_CourseCategory">
+    <End Role="CourseCategory" Type="Self.CourseCategory" Multiplicity="0..1" />
+    <End Role="Course" Type="Self.Course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseCategory">
+        <PropertyRef Name="CCID" />
+      </Principal>
+      <Dependent Role="Course">
+        <PropertyRef Name="FkCCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseCoaches_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+    <End Role="CourseCoaches" Type="Self.CourseCoaches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="CourseCoaches">
+        <PropertyRef Name="FKCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseCoaches_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="CourseCoaches" Type="Self.CourseCoaches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="CourseCoaches">
+        <PropertyRef Name="FKUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseDetail_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+    <End Role="CourseDetail" Type="Self.CourseDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="CourseDetail">
+        <PropertyRef Name="FKCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseLanguage_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+    <End Role="CourseLanguage" Type="Self.CourseLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="CourseLanguage">
+        <PropertyRef Name="FkCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseLanguage_Language">
+    <End Role="Language" Type="Self.Language" Multiplicity="0..1" />
+    <End Role="CourseLanguage" Type="Self.CourseLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="LID" />
+      </Principal>
+      <Dependent Role="CourseLanguage">
+        <PropertyRef Name="FkLID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseOutline_CourseDetail">
+    <End Role="CourseDetail" Type="Self.CourseDetail" Multiplicity="0..1" />
+    <End Role="CourseOutline" Type="Self.CourseOutline" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseDetail">
+        <PropertyRef Name="CDID" />
+      </Principal>
+      <Dependent Role="CourseOutline">
+        <PropertyRef Name="FKCDID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseOutline_CourseMaterialType">
+    <End Role="CourseMaterialType" Type="Self.CourseMaterialType" Multiplicity="0..1" />
+    <End Role="CourseOutline" Type="Self.CourseOutline" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseMaterialType">
+        <PropertyRef Name="CMTID" />
+      </Principal>
+      <Dependent Role="CourseOutline">
+        <PropertyRef Name="FKCMTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseTaughtBy_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="CoachTaughtBy" Type="Self.CoachTaughtBy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="CoachTaughtBy">
+        <PropertyRef Name="FKCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Questions_QuestionType">
+    <End Role="QuestionType" Type="Self.QuestionType" Multiplicity="0..1" />
+    <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionType">
+        <PropertyRef Name="QTID" />
+      </Principal>
+      <Dependent Role="Questions">
+        <PropertyRef Name="FKQTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Questions_Quiz">
+    <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+    <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quiz">
+        <PropertyRef Name="QZID" />
+      </Principal>
+      <Dependent Role="Questions">
+        <PropertyRef Name="FKQZID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuestionsDetail_Questions">
+    <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
+    <End Role="QuestionsDetail" Type="Self.QuestionsDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="QSID" />
+      </Principal>
+      <Dependent Role="QuestionsDetail">
+        <PropertyRef Name="FKQSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Quiz_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+    <End Role="Quiz" Type="Self.Quiz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="Quiz">
+        <PropertyRef Name="FKCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserEducation_EducationType">
+    <End Role="EducationType" Type="Self.EducationType" Multiplicity="0..1" />
+    <End Role="UserEducation" Type="Self.UserEducation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EducationType">
+        <PropertyRef Name="ETID" />
+      </Principal>
+      <Dependent Role="UserEducation">
+        <PropertyRef Name="FkETID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserEducation_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserEducation" Type="Self.UserEducation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserEducation">
+        <PropertyRef Name="FkUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserEnrollCourse_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+    <End Role="UserEnrollCourse" Type="Self.UserEnrollCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="UserEnrollCourse">
+        <PropertyRef Name="FKCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserEnrollCourse_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserEnrollCourse" Type="Self.UserEnrollCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserEnrollCourse">
+        <PropertyRef Name="FKUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserExperience_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserExperience" Type="Self.UserExperience" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserExperience">
+        <PropertyRef Name="FkUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserFollowers_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserFollowers" Type="Self.UserFollowers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserFollowers">
+        <PropertyRef Name="FkUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserFollowers_User1">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserFollowers" Type="Self.UserFollowers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserFollowers">
+        <PropertyRef Name="FkFollowerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGivenQuesAns_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserGivenQuesAns" Type="Self.UserGivenQuesAns" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserGivenQuesAns">
+        <PropertyRef Name="FkUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGivenQuesAns_UserQuestionDetail">
+    <End Role="UserQuestionDetail" Type="Self.UserQuestionDetail" Multiplicity="0..1" />
+    <End Role="UserGivenQuesAns" Type="Self.UserGivenQuesAns" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserQuestionDetail">
+        <PropertyRef Name="UQDID" />
+      </Principal>
+      <Dependent Role="UserGivenQuesAns">
+        <PropertyRef Name="FkUQDID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGivenQuesAns_UserQuestions">
+    <End Role="UserQuestions" Type="Self.UserQuestions" Multiplicity="0..1" />
+    <End Role="UserGivenQuesAns" Type="Self.UserGivenQuesAns" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserQuestions">
+        <PropertyRef Name="UQID" />
+      </Principal>
+      <Dependent Role="UserGivenQuesAns">
+        <PropertyRef Name="FkUQID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuestionDetail_UserQuestions">
+    <End Role="UserQuestions" Type="Self.UserQuestions" Multiplicity="0..1" />
+    <End Role="UserQuestionDetail" Type="Self.UserQuestionDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserQuestions">
+        <PropertyRef Name="UQID" />
+      </Principal>
+      <Dependent Role="UserQuestionDetail">
+        <PropertyRef Name="FkQID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuestions_QuestionType">
+    <End Role="QuestionType" Type="Self.QuestionType" Multiplicity="0..1" />
+    <End Role="UserQuestions" Type="Self.UserQuestions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionType">
+        <PropertyRef Name="QTID" />
+      </Principal>
+      <Dependent Role="UserQuestions">
+        <PropertyRef Name="FkUQType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuizAnswer_Questions">
+    <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
+    <End Role="UserQuizAnswer" Type="Self.UserQuizAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="QSID" />
+      </Principal>
+      <Dependent Role="UserQuizAnswer">
+        <PropertyRef Name="FkQSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuizAnswer_QuestionsDetail">
+    <End Role="QuestionsDetail" Type="Self.QuestionsDetail" Multiplicity="0..1" />
+    <End Role="UserQuizAnswer" Type="Self.UserQuizAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionsDetail">
+        <PropertyRef Name="QDID" />
+      </Principal>
+      <Dependent Role="UserQuizAnswer">
+        <PropertyRef Name="FkQDID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuizAnswer_UserQuizAttemp">
+    <End Role="UserQuizAttemp" Type="Self.UserQuizAttemp" Multiplicity="0..1" />
+    <End Role="UserQuizAnswer" Type="Self.UserQuizAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserQuizAttemp">
+        <PropertyRef Name="UQID" />
+      </Principal>
+      <Dependent Role="UserQuizAnswer">
+        <PropertyRef Name="FkUQID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuizAttemp_Quiz">
+    <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+    <End Role="UserQuizAttemp" Type="Self.UserQuizAttemp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quiz">
+        <PropertyRef Name="QZID" />
+      </Principal>
+      <Dependent Role="UserQuizAttemp">
+        <PropertyRef Name="FkQZID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuizAttemp_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserQuizAttemp" Type="Self.UserQuizAttemp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserQuizAttemp">
+        <PropertyRef Name="FkUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RID" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="FKRID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UID" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="FKUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="spGetRegUserQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UID" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="spSearchUserRegestrationQuestions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Ques" Type="varchar(max)" Mode="In" />
+    <Parameter Name="IsStudent" Type="bit" Mode="In" />
+    <Parameter Name="QuestionType" Type="int" Mode="In" />
+    <Parameter Name="IsActive" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="spSearhUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="RID" Type="int" Mode="In" />
+    <Parameter Name="IsActive" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="spViewRegQuestions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IsStudent" Type="bit" Mode="In" />
+  </Function>
+  <EntityContainer Name="ImranIwillDbModelStoreContainer">
+    <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CoachTaughtBy" EntityType="Self.CoachTaughtBy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CourseCategory" EntityType="Self.CourseCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CourseCoaches" EntityType="Self.CourseCoaches" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CourseDetail" EntityType="Self.CourseDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CourseLanguage" EntityType="Self.CourseLanguage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CourseMaterialType" EntityType="Self.CourseMaterialType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CourseOutline" EntityType="Self.CourseOutline" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EducationType" EntityType="Self.EducationType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MartialStatus" EntityType="Self.MartialStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QuestionsDetail" EntityType="Self.QuestionsDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QuestionType" EntityType="Self.QuestionType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Quiz" EntityType="Self.Quiz" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TempPic" EntityType="Self.TempPic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserEducation" EntityType="Self.UserEducation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserEnrollCourse" EntityType="Self.UserEnrollCourse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserExperience" EntityType="Self.UserExperience" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserFollowers" EntityType="Self.UserFollowers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserGivenQuesAns" EntityType="Self.UserGivenQuesAns" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserQuestionDetail" EntityType="Self.UserQuestionDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserQuestions" EntityType="Self.UserQuestions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserQuizAnswer" EntityType="Self.UserQuizAnswer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserQuizAttemp" EntityType="Self.UserQuizAttemp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Year" EntityType="Self.Year" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_City_Country" Association="Self.FK_City_Country">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="City" EntitySet="City" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Course_CourseCategory" Association="Self.FK_Course_CourseCategory">
+      <End Role="CourseCategory" EntitySet="CourseCategory" />
+      <End Role="Course" EntitySet="Course" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseCoaches_Course" Association="Self.FK_CourseCoaches_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="CourseCoaches" EntitySet="CourseCoaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseCoaches_User" Association="Self.FK_CourseCoaches_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="CourseCoaches" EntitySet="CourseCoaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseDetail_Course" Association="Self.FK_CourseDetail_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="CourseDetail" EntitySet="CourseDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseLanguage_Course" Association="Self.FK_CourseLanguage_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="CourseLanguage" EntitySet="CourseLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseLanguage_Language" Association="Self.FK_CourseLanguage_Language">
+      <End Role="Language" EntitySet="Language" />
+      <End Role="CourseLanguage" EntitySet="CourseLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseOutline_CourseDetail" Association="Self.FK_CourseOutline_CourseDetail">
+      <End Role="CourseDetail" EntitySet="CourseDetail" />
+      <End Role="CourseOutline" EntitySet="CourseOutline" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseOutline_CourseMaterialType" Association="Self.FK_CourseOutline_CourseMaterialType">
+      <End Role="CourseMaterialType" EntitySet="CourseMaterialType" />
+      <End Role="CourseOutline" EntitySet="CourseOutline" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseTaughtBy_Course" Association="Self.FK_CourseTaughtBy_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="CoachTaughtBy" EntitySet="CoachTaughtBy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questions_QuestionType" Association="Self.FK_Questions_QuestionType">
+      <End Role="QuestionType" EntitySet="QuestionType" />
+      <End Role="Questions" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questions_Quiz" Association="Self.FK_Questions_Quiz">
+      <End Role="Quiz" EntitySet="Quiz" />
+      <End Role="Questions" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuestionsDetail_Questions" Association="Self.FK_QuestionsDetail_Questions">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="QuestionsDetail" EntitySet="QuestionsDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Quiz_Course" Association="Self.FK_Quiz_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Quiz" EntitySet="Quiz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserEducation_EducationType" Association="Self.FK_UserEducation_EducationType">
+      <End Role="EducationType" EntitySet="EducationType" />
+      <End Role="UserEducation" EntitySet="UserEducation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserEducation_User" Association="Self.FK_UserEducation_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserEducation" EntitySet="UserEducation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserEnrollCourse_Course" Association="Self.FK_UserEnrollCourse_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="UserEnrollCourse" EntitySet="UserEnrollCourse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserEnrollCourse_User" Association="Self.FK_UserEnrollCourse_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserEnrollCourse" EntitySet="UserEnrollCourse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserExperience_User" Association="Self.FK_UserExperience_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserExperience" EntitySet="UserExperience" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserFollowers_User" Association="Self.FK_UserFollowers_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserFollowers" EntitySet="UserFollowers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserFollowers_User1" Association="Self.FK_UserFollowers_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserFollowers" EntitySet="UserFollowers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGivenQuesAns_User" Association="Self.FK_UserGivenQuesAns_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserGivenQuesAns" EntitySet="UserGivenQuesAns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGivenQuesAns_UserQuestionDetail" Association="Self.FK_UserGivenQuesAns_UserQuestionDetail">
+      <End Role="UserQuestionDetail" EntitySet="UserQuestionDetail" />
+      <End Role="UserGivenQuesAns" EntitySet="UserGivenQuesAns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGivenQuesAns_UserQuestions" Association="Self.FK_UserGivenQuesAns_UserQuestions">
+      <End Role="UserQuestions" EntitySet="UserQuestions" />
+      <End Role="UserGivenQuesAns" EntitySet="UserGivenQuesAns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuestionDetail_UserQuestions" Association="Self.FK_UserQuestionDetail_UserQuestions">
+      <End Role="UserQuestions" EntitySet="UserQuestions" />
+      <End Role="UserQuestionDetail" EntitySet="UserQuestionDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuestions_QuestionType" Association="Self.FK_UserQuestions_QuestionType">
+      <End Role="QuestionType" EntitySet="QuestionType" />
+      <End Role="UserQuestions" EntitySet="UserQuestions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuizAnswer_Questions" Association="Self.FK_UserQuizAnswer_Questions">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="UserQuizAnswer" EntitySet="UserQuizAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuizAnswer_QuestionsDetail" Association="Self.FK_UserQuizAnswer_QuestionsDetail">
+      <End Role="QuestionsDetail" EntitySet="QuestionsDetail" />
+      <End Role="UserQuizAnswer" EntitySet="UserQuizAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuizAnswer_UserQuizAttemp" Association="Self.FK_UserQuizAnswer_UserQuizAttemp">
+      <End Role="UserQuizAttemp" EntitySet="UserQuizAttemp" />
+      <End Role="UserQuizAnswer" EntitySet="UserQuizAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuizAttemp_Quiz" Association="Self.FK_UserQuizAttemp_Quiz">
+      <End Role="Quiz" EntitySet="Quiz" />
+      <End Role="UserQuizAttemp" EntitySet="UserQuizAttemp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuizAttemp_User" Association="Self.FK_UserQuizAttemp_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserQuizAttemp" EntitySet="UserQuizAttemp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

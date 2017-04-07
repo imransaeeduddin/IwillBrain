@@ -1,0 +1,307 @@
+﻿@using IWill_MvcApplication.Models
+@*@model IWill_MvcApplication.Models.LoginViewModel*@
+
+<style>
+    .dropbtn {
+        background-color: #101010;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        top: 30px;
+        margin-left: -5px;
+        display: none;
+        position: absolute;
+        background-color: black;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            width: 200px;
+        }
+
+            .dropdown-content a:hover {
+                background-color: black;
+                color: white;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #101010;
+    }
+</style>
+
+
+<div id="toolbar" class="toolbar">
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="toolbar-container">
+                    <aside id="text-2" class="widget widget_text" style="display:inline">
+                        @*<div class="textwidget">
+                            <div class="thim-have-any-question">
+                                Have any question?
+                                <div class="mobile"><i class="fa fa-phone"></i><a href="tel:00123456789" class="value">(00) 123 456 789</a></div>
+                                <div class="email"><i class="fa fa-envelope"></i><a href="mailto:hello@eduma.com">hello@eduma.com</a></div>
+                            </div>
+                        </div>*@
+                        <a href="~/Home/Iindex" rel="home"><img src="~/images/logon.png" width="153" height="40" /></a>
+                    </aside>
+                    <aside id="login-popup-2" class="widget widget_login-popup">
+                        <div class="thim-widget-login-popup thim-widget-login-popup-base">
+
+                            <div class="thim-link-login thim-login-popup">
+                                @{
+                                    if (Request.IsAuthenticated == false)
+                                    {
+                                        @*<a class="register" href="#">Register</a>*@
+                                        @Html.ActionLink("Register", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                                        <a class="login" href="account/index.html">Login</a>
+                                    }
+                                    else
+                                    {
+                                        if (Helper.User.RoleName == "Admin")
+                                        {
+                                            <div class="dropdown">
+                                                <a href="#">Admin</a>
+                                                <div class="dropdown-content">
+                                                    @Html.ActionLink("Create Questionairs", "ViewCreateQuesForUserRegistration", "UserRegQuestion")
+                                                    @Html.ActionLink("Questionairs List", "ViewUserQuestionsList", "UserRegQuestion")
+                                                    @Html.ActionLink("Assign Role to Users", "AssignUserRoles", "Users")
+                                                </div>
+                                            </div>
+                                        }
+
+                                        <a href="#"> <img class="topmenu-profileimg" src="~/Images/profile-pic.jpg" />   @Helper.User.UName   @*@Helper.User.LName*@ !</a>
+                                        @*<a href="/Users/UserProfile">View Profile</a>*@
+                                        <a href="/Users/NewUserProfile">New Profile</a>
+                                                <a href="/Users/LogOff">Log off</a>
+                                    }
+                                }
+                            </div>
+
+
+                            <div id="thim-popup-login" class="has-shortcode">
+                                <div class="thim-login-container">
+                                    <script type="text/javascript">
+                                        function moOpenIdLogin(app_name) {
+                                            window.location.href = 'http://educationwp.thimpress.com/?option=getmosociallogin&app_name=' + app_name;
+                                        }
+                                    </script>
+                                    <a href='http://miniorange.com/cloud-identity-broker-service' style='display:none;'></a>
+                                    <a href='http://miniorange.com/strong_auth' style='display:none;'></a>
+                                    <a href='http://miniorange.com/single-sign-on-sso' style='display:none;'></a>
+                                    <a href='http://miniorange.com/fraud' style='display:none;'></a>
+                                    <div class='mo-openid-app-icons'>
+                                        <p style='color:#000000'> Login with social networks</p>
+                                        <a href="/Users/Facebook" class='SocialNetwork btn btn-block btn-social btn-facebook btn-custom-dec login-button'> <i style='padding-top:5px !important' class='fa fa-facebook'></i> Facebook</a>
+                                        <a class='SocialNetwork btn btn-block btn-social btn-google btn-custom-dec login-button' onclick="OpenGoogleLoginPopup();"> <i style='padding-top:5px !important' class='fa fa-google-plus'></i> Google</a>
+                                        <a href="/Users/Twitter" class='SocialNetwork btn btn-block btn-social btn-twitter btn-custom-dec login-button'> <i style='padding-top:5px !important' class='fa fa-twitter'></i> Twitter</a>
+                                        <a href="/Users/LinkedIn" class='SocialNetwork btn btn-block btn-social btn-linkedin btn-custom-dec login-button'> <i style='padding-top:5px !important' class='fa fa-linkedin'></i> LinkedIn</a>
+                                    </div>
+                                    <br>
+                                    <div class="thim-login">
+                                        <h2 class="title">Login with your site account</h2>
+                                        @*<form name="loginform" id="loginform" action="http://educationwp.thimpress.com/wp-login.php?wpe-login=thim" method="post">*@
+                                        @using (Html.BeginForm("", "", FormMethod.Post, new { @id = "loginform", @name = "loginform" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+
+                                            <p class="login-username">
+                                                <input type="text" name="user_login" placeholder="Username or email" id="thim_login" class="input" value="" size="20" onchange = "OnEmailBlur()" />
+                                                @*@Html.TextBox("Email", new { @placeholder = "myusername or mymail@mail.com", @class = "input", @size = "20", @id = "thim_login", @name = "username", @onchange = "OnEmailBlur()" })*@
+                                            </p>
+
+                                            <div style="color:red">
+                                                @*@Html.ValidationMessageFor(model => model.LoginModel.Email)*@
+                                            </div>
+                                            @*<div style="display:none" id="loading">Email checking<img src="~/Images/loading.gif" style="width:30px;height:30px" /></div>*@
+
+
+                                            <p class="login-password">
+                                                <input type="password" name="user_password" placeholder="Password" id="thim_pass" class="input" value="" size="20" />
+                                                @*@Html.TextBoxFor(model => model.LoginModel.Password, new { @placeholder = "eg. X8df!90EO", @type = "password", @id = "thim_pass", @name = "password" })*@
+                                            </p>
+
+                                            <div style="color:red">
+                                                @*@Html.ValidationMessageFor(model => model.LoginModel.Password)*@
+                                            </div>
+
+                                            <a class="lost-pass-link" href="~/Users/ForgetEmail" title="Lost Password">Lost your password?</a>
+                                            <p class="forgetmenot login-remember">
+                                                <label for="rememberme">
+                                                    @Html.CheckBox("LoggedIn", new { @id = "rememberme", @value = "forever" }) Remember Me
+                                                </label>
+                                            </p>
+                                            <p class="submit login-submit">
+                                                <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="Login" onclick="return SubmitValidateEmail()" />
+                                                <input type="hidden" name="redirect_to" value="index.html" />
+                                                <input type="hidden" name="testcookie" value="1" />
+                                            </p>
+
+                                            <div style="color:red; font-size:12px; display:none" id="EmailErrorMessage"></div>
+                                        }
+                                        <p class="link-bottom">Not a member yet? <a class="register" href="account/index0ddc.html?action=register">Register now</a></p>
+                                    </div> <span class="close-popup"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function OpenGoogleLoginPopup() {
+
+
+        var url = "https://accounts.google.com/o/oauth2/auth?";
+        url += "scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&";
+        url += "state=%2Fprofile&"
+        url += "redirect_uri=@IWill_MvcApplication.Models.Helper.Return_url" + "&"
+        url += "response_type=token&"
+        url += "client_id=@IWill_MvcApplication.Models.Helper.Client_ID";
+        //alert(url);
+        window.location = url;
+    }
+
+
+
+    function SubmitValidateEmail() {
+        //var Display = $("#EmailErrorMessage").css("display");
+        //if (Display == "inline" || Display == "block") {
+        //    $("#thim_login").focus();
+        //    return false;
+        //}
+        //$("#btnsubmit").attr("disabled", false);
+        var elem = $('#thim-popup-login .thim-login-container');
+        ShowLoading(elem);
+        if (OnEmailBlur() == false) {
+            HideLoading(elem);
+            return false;
+        }
+
+        var form = $('#thim-popup-login form[name="loginform"]');
+        var gEmail = elem.find('#thim_login').val();
+        var gPassword = elem.find('#thim_pass').val();
+        var gLoggedIn = elem.find('#rememberme').prop('checked');
+
+
+
+        var data = {
+            Email: gEmail,
+            Password: gPassword,
+            LoggedIn: gLoggedIn
+        };
+        $.post("/Users/DoLogIn", data, function (data) {
+            // var response = JSON.parse(data);
+            if (data.indexOf('Index') >= 0) {
+                window.location.href = "/Users/NewUserProfile"
+                // location.reload();
+            }
+            else if (data.indexOf('Error') >= 0) {
+                $("#EmailErrorMessage").show();
+                $("#EmailErrorMessage").html(data);
+                HideLoading(elem);
+            }
+            else {
+                HideLoading(elem);
+                alert("Error: Problem " + data);
+            }
+
+        }).fail(function (o) { HideLoading(elem); alert(o); });
+
+
+        return false;
+
+
+    }
+    function OnEmailBlur() {
+
+
+        //$("#loading").show();
+        var elem = $('#thim-popup-login .thim-login-container');
+
+
+        $("#EmailErrorMessage").hide();
+        $("#thim_login").css("background", "");
+        $("#thim_login").css("color", "");
+
+        var id = $('#thim_login').val().trim();
+
+
+        if (id.length == 0) {
+            $("#EmailErrorMessage").show();
+            $("#EmailErrorMessage").html('Email address Required');
+
+            $("#loading").hide();
+
+            return false;
+        }
+        var pattern = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,6})?$/;
+        if (pattern.test(id) == true) {
+            var obj = {
+                id: $('#thim_login').val().trim()
+            }
+
+            $.ajax({
+                url: "/Users/IsEmailRegistered",
+                type: 'GET',
+                data: { id: id },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data == 'no') {
+
+                        $("#thim_login").css("background", "#c46d96");
+                        $("#thim_login").css("color", "white");
+                        $("#EmailErrorMessage").html('Invalid Email, it is not registered');
+                        $("#EmailErrorMessage").show();
+                        return false;
+                    }
+
+                },
+                error: function (ex) {
+                    alert(ex.responseText);
+                    return false;
+                }
+
+            });
+        }
+        else {
+            $("#EmailErrorMessage").html('invalid Email address');
+            $("#EmailErrorMessage").show();
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+

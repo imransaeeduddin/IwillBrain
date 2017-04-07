@@ -1,0 +1,1018 @@
+﻿@using IWill_MvcApplication.Models;
+@model IWill_MvcApplication.Models.ModelUserRegister
+
+@{
+    ViewBag.Title = "UserProfile";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+        Layout = "~/Views/Shared/_MyIWillLayout.cshtml";
+}
+
+@*<script src="~/js/jquery.min.js"></script>
+<script src="~/js/TweenMax.min.js"></script>
+<script src="~/js/Draggable.min.js"></script>*@
+
+@*<script>
+    $('#scJquParent').remove();
+    $('#scJquParent').removeAttr("src");
+    $('#scJquParent').empty();
+    
+</script>*@
+
+
+
+
+
+<style>
+    .labelHeading {
+        margin-right: 20px;
+        width: 135px;
+    }
+
+    #UserProfile #RightPanel {
+        width: 49%;
+        float: left;
+    }
+
+        #UserProfile #RightPanel #AboutMe {
+        }
+
+    #UserProfile #LeftPanel {
+        width: 49%;
+        float: left;
+    }
+
+    /*.ProfileUpdated {
+            background-color: #abf7c1;
+            position: absolute;
+            top: 50px;
+            color: green;
+            font-size: 20px;
+            width: 100%;
+        }*/
+</style>
+
+<div>
+
+    <h2>User Profile</h2>
+</div>
+<div>
+    
+
+    @{
+        Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+    }
+
+    @*@{ if (Helper.User.IsFirstLoggedIn == false)
+            {
+                return;
+            }
+        }*@
+
+    @Html.HiddenFor(i => i.BackFileName, new { @id = "hdnBackgroundFileName" })
+    @Html.HiddenFor(i => i.BackImgTop, new { @id = "hdnBackTop" })
+    @Html.HiddenFor(i => i.BackImgLeft, new { @id = "hdnBackLeft" })
+    @Html.Hidden("IsBackPicEdit", false, new { @id = "IsBackPicEdit" })
+
+    @Html.HiddenFor(i => i.fileName, new { @id = "hdnFrontFileName" })
+    @Html.Hidden("IsFrontPicEdit", false, new { @id = "IsFrontPicEdit" })
+
+
+    <div id="UserProfile">
+        <div id="dvBackgroundPic" style="width:1000px; height:300px; background-color:gray;position:relative; overflow:hidden;cursor:n-resize">
+            <div class="dvBack">
+
+                <div id="dvImageBackground">
+                    <img id="imgBackUpload" alt="Uploaded Thumbnail" src="~/Images/blankImage.png" style="position:absolute;max-width:none !important; top:0;left:0;" />
+                </div>
+
+                <div style="top:85%;left:70%;position:absolute;z-index:10000">
+                    <input type="file" class="form-control fileUpload " name='file' id="fuBackgroundImage" multiple />
+
+                </div>
+
+                <div id="BackImgDragPostionText" style="top:48%;left:41%;position:absolute;display:none;color:white !important; font-size:large; text-shadow: 2px 2px black">
+                    Drag to Reposition Cover
+                </div>
+
+
+                <div class="progress" style="height:10px; display:none;">
+                    <div id="ProgressBar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        @*0%*@
+                    </div>
+                </div>
+
+                <div id="dvEditIcon" style="color:wheat;position:absolute;top:90%;left:96%;display:none; background-color:white;width:25px;height:25px;z-index:10000">
+                    <a id="EditBackImageIcon" href="#">
+                        <img src="~/Images/editing-edit-icon.png" style="width:20px;height:20px;" />
+                    </a>
+                </div>
+            </div>
+
+            <div id="dvEditBackImageOptions" style="position:absolute;top:50%;left:35%; display:none; font-size:19px;z-index:10000">
+                <a id="ECancle" href="#" style="float:left;color:white!important;">
+                    Cancle
+                </a>
+                <a id="ERemove" href="#" style="float:left;margin-left:10px;color:white!important;" onclick="RevomebackgroundPic()">
+                    Remove
+                </a>
+                <a id="ERepositioning" href="#" style="float:left;margin-left:10px;color:white!important;">
+                    Repositioning
+                </a>
+            </div>
+
+            <div class="dvFront" style="position:absolute;top:125px; left:50px;z-index:9999;">
+
+
+                <div style="float: left;">
+                    <img id="imgUploadThumbnail" alt="Uploaded Thumbnail" src="~/Images/blankImage.png" style="width: 136px; height: 136px;border:1px solid black" />
+                </div>
+
+                <div>
+                    <input type="file" class="form-control fileUpload " name='file' id="fuFrontImage" multiple />
+
+
+                </div>
+
+                <div id="dvFrontPicUploadOptions" style="display:none;position:absolute;top:107px;left:10px">
+                    <div id="dvRemovepicTemp" style="float:left">
+                        <a href="#" id="RemovepicTemp" style="color:white !important" onclick="RemoveTempFrontPic()">Remove</a>
+                    </div>
+
+                    <div id="dvSaveFrontPic" style="float:left;margin-left:10px;">
+                        <a href="#" id="SaveFrontPic" style="color:white !important" onclick="SaveFrontPic()">Save</a>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+
+                <div id="dvEditFrontPicIcon" style="position:absolute; background-color:white; display:none; top:80%;left:80%">
+                    <a id="EditFrontImageIcon" href="#" onclick="EditFrontPic()">
+                        <img src="~/Images/editing-edit-icon.png" style="width:20px;height:20px;" />
+                    </a>
+                </div>
+
+                <div id="dvEditFrontPicOptions" style="display:none;position:absolute;top:107px;left:10px">
+                    <div id="dvEditCancel" style="float:left">
+                        <a href="#" id="EditCancel" style="color:white !important"> Cancle </a>
+                    </div>
+
+                    <div id="dvRemovepicPermanent" style="margin-left:10px; float:left">
+                        <a href="#" id="RemovepicPermanent" style="color:white !important" onclick="RemoveFrontPic()">Remove </a>
+                    </div>
+
+
+                    <div style="clear:both"> </div>
+                </div>
+            </div>
+
+            <div id="dvBackImgOptions" style="display:none; position:absolute;top:125px; left:50px;z-index:9999;">
+                <div id="dvBackgroundRemovepic" style="top:45%;left:35%;  font-size:22px;">
+                    <a style="color:black !important;" href="#" id="removeBackgroundpic" onclick="RevomebackgroundPic()"> Cancel </a>
+                </div>
+                <div id="dvSaveBackgroundPic" style="top:45%;left:48% ;  color:white !important; font-size:22px;  ">
+                    <a style="color:#000000 !important;" href="#" id="SaveBackgroundPic" onclick="SaveBackgroundPic()">Save</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        
+
+        <div id="dvEditBackImgDragOptions" style="display:none; font-size:19px">
+            <a style="color:black !important;" href="#" id="RemoveEditDraggedIcon">
+                Cancel
+            </a>
+            <a style="color:black !important;" href="#" id="SaveEditDraggedIcon">
+                Save
+
+            </a>
+        </div>
+
+
+
+        <div id="LeftPanel" style="margin-top:30px;">
+
+            <div id="Name">
+
+                @Html.Label("Name", htmlAttributes: new { @class = "control-label labelHeading " })
+
+                @Html.DisplayFor(model => model.FirstName)
+                @Html.DisplayFor(model => model.MiddleName)
+                @Html.DisplayFor(model => model.LastName)
+            </div>
+
+
+
+            <div id="Gender">
+
+                @Html.Label("Gender", htmlAttributes: new { @class = "control-label labelHeading " })
+                @Html.DisplayFor(model => model.Gender)
+            </div>
+
+
+            <div id="WebUrl">
+
+                @Html.Label("WebUrl", htmlAttributes: new { @class = "control-label labelHeading " })
+                @Html.DisplayFor(model => model.WebUrl)
+
+            </div>
+
+
+            <div id="FacebookUrl">
+
+                @Html.Label("FacebookUrl", htmlAttributes: new { @class = "control-label labelHeading " })
+
+                @Html.DisplayFor(model => model.FacebookUrl)
+
+            </div>
+
+            <div id="PlusGoogleUrl">
+                @Html.Label("PlusGoogleUrl", htmlAttributes: new { @class = "control-label labelHeading " })
+                @Html.DisplayFor(model => model.PlusGoogleUrl)
+            </div>
+
+
+            <div id="GitHubUrl">
+                @Html.Label("GitHubUrl", htmlAttributes: new { @class = "control-label labelHeading " })
+                @Html.DisplayFor(model => model.GitHubUrl)
+            </div>
+
+
+            <div id="LinkedInUrl">
+                @Html.Label("LinkedInUrl", htmlAttributes: new { @class = "control-label labelHeading " })
+                @Html.DisplayFor(model => model.LinkedInUrl)
+
+            </div>
+
+
+            <div id="EmailAddress">
+                @Html.Label("EmailAddress", htmlAttributes: new { @class = "control-label labelHeading " })
+
+                @Html.DisplayFor(model => model.EmailAddress)
+            </div>
+
+            <div id="ContactNumber">
+                @Html.Label("PlusGoogleUrl", htmlAttributes: new { @class = "control-label labelHeading " })
+                @Html.DisplayFor(model => model.ContactNumber)
+            </div>
+
+
+            <div id="EmergenyNumber">
+
+                @Html.Label("EmergenyNumber", htmlAttributes: new { @class = "control-label labelHeading " })
+                @Html.DisplayFor(model => model.EmergenyNumber)
+            </div>
+            <div id="Nationality">
+
+                @Html.Label("Nationality", htmlAttributes: new { @class = "control-label labelHeading " })
+
+                @Html.DisplayFor(model => model.Nationality)
+            </div>
+            <div id="Religion">
+
+                @Html.Label("Religion", htmlAttributes: new { @class = "control-label labelHeading " })
+
+                @Html.DisplayFor(model => model.Religion)
+            </div>
+            <div id="CountryName">
+
+                @Html.Label("CountryName", htmlAttributes: new { @class = "control-label labelHeading " })
+                @Html.DisplayFor(model => model.CountryName)
+            </div>
+
+            <div id="CityName">
+
+                @Html.Label("CityName", htmlAttributes: new { @class = "control-label labelHeading " })
+
+                @Html.DisplayFor(model => model.CityName)
+
+            </div>
+
+            <div id="MotherLanguage">
+
+                @Html.Label("MotherLanguage", htmlAttributes: new { @class = "control-label labelHeading " })
+                @Html.DisplayFor(model => model.MotherLanguage)
+
+            </div>
+
+            <div id="DateOfBirth">
+                @Html.Label("DateOfBirth", htmlAttributes: new { @class = "control-label labelHeading " })
+                @Html.DisplayFor(model => model.DateOfBirth)
+
+            </div>
+            <div id="AboutMe" style="margin-bottom:30px;">
+
+                <div style="float:left;width:29%">
+                    @Html.Label("AboutMe", htmlAttributes: new { @class = "control-label " })
+                </div>
+                <div style="float:left; width:70%">
+
+                    @Html.DisplayFor(model => model.AboutMe)
+                </div>
+                <div style="clear:left"></div>
+            </div>
+
+
+
+        </div>
+        <div id="Middle">
+        </div>
+
+    </div>
+    <div style="clear:both"></div>
+
+
+
+</div>
+
+
+
+
+<p>
+    @Html.ActionLink("Edit Profile", "EditProfile", "Users") |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script>
+    //$('#scJquParent').removeAttr();
+   
+
+    var elemBack = $('#dvBackgroundPic .dvBack');
+    var elemFront = $('#dvBackgroundPic .dvFront');
+
+    //function ShowLoading(obj) {
+    //    obj.addClass('loading');
+    //    obj.append('<div class="cssload-container"><div class="cssload-loading"><i></i><i></i><i></i><i></i></div></div>');
+    //}
+    //function HideLoading(obj) {
+    //    obj.removeClass('loading');
+    //    obj.find('.cssload-container').remove();
+    //}
+
+    $().ready(function () {
+
+
+        var BackTop = $("#hdnBackTop").val();
+        var BackLeft = $("#hdnBackLeft").val();
+
+        $('#dvImageBackground img').css({
+            transform: "translate3d(" + BackLeft + "px, " + BackTop + "px, 0px)"
+        });
+
+        var hdnFrontFileName = $("#hdnFrontFileName").val();
+        var hdnBackgroundFileName = $("#hdnBackgroundFileName").val();
+
+        //show User Front Pic
+        if (hdnBackgroundFileName == null || hdnBackgroundFileName == "" || hdnBackgroundFileName.length == 0)
+            $("#imgBackUpload").attr("src", "../Images/blankImage.png");
+        else {
+            $("#imgBackUpload").attr("src", "../Images/UserImages/" + hdnBackgroundFileName);
+            $("#fuBackgroundImage").hide();
+            $(".progress").hide();
+            $("#dvEditIcon").show();
+
+        }
+
+        //show User Front Pic
+        if (hdnFrontFileName == null || hdnFrontFileName == "" || hdnFrontFileName.length == 0)
+            $("#imgUploadThumbnail").attr("src", "../Images/blankImage.png");
+        else {
+            $("#imgUploadThumbnail").attr("src", "../Images/UserImages/" + hdnFrontFileName);
+            $("#dvEditFrontPicIcon").fadeIn();
+            $("#fuFrontImage").fadeOut();
+
+        }
+
+
+
+    });
+
+    function EnableBackgroundDraggable() {
+        Draggable.create("#dvImageBackground img", {
+            type: "x,y",
+            bounds: "#dvBackgroundPic"
+        });
+    }
+
+    function DiableBackgroundDraggable() {
+        Draggable.get("#dvImageBackground img").disable();
+    }
+
+    //*******************************************************************************************************************************************
+    //**************************************************Upload background Image Code*************************************************************
+    //*******************************************************************************************************************************************
+
+    $("#fuBackgroundImage").change(function () {
+
+        $("#imgBackUpload").css('opacity', '0.3');
+        ShowLoading(elemBack);
+
+        var fileName = $("#fuBackgroundImage").val();
+        var maxFileSize = 2 * 1024 * 1024;
+
+
+        if (fileName.length > 0) {
+            var ext = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert('invalid file type!');
+                HideLoading(elemBack);
+                return;
+            }
+
+            if ($("#fuBackgroundImage")[0].files[0].size > maxFileSize) {
+                alert('only 2 MB file could be uploaded');
+                HideLoading(elemBack);
+                return;
+            }
+            var fileUpload = document.getElementById("fuBackgroundImage");
+            var reader = new FileReader();
+            reader.readAsDataURL(fileUpload.files[0]);
+            var IsHeightandWidthExceeded = false;
+            reader.onload = function (e) {
+                //Initiate the JavaScript Image object.
+                var image = new Image();
+
+                //Set the Base64 string return from FileReader as source.
+                image.src = e.target.result;
+
+                //Validate the File Height and Width.
+                image.onload = function () {
+                    var height = this.height;
+                    var width = this.width;
+                    if (height < 300 || width < 1000) {
+                        alert("Height and Width must be atleast 1000px wide and 300px in height .");
+                        if ($("#IsBackPicEdit").val().toLowerCase() == 'false') {
+                            $("#imgBackUpload").css('opacity', '1');
+
+                        }
+                        //else {
+                        //    $("#dvEditIcon").fadeIn();
+                        //    $("#fuBackgroundImage").fadeOut();
+                        //}
+                        $("#dvEditIcon").fadeOut();
+                        $("#fuBackgroundImage").fadeIn();
+
+                        HideLoading(elemBack);
+                        $("#fuBackgroundImage").val('');
+                        return;
+                    }
+
+                    else {
+                        UploadBackgroundImage(elemBack);
+                    }
+                };
+
+            }
+
+
+        }
+
+    });
+
+    function UploadBackgroundImage(elemBack) {
+
+        var formData = new FormData();
+        var totalFiles = document.getElementById("fuBackgroundImage").files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("fuBackgroundImage").files[i];
+
+            formData.append("fuBackgroundImage", file);
+        }
+
+        $.ajax({
+
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener('progress', function (e) {
+                    if (e.lengthComputable) {
+                        console.log('bytes loaded: ' + e.loaded);
+                        console.log('total size : ' + e.total);
+                        console.log('percentage: ' + e.loaded / e.total);
+                        var percentage = Math.round((e.loaded / e.total) * 100);
+                        $("#ProgressBar").attr('aria-valuenow', percentage).css('width', percentage + '%').text(percentage + '%');
+                    }
+                });
+
+                return xhr;
+            },
+            url: "/Users/UserBackgroundFileUpload",
+            type: 'POST',
+            data: formData,
+            //dataType: 'json',
+            contentType: false,
+            processData: false,
+
+            success: function (data) {
+                var IsSaved = data.split('^')[0];
+                if (IsSaved == 'saved') {
+                    var FileName = data.split('^')[1];
+
+                    $("#imgBackUpload").attr("src", "../Images/Temp/" + FileName);
+
+                    HideLoading(elemBack);
+                    $("#fuBackgroundImage").fadeOut();
+
+                    //$("#dvSaveBackgroundPic").fadeIn();
+                    // $("#dvBackgroundRemovepic").fadeIn();
+                    $("#dvBackImgOptions").fadeIn();
+
+                    $("#BackImgDragPostionText").fadeIn();
+
+                    //$("#fuBackgroundImage").prop('disabled', true);
+                    $("#fuBackgroundImage").fadeOut();
+                    $("#hdnBackgroundFileName").val(FileName);
+
+                    if ($("#IsBackPicEdit").val().toLocaleLowerCase() == "true")
+                        $("#dvEditBackImageOptions").fadeOut();
+
+
+                    EnableBackgroundDraggable();
+
+
+                }
+                else {
+
+                    if (data.indexOf("notsaved") == 0) {
+                        alert("picture is not saved")
+                    }
+
+                    if (data.indexOf("exists") >= 0) {
+                        alert("this file already exists");
+                    }
+
+                    if (data.indexOf("limit exceeded") >= 0) {
+                        alert(data);
+                    }
+                    $("#fuBackgroundImage").val('');
+                    $("#imgBackUpload").css('opacity', '1');
+                    $(".progress").fadeOut();
+                    HideLoading(elemBack);
+                }
+
+            },
+            error: function (ex) {
+                HideLoading(elemBack);
+                alert(ex.responseText)
+            }
+
+        });
+    }
+
+    function RevomebackgroundPic() {
+
+        ShowLoading(elemBack);
+
+        var file = $("#hdnBackgroundFileName").val();
+        var IsBackPicEdit = $("#IsBackPicEdit").val();
+
+        $.ajax({
+            url: "/Users/RemoveBackgroundPic",
+            type: 'GET',
+            data: { FileName: file, IsBackPicEdit: IsBackPicEdit },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "deleted") {
+                    $("#dvBackImgOptions").fadeOut();
+
+                    //$("#dvBackgroundRemovepic").fadeOut();
+                    //$("#dvSaveBackgroundPic").fadeOut();
+                    $("#BackImgDragPostionText").fadeOut();
+
+                    if (IsBackPicEdit.toLocaleLowerCase() == "false") {
+                        DiableBackgroundDraggable();
+                    }
+
+                    $("#fuBackgroundImage").fadeIn();
+                    $("#imgBackUpload").css('opacity', '1');
+                    $("#imgBackUpload").attr("src", "../Images/blankImage.png")
+
+                    $("#fuBackgroundImage").val('')
+
+                    $("#ProgressBar").attr('aria-valuenow', 0).css('width', 0 + '%').text(0 + '%');
+                    $('#dvImageBackground img').css({
+                        transform: "translate3d(0px,0px, 0px)"
+                    });
+
+                    $("#dvEditBackImageOptions").fadeOut();
+
+                }
+                //$("#loadingBackgroundPic").fadeOut();
+                $("#IsBackPicEdit").val(false);
+                HideLoading(elemBack);
+            },
+            error: function (ex) { alert(ex.responseText); $("#loadingBackgroundPic").fadeOut(); }
+        });
+
+
+    }
+
+    function SaveBackgroundPic() {
+
+        ShowLoading(elemBack);
+
+        var file = $("#hdnBackgroundFileName").val();
+        var imageTrans = $('#imgBackUpload').css("-webkit-transform");
+        var results = imageTrans.match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}.+))(?:, (-{0,1}.+))\))/);
+
+        var BCimgTOP = results[6];
+        var BCimgLeft = results[5];
+        var IsEditPic = $("#IsBackPicEdit").val();
+        //if (IsEditPic == null)
+        //alert("BCimgTOP =" + BCimgTOP + "     BCimgLeft = " + BCimgLeft );
+
+        $.ajax({
+            url: "/Users/SaveBackgroundPic",
+            type: 'GET',
+            data: { FileName: file, BCimgTOP: BCimgTOP, BCimgLeft, BCimgLeft, IsBackPicEdit: IsEditPic },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "saved") {
+                    $("#dvBackImgOptions").fadeOut();
+
+                    $("#fuBackgroundImage").val('')
+                    $("#fuBackgroundImage").fadeOut();
+                    $("#BackImgDragPostionText").fadeOut();
+
+
+                    $("#imgBackUpload").css('opacity', '1');
+                    $("#imgBackUpload").attr("src", "../Images/UserImages/" + file)
+
+                    $("#dvEditIcon").fadeIn();
+
+                }
+                else
+                    if (r.indexOf("Error") >= 0) {
+                        alert(r);
+                    }
+                $("#IsBackPicEdit").val(false);
+                HideLoading(elemBack);
+            },
+            error: function (ex) { alert(ex.responseText); HideLoading(elemBack); }
+        });
+        DiableBackgroundDraggable();
+    }
+
+    $("#EditBackImageIcon").click(function () {
+        $("#imgBackUpload").css('opacity', '0.3');
+        $(this).parent().fadeOut();
+        $("#fuBackgroundImage").fadeIn();
+        $("#IsBackPicEdit").val(true);
+        $("#dvEditBackImageOptions").fadeIn();
+    });
+
+    $("#ECancle").click(function () {
+        $("#fuBackgroundImage").fadeOut();
+        $("#dvEditBackImageOptions").fadeOut();
+        $("#imgBackUpload").css('opacity', '1');
+        $("#dvEditIcon").fadeIn();
+
+    });
+
+    $("#ERepositioning").click(function () {
+        EnableBackgroundDraggable();
+
+
+        $("#fuBackgroundImage").fadeOut();
+        $("#dvEditBackImageOptions").fadeOut();
+        $("#BackImgDragPostionText").fadeIn();
+        $("#dvEditBackImgDragOptions").fadeIn();
+
+    });
+
+    $("#RemoveEditDraggedIcon").click(function () {
+        $("#dvEditBackImgDragOptions").fadeOut();
+        //$("#dvEditBackImageOptions").fadeOut();
+        $("#imgBackUpload").css('opacity', '1');
+        $("#dvEditIcon").fadeIn();
+        DiableBackgroundDraggable();
+        $("#BackImgDragPostionText").fadeOut();
+    });
+
+    $("#SaveEditDraggedIcon").click(function () {
+
+
+        ShowLoading(elemBack);
+
+        var file = $("#hdnBackgroundFileName").val();
+        var imageTrans = $('#imgBackUpload').css("-webkit-transform");
+        var results = imageTrans.match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}.+))(?:, (-{0,1}.+))\))/);
+
+        var BCimgTOP = results[6];
+        var BCimgLeft = results[5];
+
+        $.ajax({
+            url: "/Users/UpdateBackImagePostion",
+            type: 'GET',
+            data: { FileName: file, BCimgTOP: BCimgTOP, BCimgLeft: BCimgLeft },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "updated") {
+                    $("#dvEditBackImgDragOptions").fadeOut();
+                    $("#BackImgDragPostionText").fadeOut();
+                    $("#imgBackUpload").css('opacity', '1');
+                    $("#dvEditIcon").fadeIn();
+
+                    DiableBackgroundDraggable();
+
+                }
+                else {
+                    if (r.indexOf('Error')) {
+                        $("div.error").fadeIn();
+                        $("div.error").html(ex.responseText)
+                        setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                        $(".loader").fadeOut();
+                    }
+                }
+                $("#IsBackPicEdit").val(false);
+                HideLoading(elemBack);
+            },
+            error: function (ex) {
+                alert(ex.responseText);
+                $("#loadingBackgroundPic").fadeOut();
+            }
+        });
+    });
+
+
+    //********************************************************************ENDED***********************************************************************
+
+
+    //*******************************************************************************************************************************************
+    //**************************************************Upload Front Image Code*************************************************************
+    //*******************************************************************************************************************************************
+
+
+
+
+    $("#fuFrontImage").change(function () {
+
+        var fileName = $("#fuFrontImage").val();
+        var maxFileSize = 2 * 1024 * 1024;
+        ShowLoading(elemFront);
+        if (fileName.length > 0) {
+            var ext = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert('invalid file type!');
+                return;
+            }
+            if ($("#fuFrontImage")[0].files[0].size > maxFileSize) {
+                alert('only 2 MB file could be uploaded');
+                return;
+            }
+
+            var fileUpload = document.getElementById("fuFrontImage");
+            var reader = new FileReader();
+            reader.readAsDataURL(fileUpload.files[0]);
+            var IsHeightandWidthExceeded = false;
+            reader.onload = function (e) {
+                //Initiate the JavaScript Image object.
+                var image = new Image();
+
+                //Set the Base64 string return from FileReader as source.
+                image.src = e.target.result;
+
+                //Validate the File Height and Width.
+                image.onload = function () {
+                    var height = this.height;
+                    var width = this.width;
+                    if (height < 150 || width < 150) {
+                        alert("Front Image Height and Width must be atleast 150 px wide and 150px in height .");
+
+                       // if ($("#IsFrontPicEdit").val().toLowerCase() == 'false') {
+                            $("#imgUploadThumbnail").css('opacity', '1');
+
+                      //  }
+
+                        $("#dvEditFrontPicOptions").fadeOut();
+                        $("#fuFrontImage").fadeIn();
+
+                        HideLoading(elemFront);
+                        $("#fuFrontImage").val('');
+                        return;
+                    }
+                    if (height >  400 || width > 400) {
+                        alert("Front Image Height and Width not more than 300px wide and 300px in height .");
+
+                        // if ($("#IsFrontPicEdit").val().toLowerCase() == 'false') {
+                        $("#imgUploadThumbnail").css('opacity', '1');
+
+                        //  }
+
+                        $("#dvEditFrontPicOptions").fadeOut();
+                        $("#fuFrontImage").fadeIn();
+
+                        HideLoading(elemFront);
+                        $("#fuFrontImage").val('');
+                        return;
+                    }
+
+                    else {
+
+                        var formData = new FormData();
+                        var totalFiles = document.getElementById("fuFrontImage").files.length;
+                        for (var i = 0; i < totalFiles; i++) {
+                            var file = document.getElementById("fuFrontImage").files[i];
+
+                            formData.append("fuFrontImage", file);
+                        }
+
+                        $.ajax({
+                            url: "/Users/FrontPicUpload",
+                            type: 'POST',
+                            data: formData,
+                            dataType: 'json',
+                            contentType: false,
+                            processData: false,
+
+                            success: function (data) {
+                                var IsSaved = data.split('^')[0];
+
+                                if (IsSaved == 'saved') {
+                                    var FileName = data.split('^')[1];
+
+                                    $("#imgUploadThumbnail").attr("src", "../Images/Temp/" + FileName);
+                                    $("#dvFrontPicUploadOptions").fadeIn();
+
+                                    $("#fuFrontImage").fadeOut();
+                                    $("#hdnFrontFileName").val(FileName);
+                                    if ($("#IsFrontPicEdit").val().toLocaleLowerCase() == "true")
+                                        $("#dvEditFrontPicOptions").hide();
+                                    $("#imgUploadThumbnail").css('opacity', '0.6');
+                                    HideLoading(elemFront);
+                                }
+                                else {
+                                    if (data.indexOf("notsaved") == 0) {
+                                        $("#dvRemovepicTemp").fadeIn();
+
+                                        $("#fuFrontImage").fadeOut();
+                                        alert("picture is not saved")
+                                    }
+
+                                    if (data.indexOf("exists") >= 0) {
+                                        alert("this file already exists");
+                                    }
+
+                                    HideLoading(elemFront);
+
+                                }
+
+                            },
+                            error: function (ex) {
+
+                                alert(ex.responseText)
+                                HideLoading(elemFront);
+                            }
+
+                        });
+                    }
+                };
+
+
+
+
+
+            }
+        }
+        //submit the form here
+    });
+
+    function RemoveTempFrontPic() {
+
+        ShowLoading(elemFront);
+        var FileName = $("#hdnFrontFileName").val();
+        $.ajax({
+            url: "/Users/RemoveTempFrontPic",
+            type: 'GET',
+            data: { FileName: FileName },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "deleted") {
+                    $("#dvFrontPicUploadOptions").fadeOut();
+                    $("#fuFrontImage").fadeIn();
+                    $("#imgUploadThumbnail").attr("src", "../Images/blankImage.png")
+                    $("#fuFrontImage").val('');
+
+                }
+                HideLoading(elemFront);
+            },
+            error: function (ex) {
+                HideLoading(elemFront);
+                alert(ex.responseText)
+            }
+        });
+
+
+    }
+
+    function SaveFrontPic() {
+
+        ShowLoading(elemFront);
+        $("#imgUploadThumbnail").css('opacity', '0.5');
+        var file = $("#hdnFrontFileName").val();
+        //var imageTrans = $('#imgBackUpload').css("-webkit-transform");
+        //var results = imageTrans.match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}.+))(?:, (-{0,1}.+))\))/);
+
+        //var BCimgTOP = results[6];
+        //var BCimgLeft = results[5];
+        //var IsEditPic = $("#IsBackPicEdit").val();
+        //alert("BCimgTOP =" + BCimgTOP + "     BCimgLeft = " + BCimgLeft );
+
+        $.ajax({
+            url: "/Users/SaveFrontPic",
+            type: 'GET',
+            //data: { FileName: file, BCimgTOP: BCimgTOP, BCimgLeft, BCimgLeft, IsBackPicEdit: IsEditPic },
+            data: { FileName: file },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "saved") {
+                    $("#dvFrontPicUploadOptions").fadeOut();
+
+                    $("#imgUploadThumbnail").css('opacity', '1');
+                    $("#imgUploadThumbnail").attr("src", "../Images/UserImages/" + file)
+
+                    $("#dvEditFrontPicIcon").fadeIn();
+
+                }
+                $("#IsFrontPicEdit").val(false);
+                HideLoading(elemFront);
+            },
+            error: function (ex) { alert(ex.responseText); HideLoading(elemBack); }
+        });
+        //DiableBackgroundDraggable();
+
+
+    }
+
+
+
+    function RemoveFrontPic() {
+        $("#imgUploadThumbnail").css('opacity', '0.5');
+        ShowLoading(elemFront);
+
+        var FileName = $("#hdnFrontFileName").val();
+        var EmailAddress = $("#txtEmail").val();
+        
+
+
+        $.ajax({
+            url: "/Users/RemoveFrontPic",
+            type: 'GET',
+            data: { FileName: FileName, Email: EmailAddress },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "deleted") {
+                    $("#dvFrontPicUploadOptions").hide();
+                    $("#dvEditFrontPicIcon").hide();
+                    $("#fuFrontImage").show();
+                    $("#imgUploadThumbnail").attr("src", "../Images/blankImage.png")
+                    $("#imgUploadThumbnail").css('opacity', '1');
+                    $("#fuFrontImage").val('');
+                    $("#dvEditFrontPicOptions").hide();
+
+                }
+                HideLoading(elemFront);
+            },
+            error: function (ex) {
+                HideLoading(elemFront);
+                alert(ex.responseText)
+            }
+        });
+
+
+    }
+
+
+    $("#EditFrontImageIcon").click(function () {
+        $("#imgUploadThumbnail").css('opacity', '0.6');
+        $(this).parent().fadeOut();
+        $("#dvEditFrontPicOptions").show();
+        $("#fuFrontImage").val('');
+        $("#fuFrontImage").show();
+        $("#IsFrontPicEdit").val(true);
+
+    });
+
+    $("#EditCancel").click(function () {
+        $("#imgUploadThumbnail").css('opacity', '1');
+        $("#dvEditFrontPicIcon").show();
+        $("#dvEditFrontPicOptions").hide();
+        $("#fuFrontImage").hide();
+        $("#IsFrontPicEdit").val(false);
+    });
+
+
+
+    //https://www.youtube.com/watch?v=f-wXTpbNWoM
+    //https://css-tricks.com/examples/DragAndDropFileUploading/
+</script>
+
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

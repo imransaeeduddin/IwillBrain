@@ -1,0 +1,109 @@
+﻿@using IWill_MvcApplication.Models;
+@*@model   IEnumerable<spGetRegUserQuestion_Result>*@
+
+
+@{
+    ViewBag.Title = "ViewUsersGivenRegQuestions";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_MyIWillLayout.cshtml";
+}
+<style>
+    .highlight {
+        border: 1px solid green;
+        margin-left: 3px;
+    }
+    .marLef20{
+        margin-left:20px;
+    }
+</style>
+<h2>View Users Given Registration Questions</h2>
+
+@{
+    Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+}
+
+@if (Request["UserID"] == null)
+{
+    return;
+}
+@using (Html.BeginForm("AttempUserRegestrationQuestion", "UserRegQuestion", FormMethod.Post, new { @id = "frmAttempUserRegQues" }))
+{
+    try
+    {
+        Html.AntiForgeryToken();
+        @Html.Hidden("UserID", (object)ViewBag.UserID)
+
+        // int i = 0;
+        //foreach (var QuesItem in (List<UserQuestion>)Helper.GetRegQuestions(ViewBag.IsStudent))
+        foreach (var QuesItem in (IEnumerable<spGetRegUserQuestion_Result>)ViewBag.UserRegQues)
+        {
+
+            <div class="dvGivenUserRegQues">
+
+                <div class="QuestionDetail">
+                    @if (QuesItem.FkQTID == 2)
+                    {
+                        <div class="TextType">
+                            <div style="margin-top:20px;">  @QuesItem.Question </div>
+                            <div>
+                                @Html.TextBox("Answer", QuesItem.Answer)
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="margin-top:20px;"> @Html.DisplayFor(i => QuesItem.Question)</div>
+                        foreach (var QuesItemOption in Helper.GetQuestionsOPtions(QuesItem.FkUQID))
+                        {
+                            <div style="float:left">@QuesItemOption.OptionName</div>
+                            <div style="float:left">
+                                @if (QuesItemOption.IsOptionRight == true)//&& QuesItemOption.IsUserRight == true
+                                {
+                                    if (QuesItem.FkQTID == 1)
+                                    {
+                                        <div class="highlight marLef20">
+                                            @Html.RadioButton(QuesItemOption.FkUQDID.ToString(), "", QuesItemOption.IsUserRight == true ? true : false, new { @class = "check myradio highlight", onclick = "radioSelected(this)" })
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="highlight marLef20">
+                                            @Html.CheckBox(QuesItemOption.FkUQDID.ToString(), QuesItemOption.IsUserRight == true ? true : false, new { @class = "check myradio highlight", onclick = "radioSelected(this)" })
+                                        </div>
+                                    }
+
+                                }
+                                else /*if (QuesItemOption.IsOptionRight == true && QuesItemOption.IsUserRight == false)*/
+                                {
+
+                                    if (QuesItem.FkQTID == 1)
+                                    {
+                                        <div class="marLef20">@Html.RadioButton(QuesItemOption.FkUQDID.ToString(), "", QuesItemOption.IsUserRight == true ? true : false, new { @class = "check myradio", onclick = "radioSelected(this)" })</div>
+                                        
+                                    }
+                                    else
+                                    {
+                                        
+                                        <div class="marLef20">@Html.CheckBox(QuesItemOption.FkUQDID.ToString(), QuesItemOption.IsUserRight == true ? true : false, new { @class = "check myradio", onclick = "radioSelected(this)" })</div>
+                                    }
+
+                                }
+                            </div>
+                                        <div style="clear:both"></div>
+
+                        }
+                    }
+                </div>
+            </div>
+
+
+
+        }
+
+    }
+    catch (Exception ex)
+    {
+
+
+    }
+}

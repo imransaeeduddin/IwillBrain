@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7c17236015c0482b8530d41f3e2b7aa7" Name="Diagram1" ZoomLevel="61">
+        <EntityTypeShape EntityType="ImranIwillDbModel.City" Width="1.5" PointX="8" PointY="1.875" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.CoachTaughtBy" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.Country" Width="1.5" PointX="5.75" PointY="2" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.Course" Width="1.5" PointX="0.75" PointY="4.25" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.CourseCategory" Width="1.5" PointX="1.5" PointY="0.75" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.CourseCoach" Width="1.5" PointX="3" PointY="12.625" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.CourseDetail" Width="1.5" PointX="3" PointY="49.875" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.CourseLanguage" Width="1.5" PointX="6" PointY="5.75" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.CourseMaterialType" Width="1.5" PointX="3" PointY="54.25" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.CourseOutline" Width="1.5" PointX="5.25" PointY="49.25" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.EducationType" Width="1.5" PointX="0.75" PointY="26" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.Gender" Width="1.5" PointX="8.75" PointY="5.625" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.Language" Width="1.5" PointX="3.75" PointY="0.875" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.MartialStatu" Width="1.5" PointX="8.75" PointY="8.625" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.Question" Width="1.5" PointX="6" PointY="33.25" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.QuestionsDetail" Width="1.5" PointX="6" PointY="9.75" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.QuestionType" Width="1.5" PointX="3.75" PointY="33.625" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.Quiz" Width="1.5" PointX="3.75" PointY="28.375" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.Role" Width="1.5" PointX="3.75" PointY="8.625" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.sysdiagram" Width="1.5" PointX="10.75" PointY="1.625" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.TempPic" Width="1.5" PointX="10.75" PointY="4.625" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.User" Width="1.5" PointX="0.75" PointY="13.125" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.UserEducation" Width="1.5" PointX="3" PointY="16.75" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.UserEnrollCourse" Width="1.5" PointX="3" PointY="22.75" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.UserExperience" Width="1.5" PointX="3" PointY="44" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.UserGivenQuesAn" Width="1.5" PointX="6" PointY="22.125" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.UserQuestionDetail" Width="1.5" PointX="3.75" PointY="37.5" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.UserQuestion" Width="1.5" PointX="1.5" PointY="37.5" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.UserQuizAnswer" Width="1.5" PointX="8.25" PointY="17.625" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.UserQuizAttemp" Width="1.5" PointX="6" PointY="17.25" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.UserRole" Width="1.5" PointX="6" PointY="13.75" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_City_Country" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_CourseTaughtBy_Course" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_Course_CourseCategory" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_CourseCoaches_Course" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_CourseDetail_Course" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_CourseLanguage_Course" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_Quiz_Course" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserEnrollCourse_Course" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_CourseCoaches_User" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_CourseOutline_CourseDetail" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_CourseLanguage_Language" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_CourseOutline_CourseMaterialType" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserEducation_EducationType" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_Questions_QuestionType" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_Questions_Quiz" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_QuestionsDetail_Questions" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserQuizAnswer_Questions" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserQuizAnswer_QuestionsDetail" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserQuestions_QuestionType" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserQuizAttemp_Quiz" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserRole_Role" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserEducation_User" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserEnrollCourse_User" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserExperience_User" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserGivenQuesAns_User" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserQuizAttemp_User" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserRole_User" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserGivenQuesAns_UserQuestionDetail" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserGivenQuesAns_UserQuestions" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserQuestionDetail_UserQuestions" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserQuizAnswer_UserQuizAttemp" />
+        <EntityTypeShape EntityType="ImranIwillDbModel.UserFollower" Width="1.5" PointX="3" PointY="58.125" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserFollowers_User" />
+        <AssociationConnector Association="ImranIwillDbModel.FK_UserFollowers_User1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

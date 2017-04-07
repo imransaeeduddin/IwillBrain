@@ -1,0 +1,732 @@
+﻿@model IWill_MvcApplication.Models.ModelUserRegister
+@{
+    ViewBag.Title = "nav_register";
+    //Layout = "~/Views/Shared/_MyIWillLayout.cshtml";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>I Will &reg;</title>
+
+    <link rel='stylesheet' id='tf-google-webfont-roboto-css' href='http://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,400,italic,500,500italic,700,700italic,900,900italic&amp;subset=greek-ext,greek,cyrillic-ext,latin-ext,latin,vietnamese,cyrillic' type='text/css' media='all' />
+    <link rel='stylesheet' id='tf-google-webfont-roboto-slab-css' href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700&amp;subset=greek-ext,greek,cyrillic-ext,latin-ext,latin,vietnamese,cyrillic' type='text/css' media='all' />
+
+    <link rel="stylesheet" href="~/css/autoptimize_1.css">
+    <link rel="stylesheet" href="~/css/autoptimize_3.css">
+    <link rel="stylesheet" href="~/css/autoptimize_4.css">
+    <link rel="stylesheet" href="~/css/superslides.css">
+
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/siteorigin-panels.css" media="all" id="siteorigin-panels-grids-wp_head">
+    
+    @*<script src="~/js/jquery-1.7.2.min.js"></script>*@
+    <script src="~/js/MyJs.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    
+    <script language="javascript" src="~/js/bootstrap.min.js"></script>
+    
+    <script language="javascript" src="~/js/autoptimize_12.js"></script>
+    <script language="javascript" src="~/js/jquery.superslides.min.js"></script>
+    <script language="javascript" src="~/js/jquery.animate-enhanced.min.js"></script>
+    <script language="javascript" src="~/js/jquery.easing.1.3.js"></script>
+    
+
+    <link rel="icon" href="~/images/favicon.png" sizes="32x32" />
+    <link rel="icon" href="~/images/favicon.png" sizes="192x192" />
+    <style>
+        .SocialNetwork {
+            width: 240px !important;
+            padding-top: 11px !important;
+            padding-bottom: 11px !important;
+            margin-bottom: -1px !important;
+            border-radius: 4px !important;
+        }
+    </style>
+
+</head>
+<body class="home page-template page-template-page-templates page-template-homepage page-template-page-templateshomepage-php page page-id-12 thim-body-preload pmpro-body-has-access siteorigin-panels siteorigin-panels-home group-blog" id="thim-body">
+    <div id="preload">
+        <div class="cssload-loader-style-3">
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+        </div>
+    </div>
+    <div id="wrapper-container" class="wrapper-container">
+        @{
+            Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+            <div>
+                <img src="~/Images/register_bg.jpg" class="img-responsive" />
+            </div>
+            @Html.Hidden("hdnIsEmailValid", false, new { @id = "hdnIsEmailValid" })
+
+        }
+        <div class="content-pusher ">
+            <header id="masthead" class="site-header affix-top bg-custom-sticky sticky-header header_overlay header_v1">
+
+                @Html.Partial("pvTopToolBar")
+            </header>
+
+
+            @{
+                Html.RenderPartial("pvMobileMenu");
+            }
+
+
+
+
+            <div class="visible-xs" style="height:30px;">&nbsp;</div>
+            <div id="main-content" style="margin-top:50px;">
+                <div id="main-home-content" class="home-content home-page container" role="main" style="min-height:500px">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="learn-press">
+                                    <div class="course-tabs tabs-nav">
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs nav-justified" role="tablist">
+                                            <li role="presentation" class="active"><a id="tabBI" href="#" aria-controls="bi-tab" role="tab" data-toggle="tab">Basic Information</a></li>
+                                            <li role="presentation"><a href="#" id="tabPI" aria-controls="pi-tab" role="tab" data-toggle="tab">Personal Information</a></li>
+                                            <li role="presentation"><a href="#" id="tabRQ" aria-controls="rq-tab" role="tab" data-toggle="tab">Registration Questions</a></li>
+                                        </ul>
+                                        <!-- Tab panes -->
+                                        <div class="tab-content thim-login">
+
+                                            <div role="tabpanel" class="tab-pane active" id="bi-tab">
+                                                <form name="formBasicInfo" class="bi-tab" id="loginform" method="post">
+                                                    <div class="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2">
+                                                        <div class="col-lg-6 col-md-6">
+
+
+                                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "col-lg-12 col-md-12", placeholder = "First Name", @id = "txtFirstName" } })
+                                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+
+                                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "Last Name", @class = "col-lg-12 col-md-12", @id = "txtLastName" } })
+                                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 myemail">
+                                                            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @id = "txtEmail", @placeholder = "Email", @class = "col-lg-12 col-md-12", @onchange = "OnEmailBlurForRegistration(this)" } })
+                                                        </div>
+
+                                                        <div class="col-lg-6 col-md-6">
+                                                            @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @id = "txtContactNumber", @placeholder = "Phone Number", @class = "col-lg-12 col-md-12" } })
+                                                            @Html.ValidationMessageFor(model => model.ContactNumber, "", new { htmlAttributes = new { @class = "text-danger" } })
+                                                        </div>
+
+                                                        <div class="col-lg-6 col-md-6">
+                                                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @id = "Password", @placeholder = "Password", @class = "col-lg-12 col-md-12", @type = "password" } })
+                                                            @Html.ValidationMessageFor(model => model.Password, "", new { htmlAttributes = new { @class = "text-danger" } })
+
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            @*<input type="text" name="cpassword" placeholder="Confirm Password" class="col-lg-12 col-md-12">*@
+
+                                                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @id = "ConfirmPassword", @placeholder = "Confirm Password", @class = "col-lg-12 col-md-12", @type = "password" } })
+                                                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            Are you Coach
+                                                            @Html.CheckBoxFor(model => model.IsStudent, new { @id = "chIsStudent" })
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6" id="dvErrorMessageForBasicInfo" style="display:none">
+                                                            <span style="color:red; font-size:12px;" id="ErrorMessageForBasicInfo">  </span>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-3" id="dvbtnForBasicInfo">
+                                                            <button type="button" id="btnForBasicInfo" class="btn btn-iwill">NEXT</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <div class="clearfix"></div>
+                                            </div>
+
+                                            <div role="tabpanel" class="tab-pane" id="pi-tab">
+                                                <form name="formPersonalInfo" class="bi-tab" id="loginform" method="post">
+                                                    @*@using (Html.BeginForm("GetRegister", "Users", FormMethod.Post, new { @id = "loginform", @class = "bi-tab", enctype = "multipart/form-data" }))
+                                        {*@
+                                                    <div class="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2">
+                                                        <div class="col-lg-6 col-md-6">
+                                                            @*<input type="text" name="gender" placeholder="Gender" class="col-lg-12 col-md-12">*@
+                                                            @Html.DropDownListFor(model => model.GID, (IEnumerable<SelectListItem>)ViewBag.Gender, "Select Gender", new { @id = "ddlGender", @class = "col-lg-12 col-md-12" })
+
+                                                            @Html.ValidationMessageFor(model => model.GID, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            @*<input type="text" name="mother-tounge" placeholder="Mother Tounge" class="col-lg-12 col-md-12">*@
+                                                            @Html.EditorFor(model => model.MotherLanguage, new { htmlAttributes = new { @placeholder = "Mother Tounge", @class = "col-lg-12 col-md-12", @id = "txtMotherLanguage" } })
+                                                            @Html.ValidationMessageFor(model => model.MotherLanguage, "", new { @class = "text-danger" })
+
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            @*<input type="text" name="dob" placeholder="Date of Birth" class="col-lg-12 col-md-12">*@
+                                                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @placeholder = "Date of Birth", @class = "col-lg-12 col-md-12", @id = "txtDateOfBirth" } })
+                                                            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            @*<input type="text" name="religion" placeholder="Religion" class="col-lg-12 col-md-12">*@
+                                                            @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @placeholder = "Religion", @class = "col-lg-12 col-md-12", @id = "txtReligion" } })
+                                                            @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
+                                                        </div>
+
+                                                        <div class="col-lg-6 col-md-6">
+                                                            @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @placeholder = "Designation", @class = "col-lg-12 col-md-12", @id = "txtDesignation" } })
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+
+                                                            @Html.DropDownListFor(model => model.CTRYID, (IEnumerable<SelectListItem>)ViewBag.Country, "Select Country", new { @id = "ddlCountry", @class = "col-lg-12 col-md-12", })
+                                                            @Html.ValidationMessageFor(model => model.CTRYID, "", new { @class = "text-danger" })
+
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6" style="height:60px;">
+
+                                                            <select id="ddlCity" class="col-lg-12 col-md-12" disabled name="CTID">
+                                                                <option value="0">Select City</option>
+                                                            </select>
+                                                            @Html.ValidationMessageFor(model => model.CTID, "", new { @class = "text-danger" })
+                                                            <span id="ErrDdlCity" style="color:red; display:none"> Please Select City </span>
+
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6" id="dvErrorMessageForPersonalInfo" style="display:none">
+                                                            <span style="color:red; font-size:12px;" id="ErrorMessageForPersonalInfo">  </span>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-3">
+                                                            <button type="button" id="btnForPersonalInfo" class="btn btn-iwill">NEXT</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                @*}*@
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="rq-tab">
+                                                <form name='formRegQuestion' id='formRegQuestion' method='post'>
+                                                    <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 pad-bot">
+
+                                                        <div class="Question">
+                                                            <p>Q1. How many years of professional work experience do you  have? (answer will be an integer with dropdown 0 to 30)</p>
+                                                        </div>
+                                                        <div class="QuestionDetail col-lg-10 col-md-10">
+                                                            <textarea rows="4" class="iwill-textarea"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 pad-bot">
+                                                        <p>Q2. What is your primary motivation to work?</p>
+
+                                                        <div class="col-lg-4 col-md-4">
+                                                            <input type="radio" name="q2-a1"> Financial
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4">
+                                                            <input type="radio" name="q2-a1"> Social
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4">
+                                                            <input type="radio" name="q2-a1"> Professional/Personal Growth
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 pad-bot">
+                                                        <p>Q3. Where do you see yourself in 5 years?</p>
+                                                        <div class="col-lg-4 col-md-4">
+                                                            <input type="checkbox" name="q2-a1"> Working full time
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4">
+                                                            <input type="checkbox" name="q2-a1"> Working part time
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4">
+                                                            <input type="checkbox" name="q2-a1"> I don't know, I may not be working
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="clearfix"></div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer id="colophon" class="site-footer">
+                    @{
+                        Html.RenderPartial("pvFooter");
+                    }
+                </footer>
+            </div>
+
+        </div>
+        <a href="#" id="back-to-top"> <i class="fa fa-chevron-up"></i> </a>
+    </div>
+ 
+
+    <script data-cfasync="false" type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                var body = document.getElementById("thim-body"),
+                    thim_preload = document.getElementById("preload"),
+                    len = body.childNodes.length,
+                    class_name = body.className.replace(/(?:^|\s)thim-body-preload(?!\S)/, '').replace(/(?:^|\s)thim-body-load-overlay(?!\S)/, '');
+
+                body.className = class_name;
+                if (typeof thim_preload !== 'undefined' && thim_preload !== null) {
+                    for (var i = 0; i < len; i++) {
+                        if (body.childNodes[i].id !== 'undefined' && body.childNodes[i].id == "preload") {
+                            body.removeChild(body.childNodes[i]);
+                            break;
+                        }
+                    }
+                }
+            }, 500);
+        };
+    </script>
+
+
+
+
+
+   
+</body>
+
+</html>
+
+
+<script>
+        $('#main-home-content').removeClass("container");
+
+        function ShowLoading(obj) {
+            obj.addClass('loading');
+            obj.append('<div class="cssload-container"><div class="cssload-loading"><i></i><i></i><i></i><i></i></div></div>');
+        }
+        function HideLoading(obj) {
+            obj.removeClass('loading');
+            obj.find('.cssload-container').remove();
+        }
+
+
+        function OnEmailBlurForRegistration(obj) {
+
+            var elem = $('#formBasicInfo .myemail');
+            $("#txtEmail").css("opacity", "0.3")
+            ShowLoading(elem);
+
+
+            $("#ErrorMessageForReg").hide();
+            $("#txtEmail").css("background", "");
+            $("#txtEmail").css("color", "");
+
+            var id = $('#txtEmail').val().trim();
+
+
+            if (id.length == 0) {
+                $("#ErrorMessageForBasicInfo").show();
+                $("#ErrorMessageForBasicInfo").html('Email address Required');
+
+                $("#txtEmail").css("opacity", "0.1")
+                HideLoading(elem);
+
+                return false;
+            }
+            var pattern = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,6})?$/;
+            if (pattern.test(id) == true) {
+                var obj = {
+                    id: $('#txtEmail').val().trim()
+                }
+
+                $.ajax({
+                    url: "/Users/IsEmailRegistered",
+                    type: 'GET',
+                    data: { id: id },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == 'yes') {
+
+                            $("#txtEmail").css("border", "1px solid red");
+                            $("#txtEmail").css("color", "red");
+
+                            $("#dvErrorMessageForBasicInfo").show();
+                            $("#ErrorMessageForBasicInfo").html('Email address already registered');
+                            $("#txtEmail").css("opacity", "1")
+                            $("#txtEmail").focus();
+                            HideLoading(elem);
+                            return false;
+                        }
+                        $("#txtEmail").css("opacity", "1")
+                        $("#dvErrorMessageForBasicInfo").hide();
+                        $("#ErrorMessageForBasicInfo").html('');
+                        $("#txtEmail").css("border", "")
+
+                        //$('#hdnIsEmailValid').val(true);
+                        //$('#txtEmail').attr('readonly', true);
+                        HideLoading(elem);
+                        return true;
+                    },
+                    error: function (ex) {
+                        alert(ex.responseText);
+                        $("#txtEmail").css("opacity", "1")
+                        HideLoading(elem);
+                        return false;
+                    }
+
+                });
+            }
+            else {
+                $("#dvErrorMessageForBasicInfo").show();
+                $("#ErrorMessageForBasicInfo").html('invalid Email address');
+
+                $("#txtEmail").css("border", "1px solid red");
+                $("#txtEmail").focus();
+                $("#txtEmail").css("opacity", "1");
+                HideLoading(elem);
+                return false;
+            }
+
+
+
+        }
+
+        $("#btnForBasicInfo").click(function () {
+            var Isvalid = false;
+
+            if ($("#ErrorMessageForBasicInfo").html().indexOf("already registered") >= 0) {
+                $("#txtEmail").focus();
+                return false;
+            }
+
+            if (ValidateControl($('#txtFirstName')) == false)
+                return false;
+
+            if (ValidateControl($('#txtLastName')) == false)
+                return false;
+
+            if (ValidateControl($('#txtEmail')) == false)
+                return false;
+
+            if (ValidateControl($('#txtContactNumber')) == false)
+                return false;
+
+            var pattern = new RegExp("^[0-9]");
+            if (pattern.test($('#txtContactNumber').val()) == false) {
+                $("#dvErrorMessageForBasicInfo").show();
+                $("#ErrorMessageForBasicInfo").html('only digit is allowed');
+                $('#txtContactNumber').css("border", "1px solid red");
+                $('#txtContactNumber').focus();
+                return false;
+            }
+
+
+            if (ValidateControl($('#Password')) == false)
+                return false;
+
+            if (ValidateControl($('#ConfirmPassword')) == false)
+                return false;
+
+            if ($('#Password').val() != $('#ConfirmPassword').val()) {
+                $("#dvErrorMessageForBasicInfo").show();
+                $("#ErrorMessageForBasicInfo").html('Password does not match');
+                $('#Password').css("border", "1px solid red");
+                $('#ConfirmPassword').css("border", "1px solid red");
+                return false;
+            }
+
+            if (OnEmailBlurForRegistration() == false)
+                return false;
+
+            $('#tabPI').attr("href", "#pi-tab")
+            $('#tabPI').trigger("click")
+            $('#tabPI').attr("href", "#")
+        });
+
+        //PERSONAL INFO VALIDATION
+
+        $('#ddlCountry').change(function () {
+
+            $("#loadingCities").show();
+            Cid = $('#ddlCountry').val();
+            $("#ErrDdlCity").hide();
+            var data = { id: Cid };
+            $.getJSON('/Users/GetAllCities', data,
+                function success(data) {
+
+                    if (data.length > 0) {
+                        $("#ddlCity").attr("disabled", false);
+                        var i = 0;
+                        $(data).each(function (index, optionText) {
+                            $("#ddlCity").append($('<option />').attr('value', data[i].CTID).text(data[i].CName));
+                            i++;
+                        });
+
+
+                    }
+                    else {
+                        $('#ddlCity option').remove();
+                        $("#ddlCity").append($('<option />').attr('value', "0").text("Select City"));
+                        $("#ddlCity").attr("disabled", true);
+                    }
+
+                });
+            $("#loadingCities").hide();
+            //GetAllCities
+        });
+
+        $("#btnForPersonalInfo").click(function () {
+
+            var Isvalid = false;
+            if (ValidateControl($("#ddlGender")) == false)
+                return false;
+
+            if (ValidateControl($("#txtMotherLanguage")) == false)
+                return false;
+
+            if (ValidateControl($("#txtDateOfBirth")) == false)
+                return false;
+
+            if (ValidateControl($("#txtReligion")) == false)
+                return false;
+
+
+            if (ValidateControl($("#txtDesignation")) == false)
+                return false;
+
+            if (ValidateControl($("#ddlCountry")) == false)
+                return false;
+
+            if ($("#ddlCity > option").length > 2 && $('#ddlCity').val() == "0") {
+                $("#ddlCity").focus();
+                $("#ddlCity").css("border", "1px solid red");
+                return false;
+            }
+            else
+                $("#ddlCity").css("border", "");
+
+            //save Form data to Database
+
+
+            var elem = $('.learn-press .tab-content');
+            elem.css("opacity", "0.5");
+            ShowLoading(elem);
+            var IsStudnt = $("#chIsStudent").prop("checked");
+
+            $.ajax({
+                type: 'POST',
+                url: "/UserRegQuestion/ViewGetRegestrationQuestion",
+                data: { IsStudnt: IsStudnt },
+                // contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+                    //var objects = JSON.stringify(data);
+                    var dvUserQues = $("#rq-tab");
+                    var RegForm = $("<form name='formRegQuestion' id='formRegQuestion' method='post'></form>")
+
+                    var count = 1;
+                    dvUserQues.html('');
+                    $.each(data, function (i, v) {
+                        //alert(v.UQuestion);
+                        var UpperDiv = $("<div  class='col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 pad-bot'>" +
+
+                                        "</div>");
+
+                        var Question = $("<div class='Question'>" +
+                                            "<input type='hidden' name='LstQuestion[" + i + "].UQID'      value='" + v.UQID + "' />" +
+                                             "<input type='hidden' name='LstQuestion[" + i + "].FkUQType'  value='" + v.FkUQType + "') />" +
+                                             "<input type='hidden' name='LstQuestion[" + i + "].UQuestion' value='" + v.UQuestion + "'  />" +
+                                          "<div class='Question'>" +
+                                               "<p>" + "Q." + (count++) + " " + v.UQuestion + "</p>" +
+                                           "</div>" +
+                                        "</div>");
+                        UpperDiv.append(Question);
+
+                        var DetailUpperDv = $("<div class='QuestionDetail col-lg-10 col-md-10'> </div> ");
+                        var InnerDetldv;
+                        var QType = v.FkUQType;
+
+                        if (v.FkUQType == 2) {
+                            InnerDetldv = $("<input type='text'  style ='width: 100%' name='LstQuestion[" + i + "].Answer' class='iwill-textarea' />");
+                            DetailUpperDv.append(InnerDetldv);
+
+                        }
+                        else {
+
+                            if (v.FkUQType == 1) {
+
+                                $.each(v.UserQuestionDetail, function (j, v) {
+                                    InnerDetldv = $("<div class='col-lg-4 col-md-4'>" +
+                                                      "<input type='hidden' name='LstQuestion[" + i + "].UserQuestionDetail[" + j + "].UQDID'  value='" + v.UQDID + "' />" +
+
+                                                      "<input type='hidden' name='LstQuestion[" + i + "].UserQuestionDetail[" + j + "].QuesOptionName'  value='" + v.QuesOptionName + "' />" +
+
+                                                     "<input type='radio' name='" + v.FkQID + "' class='check' onclick ='radioSelected(this)' />" +
+                                                      "<input type='hidden' class = 'Right'  name='LstQuestion[" + i + "].UserQuestionDetail[" + j + "].IsRight') />" +
+                                                      v.QuesOptionName +
+                                                   "</div>");
+                                    DetailUpperDv.append(InnerDetldv);
+                                });
+                                //name='" + v.FkQID + "' class='check' onclick ='radioSelected(this)'
+                            }
+                            if (v.FkUQType == 3) {
+
+                                $.each(v.UserQuestionDetail, function (j, v) {
+                                    InnerDetldv = $("<div class='col-lg-4 col-md-4'>" +
+                                                      "<input type='hidden' name='LstQuestion[" + i + "].UserQuestionDetail[" + j + "].UQDID'  value='" + v.UQDID + "'/>" +
+
+                                                      "<input type='hidden' name='LstQuestion[" + i + "].UserQuestionDetail[" + j + "].QuesOptionName'  value='" + v.QuesOptionName + "' />" +
+
+                                                     "<input type='checkbox' name='q2-a1' class='check' onclick ='CheckBoxSelected(this)' />" +
+                                                      "<input type='hidden' name='LstQuestion[" + i + "].UserQuestionDetail[" + j + "].IsRight' />" +
+                                                      v.QuesOptionName +
+                                                   "</div>");
+                                    DetailUpperDv.append(InnerDetldv);
+                                });
+
+                            }
+
+
+                        }
+
+                        UpperDiv.append(DetailUpperDv);
+                        RegForm.append(UpperDiv);
+
+
+                    });
+                    RegForm.append($("<div class='col-lg-3 col-md-3'>" +
+                                           "<button type='button' id='btnForRegistration' onclick='javascript:return FinalRegistrarion()' class='btn btn-iwill'>SUBMIT</button>" +
+                                       "</div><div class='clearfix'></div>"));
+                    dvUserQues.append(RegForm);
+
+
+                    if (data.indexOf("Error") >= 0)
+                        ErrorMsgTimeOut(data);
+
+                    $('#tabRQ').attr("href", "#rq-tab")
+                    $('#tabRQ').trigger("click")
+
+                    HideLoading(elem);
+                    elem.css("opacity", "1");
+
+                },
+                error: function (e) {
+                    ErrorMsgTimeOut(e.error);
+                    HideLoading(elem);
+                    elem.css("opacity", "1");
+                }
+            });
+
+
+
+
+
+
+        });
+        // imran = function () { alert(); }
+        FinalRegistrarion = function () {
+            //alert();
+            //  var RegistraionForm = $('form[name="formBasicInfo"],form[name="formPersonalInfo"]').serialize();
+            // var RegistraionQues = $('form[name="formRegQuestion"]').serialize();
+
+           // $("#btnForRegistration").attr("disabled", true);
+            if (ValidateQues() == false)
+                return false;
+
+            var elem = $('.learn-press .tab-content');
+            elem.css("opacity", "0.5");
+            ShowLoading(elem);
+
+
+            $.ajax({
+                url: "/Users/GetRegister",
+                data: $('form[name="formBasicInfo"],form[name="formPersonalInfo"],form[name="formRegQuestion"').serialize(),
+                type: 'POST',
+                success: function (data) {
+
+                    if (data.indexOf("saved") >= 0) {
+
+                        //$(".success").css("top", "178px");
+                        //$(".success").css("height", "40px");
+                        //$(".success").css("left", "90px");
+                        //$(".success").css("width", "1140px");
+
+                        //SuccessMsgTimeOut("you have Successfully registered");
+
+                        window.location.href = "/Users/VSuccessfullyRegistered?Reg=Reg"
+                    }
+
+                    if (data.indexOf("Error") >= 0) {
+                        ErrorMsgTimeOut(data);
+
+                    }
+
+
+                    HideLoading(elem);
+                    elem.css("opacity", "1");
+
+                },
+                error: function (e) {
+                    ErrorMsgTimeOut(e.error);
+                    HideLoading(elem);
+                    elem.css("opacity", "1");
+                }
+            });
+        }
+
+        function radioSelected(obj) {
+
+            $(obj).parents(".QuestionDetail").find(':hidden .Right').val('false');
+            //obj.checked = true;
+            $(obj).next().val('true');
+        }
+
+        function CheckBoxSelected(obj) {
+
+            var isChecked = $(obj).prop('checked');
+            if (isChecked)
+                $(obj).next().val('true');
+            else $(obj).next().val('false');
+        }
+
+        function ValidateQues() {
+            var Isvalidate = true;
+            var count = 0;
+            var IsRadioSelected = 'false';
+
+            $("#formRegQuestion .QuestionDetail").each(function () {
+
+                if ($(this).find('.check').length > 0) {
+                    $(this).find('.check').each(function () {
+
+                        IsRadioSelected = $(this).prop('checked');
+                        if (IsRadioSelected.toString().toLowerCase() == "true") {
+                            count++;
+                        }
+                    });
+
+                    if (count <= 0) {
+                        changeRowColorAndFocus(this);
+                        Isvalidate = false;
+                        return false;
+                    }
+                    else count = 0;
+                }
+            });
+
+            if (Isvalidate) return Isvalidate;
+            return false;
+        }
+
+
+
+</script>

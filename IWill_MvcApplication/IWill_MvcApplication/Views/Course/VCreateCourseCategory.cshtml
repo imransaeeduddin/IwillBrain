@@ -1,0 +1,386 @@
+﻿@using IWill_MvcApplication.Models
+
+@{
+    ViewBag.Title = "VCreateCourseCategory";
+    Layout = "~/Views/Shared/_MyIWillLayout.cshtml";
+}
+
+<link href="~/css/Select2/select2.css" rel="stylesheet" />
+<link href="~/css/Select2/select2.min.css" rel="stylesheet" />
+
+<script src="~/js/Select2/select2.js"></script>
+<script src="~/js/Select2/select2.min.js"></script>
+
+<script src="~/js/tweenmax.min.js"></script>
+<script src="~/js/draggable.min.js"></script>
+
+<script src="~/js/typehead.js"></script>
+<script src="~/js/CreateCourseUploadBackImage.js"></script>
+
+@*<script src="~/js/bootstrap-select.js"></script>
+    <link href="~/css/bootstrap-select.css" rel="stylesheet" />*@
+
+@{
+    Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+}
+
+@Html.Hidden("hdnBackgroundFileName", null, new { @id = "hdnBackgroundFileName" })
+@Html.Hidden("hdnBackTop", null, new { @id = "hdnBackTop" })
+@Html.Hidden("hdnBackLeft", null, new { @id = "hdnBackLeft" })
+@Html.Hidden("IsBackPicEdit", false, new { @id = "IsBackPicEdit" })
+
+
+<div>
+    <img src="~/Images/6.jpg" style="width:100%; height:225px">
+</div>
+
+<div class="container">
+    <div class="row">
+        <div id="dvCreateCourseCategory" style="background-color: #5e4f4f;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 thim-margin-top-50">
+                <h1 class="create-course-head">Create Category</h1>
+                <input type="text" name="CategoryName" autocomplete="off" class="typeahead iwill-input col-lg-4" placeholder="Category Name"
+                       onblur="CategoryName_Changed()" onchange="CategoryName_Changed()"
+                       ondblclick="CategoryName_Changed()" onsubmit="CategoryName_Changed()"
+                       @*onmousedown="CategoryName_Changed()"*@
+                       style="width:250px" />
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <h2 class="create-course-subhead">Category Image</h2>
+                <div id="dvBackgroundPic" class="dp-bg">
+                    <div class="dvBack">
+
+                        <div id="dvImageBackground">
+                            <img id="imgBackUpload" alt="Uploaded Thumbnail" src="~/Images/blankImage.png" style="position:absolute;max-width:none !important; top:0;left:0;" />
+                        </div>
+
+                        <div id="dvfuBackgroundImage" style="top:2%;left:90%;position:absolute;z-index:10000">
+
+                            <a href="#/" class="image-upload">
+                                <label for="fuBackgroundImage"><i class="fa fa-upload" aria-hidden="true"></i> Upload Image</label>
+                                <input id="fuBackgroundImage" type="file" />
+                            </a>&nbsp;&nbsp;
+                        </div>
+
+                        <div id="BackImgDragPostionText" style="top:48%;left:41%;position:absolute;display:none;color:white !important; font-size:large; text-shadow: 2px 2px black">
+                            Drag to Reposition Cover
+                        </div>
+
+
+                        <div id="dvEditIcon" style="position:absolute;top:2%;left:90%;display:none; z-index:10000;">
+                            <a id="EditBackImageIcon" href="#/">
+                                <i class="fa fa-pencil" aria-hidden="true"></i> Edit Image
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="dvEditBackImageOptions" style="position:absolute;top:50%;left:35%; display:none; font-size:19px;z-index:10000">
+                        <a id="ECancle" href="#/" style="float:left;color:white!important;">
+                            Cancle
+                        </a>
+                        <a id="ERemove" href="#/" style="float:left;margin-left:10px;color:white!important;" onclick="RevomebackgroundPic()">
+                            Remove
+                        </a>
+                        <a id="ERepositioning" href="#/" style="float:left;margin-left:10px;color:white!important;">
+                            Repositioning
+                        </a>
+                    </div>
+
+                    <div id="dvBackImgOptions" style="display:none; position:absolute;top:70%; left:45%;z-index:9999;">
+
+                        <a style="color:white !important; font-size:large; text-shadow: 2px 2px black" href="#/" id="removeBackgroundpic" onclick="EditCanclePic()">
+                            Cancel
+                        </a>
+                        @*<a style="color:white !important; font-size:large; text-shadow: 2px 2px black" href="#" id="SaveBackgroundPic" onclick="SaveBackgroundPic()">
+                                Save
+
+                            </a>*@
+                    </div>
+
+                    <div id="dvEditBackImgDragOptions" style="display:none; position:absolute;top:70%; left:45%; z-index:9999;">
+                        <a style="color:white !important; font-size:large; text-shadow: 2px 2px black" href="#/" id="RemoveEditDraggedIcon">
+                            Cancel
+                        </a>
+                        <a style="color:white !important; font-size:large; text-shadow: 2px 2px black" href="#/" id="SaveEditDraggedIcon">
+                            Save
+
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <button id="btnCreateCourseCategory" class="btn btn-iwill-white">CREATE</button>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 thim-margin-bottom-40 thim-margin-top-40">
+                <div class="seprator"></div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h1 class="create-course-head">Create Course</h1>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pad-lt-0">
+                @*<input type="text" name="Category-name" class="" placeholder="Course Category">*@
+
+                <div class="btn-group bootstrap-select open dropup">
+                    @*@Html.DropDownList("CourseCategory", Helper.GetCourseCategories(), "Select Course", new { @class = "selectpicker", @data_live_search = "true" })*@
+
+                    <select class="js-example-data-array">
+                        <option value="one">First</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <input type="text" name="Category-name" class="iwill-input" placeholder="Course Name">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pad-rt-0">
+                @*<input type="text" name="Category-name" class="iwill-input" placeholder="Assign Coach">*@
+                <select class="js-example-basic-multiple" multiple="multiple"></select>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 thim-margin-top-30">
+            <button id="btnCreateCourse" class="btn btn-iwill-white">CREATE</button>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 thim-margin-bottom-40 thim-margin-top-40">
+            <div class="seprator"></div>
+
+
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h1 class="create-course-head">Assigned Courses</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="thim-course-top switch-layout-container searchbar-course">
+            <!-- <div class="thim-course-switch-layout switch-layout">
+                <a href="#" class="list switchToGrid switch-active"><i class="fa fa-th-large"></i></a>
+                <a href="#" class="grid switchToList"><i class="fa fa-list-ul"></i></a>
+            </div> -->
+            <div class="course-index" style="margin-left: 0px;">
+                <span>Showing 1-9 of 18 results</span>
+            </div>
+            <div class="courses-searching">
+                <form method="get">
+                    <input type="text" value="" name="s" placeholder="Search our courses" class="form-control course-search-filter" autocomplete="off">
+                    <input type="hidden" value="course" name="ref">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <span class="widget-search-close"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="thim-course-grid">
+                <div class="course-item">
+                    <div class="course-thumbnail">
+                        <a href="#">
+                            <img src="~/Images/course-4-450x450.jpg" title="course-4" width="450" height="450">
+                        </a>
+                        <a class="course-readmore" href="#">Read More</a>
+                    </div>
+                    <div class="thim-course-content">
+                        <div class="course-author">
+                            <img alt="Admin bar avatar" src="~/Images/9c081444f942cc8fe0ddf55631b584e2.jpg" class="avatar avatar-40 photo" height="40" width="40">
+                            <div class="author-contain">
+                                <label itemprop="jobTitle">Teacher</label>
+                                <div class="value" itemprop="name">
+                                    <a href="#"> Keny White </a>
+                                </div>
+                            </div>
+                        </div>
+                        <h2 class="course-title">
+                            <a href="#"> Introduction LearnPress – LMS plugin</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="thim-course-grid">
+                <div class="course-item">
+                    <div class="course-thumbnail">
+                        <a href="#">
+                            <img src="~/Images/course-4-450x450.jpg" title="course-4" width="450" height="450">
+                        </a>
+                        <a class="course-readmore" href="#">Read More</a>
+                    </div>
+                    <div class="thim-course-content">
+                        <div class="course-author">
+                            <img alt="Admin bar avatar" src="~/Images/9c081444f942cc8fe0ddf55631b584e2.jpg" class="avatar avatar-40 photo" height="40" width="40">
+                            <div class="author-contain">
+                                <label itemprop="jobTitle">Teacher</label>
+                                <div class="value" itemprop="name">
+                                    <a href="#"> Keny White </a>
+                                </div>
+                            </div>
+                        </div>
+                        <h2 class="course-title">
+                            <a href="#"> Introduction LearnPress – LMS plugin</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="thim-course-grid">
+                <div class="course-item">
+                    <div class="course-thumbnail">
+                        <a href="#">
+                            <img src="~/Images/course-4-450x450.jpg" title="course-4" width="450" height="450">
+                        </a>
+                        <a class="course-readmore" href="#">Read More</a>
+                    </div>
+                    <div class="thim-course-content">
+                        <div class="course-author">
+                            <img alt="Admin bar avatar" src="~/Images/9c081444f942cc8fe0ddf55631b584e2.jpg" class="avatar avatar-40 photo" height="40" width="40">
+                            <div class="author-contain">
+                                <label itemprop="jobTitle">Teacher</label>
+                                <div class="value" itemprop="name">
+                                    <a href="#"> Keny White </a>
+                                </div>
+                            </div>
+                        </div>
+                        <h2 class="course-title">
+                            <a href="#"> Introduction LearnPress – LMS plugin</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div><div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="thim-course-grid">
+                <div class="course-item">
+                    <div class="course-thumbnail">
+                        <a href="#">
+                            <img src="~/Images/course-4-450x450.jpg" title="course-4" width="450" height="450">
+                        </a>
+                        <a class="course-readmore" href="#">Read More</a>
+                    </div>
+                    <div class="thim-course-content">
+                        <div class="course-author">
+                            <img alt="Admin bar avatar" src="~/Images/9c081444f942cc8fe0ddf55631b584e2.jpg" class="avatar avatar-40 photo" height="40" width="40">
+                            <div class="author-contain">
+                                <label itemprop="jobTitle">Teacher</label>
+                                <div class="value" itemprop="name">
+                                    <a href="#"> Keny White </a>
+                                </div>
+                            </div>
+                        </div>
+                        <h2 class="course-title">
+                            <a href="#"> Introduction LearnPress – LMS plugin</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(".js-example-basic-multiple").select2();
+    $('#main-home-content').removeClass("container");
+    var elemBack = $('#dvBackgroundPic .dvBack');
+
+
+    var getcat;
+    $(document).ready(function () {
+
+        GetCourseCategories();
+        GetCategories();
+
+    });
+
+    GetCourseCategories = function () {
+        $.ajax({
+            url: "/Course/Select2GetCategories",
+            type: 'POST',
+            datatype: "json",
+            success: function (d) {
+                getcat = JSON.parse(JSON.stringify(d));
+                $(".js-example-data-array").select2({
+                    placeholder: 'Select a Category',
+                    data: getcat
+                });
+
+                $(".js-example-basic-multiple").select2({
+                    placeholder: 'Select a Coach',
+                    data: getcat
+                });
+
+            },
+            error: function (e) {
+                ErrorMsgTimeOut(e.error);
+            }
+        });
+    }
+    GetCategories = function () {
+
+        $.ajax({
+            url: "/Course/GetCategories",
+            type: 'POST',
+            datatype: "json",
+            success: function (data) {
+                var data = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.whitespace,
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    local: data
+                });
+
+                // Initializing the typeahead
+                $('.typeahead').typeahead({
+                    hint: true,
+                    highlight: true, /* Enable substring highlighting */
+                    minLength: 1 /* Specify minimum characters required for showing suggestions */
+                },
+                {
+                    name: 'data',
+                    source: data
+                });
+            },
+            error: function (e) {
+                ErrorMsgTimeOut(e.error);
+            }
+        });
+    }
+
+    
+
+    $("#btnCreateCourse").click(function () {
+
+        alert("this is Create Course");
+
+        var SelectedCourse = parseInt($(".js-example-basic-multiple option:selected").length);
+        if (SelectedCourse <= 0) {
+            alert("please assign course to coach");
+            return false;
+        }
+        var valueArray = [];
+
+        $(".js-example-basic-multiple option:selected").each(function () {
+            valueArray.push(this.value);
+        });
+
+        $.ajax({
+            url: "/Course/CreateAndAssignCourse",
+            type: "POST",
+            data: { values: valueArray },
+            cache: false,
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+            }
+        });
+
+    });
+   
+
+</script>
+
+

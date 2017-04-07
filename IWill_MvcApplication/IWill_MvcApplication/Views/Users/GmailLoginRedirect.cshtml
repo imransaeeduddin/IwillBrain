@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "GmailLoginRedirect";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GmailLoginRedirect</h2>
+
+<div>
+    <script type="text/javascript" language=javascript>
+            try {
+                //alert("come again");
+                // First, parse the query string
+                var params = {}, queryString = location.hash.substring(1),
+    regex = /([^&=]+)=([^&]*)/g, m;
+                while (m = regex.exec(queryString)) {
+                    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+                }
+                var ss = queryString.split("&")
+
+                window.location = "/Users/GmailCallBack?" + ss[1];
+                //alert(window.location);
+
+            } catch (exp) {
+                alert("Error Message :"+exp.message );
+            }
+    </script>
+</div>

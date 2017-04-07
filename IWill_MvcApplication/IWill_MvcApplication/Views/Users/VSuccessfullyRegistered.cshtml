@@ -1,0 +1,31 @@
+﻿@using IWill_MvcApplication.Models;
+@{
+    ViewBag.Title = "VSuccessfullyRegistered";
+    Layout = "~/Views/Shared/_MyIWillLayout.cshtml";
+}
+
+<h2>Successfully Registered</h2>
+
+@{
+    Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+}
+
+<div>
+    @{
+
+        if (ViewBag.Message == "registered")
+        {
+
+            <div>
+                Dear User, you have successfully registered, we have send an email to your account for verification.
+            </div>
+
+            <div>please go to your Account to verify yourself</div>
+
+            <div>
+                <a href="~/Home/Iindex"> Home page </a>
+            </div>
+        }
+    }
+</div>
+

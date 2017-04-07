@@ -1,0 +1,98 @@
+﻿@using Microsoft.AspNet.Identity
+@using IWill_MvcApplication.Models
+<style>
+    .dropbtn {
+        background-color: #101010;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+          z-index: 10000000000000;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        z-index: 10000000000000;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1000000000;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            width: 200px;
+              z-index: 10000000000000;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+                  z-index: 10000000000000;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+          z-index: 10000000000000;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #101010;
+          z-index: 10000000000000;
+    }
+</style>
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Users", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            @if (Helper.User.RoleName == "Admin")
+            {
+
+                <li>
+                    <div class="dropdown">
+                        <input type="button" class="dropbtn" value="Admin" />
+                        <div class="dropdown-content">
+                            <ul>
+                                <li> @Html.ActionLink("Create Questionairs", "ViewCreateQuesForUserRegistration", "UserRegQuestion") </li>
+                                <li> @Html.ActionLink("Questionairs List", "ViewUserQuestionsList", "UserRegQuestion") </li>
+                                <li> @Html.ActionLink("Assign Role to Users", "AssignUserRoles", "Users") </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </li>
+            }
+            @*<li style="color:white"> <a style="">@Helper.User.RoleName</a> </li>*@
+
+            <li>
+
+                <a href="#" style="color:white"> Hello  @User.Identity.GetUserName() !</a>
+
+            </li>
+            <li><a href="/Users/UserProfile">View Profile</a></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Users", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+
+    </ul>
+}

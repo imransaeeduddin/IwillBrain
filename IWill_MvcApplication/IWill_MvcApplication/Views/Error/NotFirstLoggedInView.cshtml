@@ -1,0 +1,78 @@
+﻿@using IWill_MvcApplication.Models;
+@{
+    ViewBag.Title = "UnAuthorizeUserView";
+    Layout = "~/Views/Shared/_MyIWillLayout.cshtml";
+}
+
+<h2>UnActivated User</h2>
+
+<style>
+    .UnActivetedUsererror {
+        background-color: #fbb3b3;
+        position: fixed;
+        top: 50px;
+        color: #ff0000;
+        font-size: 20px;
+        width: 80%;
+        height: auto;
+        z-index: 1000;
+    }
+</style>
+
+@{
+    Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+}
+
+
+<div class="UnActivetedUsererror ">
+
+
+    <div>
+        <div style="padding:5px;">
+            <div>
+                Dear @Helper.User.UName ,You are not activated to view this page
+            </div>
+            <div>
+                Go to Email for Verification
+            </div>
+        </div>
+
+        <a id="ResendActivationLink" style="font-size:14px;" href="#">Resend the Activation Email  </a>
+    </div>
+
+
+</div>
+
+<script>
+
+    $('#ResendActivationLink').click(function () {
+
+        var elem = $('#main-content .home-content .error')
+        ShowLoading(elem);
+        $.ajax({
+            url: "/Users/ResendActivationEmail",
+            type: 'Get',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.indexOf("Check your Email") >= 0) {
+                    $('.UnActivetedUsererror').hide();
+                    SuccessMsgTimeOut(data);
+                }
+
+                if (data.indexOf("Error:") >= 0) {
+                    ErrorMsgTimeOut(data);
+                }
+
+                HideLoading(elem);
+
+
+            },
+            error: function (e) {
+                ErrorMsgTimeOut(e.error);
+                HideLoading(elem);
+            }
+        });
+       
+    });
+</script>

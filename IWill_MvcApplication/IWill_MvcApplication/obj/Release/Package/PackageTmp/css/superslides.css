@@ -1,0 +1,306 @@
+#slides {
+  position: relative;
+}
+
+#slides .slides-container {
+  display: none;
+}
+
+#slides .scrollable {
+  *zoom: 1;
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+}
+
+#slides .scrollable:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.slides-navigation {
+  margin: 0 auto;
+  position: absolute;
+  z-index: 3;
+  top: 46%;
+  width: 100%;
+}
+
+.slides-navigation a {
+  position: absolute;
+  display: block;
+}
+
+.slides-navigation a.prev {
+  left: 0;
+}
+
+.slides-navigation a.next {
+  right: 0;
+}
+
+
+.slides-pagination {
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.slides-pagination a {
+  border: 2px solid #222;
+  border-radius: 15px;
+  width: 10px;
+  height: 10px;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=");
+  margin: 2px;
+  overflow: hidden;
+  text-indent: -100%;
+}
+
+.slides-pagination a.current {
+  background: #222;
+}
+
+
+.slides-navigation .control-navigation {
+    position: absolute;
+    left: 0;
+    top: 50px !important;
+    margin-top: -15px !important;
+    bottom: 0;
+    margin: auto;
+    width: 30px;
+    height: 30px;
+    /*border: 1px solid #ddd;*/
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%
+}
+.slides-navigation .control-navigation:before {
+    content: "\f104";
+    display: block;
+    font-size: 30px;
+    font-family: FontAwesome;
+    color: #ddd;
+    line-height: 28px
+}
+.slides-navigation .control-navigation.next {
+    left: auto;
+    right: 0
+}
+.slides-navigation .control-navigation.next:before {
+    content: "\f105"
+}
+
+<!--	Style 01 -->
+
+#pg-w57babc3f18d14-0,
+                                #pl-w57babc3f18d14 .panel-grid-cell .so-panel:last-child {
+                                    margin-bottom: 0px
+                                }
+                                
+                                #pg-w57babc3f18d14-0 .panel-grid-cell {
+                                    float: none
+                                }
+                                
+                                #pl-w57babc3f18d14 .panel-grid-cell .so-panel {
+                                    margin-bottom: 30px
+                                }
+                                
+                                #pg-w57babc3f18d14-0 {
+                                    margin-left: -15px;
+                                    margin-right: -15px
+                                }
+                                
+                                #pg-w57babc3f18d14-0 .panel-grid-cell {
+                                    padding-left: 15px;
+                                    padding-right: 15px
+                                }
+                                
+                                @media (max-width:767px) {
+                                    #pg-w57babc3f18d14-0 .panel-grid-cell {
+                                        float: none;
+                                        width: auto
+                                    }
+                                    #pl-w57babc3f18d14 .panel-grid,
+                                    #pl-w57babc3f18d14 .panel-grid-cell {}
+                                    #pl-w57babc3f18d14 .panel-grid .panel-grid-cell-empty {
+                                        display: none
+                                    }
+                                    #pl-w57babc3f18d14 .panel-grid .panel-grid-cell-mobile-last {
+                                        margin-bottom: 0px
+                                    }
+                                }
+
+<!-- Style 02 -->
+
+#pgc-w57e9cc2c86af4-0-0 {
+                                                width: 33.3%
+                                            }
+                                            
+                                            #pgc-w57e9cc2c86af4-0-1,
+                                            #pgc-w57e9cc2c86af4-0-2,
+                                            #pgc-w57e9cc2c86af4-0-3,
+                                            #pgc-w57e9cc2c86af4-0-4 {
+                                                width: 16.675%
+                                            }
+                                            
+                                            #pg-w57e9cc2c86af4-0 .panel-grid-cell {
+                                                float: left
+                                            }
+                                            
+                                            #pl-w57e9cc2c86af4 .panel-grid-cell .so-panel {
+                                                margin-bottom: 30px
+                                            }
+                                            
+                                            #pl-w57e9cc2c86af4 .panel-grid-cell .so-panel:last-child {
+                                                margin-bottom: 0px
+                                            }
+                                            
+                                            #pg-w57e9cc2c86af4-0 {
+                                                margin-left: -15px;
+                                                margin-right: -15px
+                                            }
+                                            
+                                            #pg-w57e9cc2c86af4-0 .panel-grid-cell {
+                                                padding-left: 15px;
+                                                padding-right: 15px
+                                            }
+                                            
+                                            @media (max-width:767px) {
+                                                #pg-w57e9cc2c86af4-0 .panel-grid-cell {
+                                                    float: none;
+                                                    width: auto
+                                                }
+                                                #pgc-w57e9cc2c86af4-0-0,
+                                                #pgc-w57e9cc2c86af4-0-1,
+                                                #pgc-w57e9cc2c86af4-0-2,
+                                                #pgc-w57e9cc2c86af4-0-3 {
+                                                    margin-bottom: 30px
+                                                }
+                                                #pl-w57e9cc2c86af4 .panel-grid,
+                                                #pl-w57e9cc2c86af4 .panel-grid-cell {}
+                                                #pl-w57e9cc2c86af4 .panel-grid .panel-grid-cell-empty {
+                                                    display: none
+                                                }
+                                                #pl-w57e9cc2c86af4 .panel-grid .panel-grid-cell-mobile-last {
+                                                    margin-bottom: 0px
+                                                }
+                                            }
+
+<!-- Style 03 -->
+
+#pgc-w56d3feac8c634-0-0,
+                                        #pgc-w56d3feac8c634-0-1 {
+                                            width: 31%
+                                        }
+                                        
+                                        #pgc-w56d3feac8c634-0-2 {
+                                            width: 38%
+                                        }
+                                        
+                                        #pg-w56d3feac8c634-0 .panel-grid-cell {
+                                            float: left
+                                        }
+                                        
+                                        #pl-w56d3feac8c634 .panel-grid-cell .so-panel {
+                                            margin-bottom: 30px
+                                        }
+                                        
+                                        #pl-w56d3feac8c634 .panel-grid-cell .so-panel:last-child {
+                                            margin-bottom: 0px
+                                        }
+                                        
+                                        #pg-w56d3feac8c634-0 {
+                                            margin-left: -15px;
+                                            margin-right: -15px
+                                        }
+                                        
+                                        #pg-w56d3feac8c634-0 .panel-grid-cell {
+                                            padding-left: 15px;
+                                            padding-right: 15px
+                                        }
+                                        
+                                        @media (max-width:767px) {
+                                            #pg-w56d3feac8c634-0 .panel-grid-cell {
+                                                float: none;
+                                                width: auto
+                                            }
+                                            #pgc-w56d3feac8c634-0-0,
+                                            #pgc-w56d3feac8c634-0-1 {
+                                                margin-bottom: 30px
+                                            }
+                                            #pl-w56d3feac8c634 .panel-grid,
+                                            #pl-w56d3feac8c634 .panel-grid-cell {}
+                                            #pl-w56d3feac8c634 .panel-grid .panel-grid-cell-empty {
+                                                display: none
+                                            }
+                                            #pl-w56d3feac8c634 .panel-grid .panel-grid-cell-mobile-last {
+                                                margin-bottom: 0px
+                                            }
+                                        }
+
+<!-- Style 04 -->
+
+#pgc-w56d3feac8c634-0-0,
+                                                            #pgc-w56d3feac8c634-0-1 {
+                                                                width: 31%
+                                                            }
+                                                            
+                                                            #pgc-w56d3feac8c634-0-2 {
+                                                                width: 38%
+                                                            }
+                                                            
+                                                            #pg-w56d3feac8c634-0 .panel-grid-cell {
+                                                                float: left
+                                                            }
+                                                            
+                                                            #pl-w56d3feac8c634 .panel-grid-cell .so-panel {
+                                                                margin-bottom: 30px
+                                                            }
+                                                            
+                                                            #pl-w56d3feac8c634 .panel-grid-cell .so-panel:last-child {
+                                                                margin-bottom: 0px
+                                                            }
+                                                            
+                                                            #pg-w56d3feac8c634-0 {
+                                                                margin-left: -15px;
+                                                                margin-right: -15px
+                                                            }
+                                                            
+                                                            #pg-w56d3feac8c634-0 .panel-grid-cell {
+                                                                padding-left: 15px;
+                                                                padding-right: 15px
+                                                            }
+                                                            
+                                                            @media (max-width:767px) {
+                                                                #pg-w56d3feac8c634-0 .panel-grid-cell {
+                                                                    float: none;
+                                                                    width: auto
+                                                                }
+                                                                #pgc-w56d3feac8c634-0-0,
+                                                                #pgc-w56d3feac8c634-0-1 {
+                                                                    margin-bottom: 30px
+                                                                }
+                                                                #pl-w56d3feac8c634 .panel-grid,
+                                                                #pl-w56d3feac8c634 .panel-grid-cell {}
+                                                                #pl-w56d3feac8c634 .panel-grid .panel-grid-cell-empty {
+                                                                    display: none
+                                                                }
+                                                                #pl-w56d3feac8c634 .panel-grid .panel-grid-cell-mobile-last {
+                                                                    margin-bottom: 0px
+                                                                }
+                                                            }

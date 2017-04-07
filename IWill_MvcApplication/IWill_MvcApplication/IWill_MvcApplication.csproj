@@ -1,0 +1,993 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B4CB8CA5-A758-446E-802F-9E6CC7FB6359}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IWill_MvcApplication</RootNamespace>
+    <AssemblyName>IWill_MvcApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <WebGreaseLibPath>packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASPSnippets.LinkedInAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\DANISH-PC\Documents\Visual Studio 2015\Projects\IWill_MvcApplication\IWill_MvcApplication\Lib\ASPSnippets.LinkedInAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Facebook">
+      <HintPath>packages\Facebook.6.8.0\lib\net45\Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin">
+      <HintPath>packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.ArcGISOnline">
+      <HintPath>packages\Owin.Security.Providers.ArcGISOnline.2.12.0\lib\net45\Owin.Security.Providers.ArcGISOnline.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Asana">
+      <HintPath>packages\Owin.Security.Providers.Asana.2.12.0\lib\net45\Owin.Security.Providers.Asana.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Backlog">
+      <HintPath>packages\Owin.Security.Providers.Backlog.2.12.0\lib\net45\Owin.Security.Providers.Backlog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Baidu">
+      <HintPath>packages\Owin.Security.Providers.Baidu.2.12.0\lib\net45\Owin.Security.Providers.Baidu.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.BattleNet">
+      <HintPath>packages\Owin.Security.Providers.BattleNet.2.12.0\lib\net45\Owin.Security.Providers.BattleNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Bitbucket">
+      <HintPath>packages\Owin.Security.Providers.Bitbucket.2.12.0\lib\net45\Owin.Security.Providers.Bitbucket.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Box">
+      <HintPath>packages\Owin.Security.Providers.Box.2.12.0\lib\net45\Owin.Security.Providers.Box.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Buffer">
+      <HintPath>packages\Owin.Security.Providers.Buffer.2.12.0\lib\net45\Owin.Security.Providers.Buffer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Cosign">
+      <HintPath>packages\Owin.Security.Providers.Cosign.2.12.0\lib\net45\Owin.Security.Providers.Cosign.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.DeviantArt">
+      <HintPath>packages\Owin.Security.Providers.DeviantArt.2.12.0\lib\net45\Owin.Security.Providers.DeviantArt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Discord">
+      <HintPath>packages\Owin.Security.Providers.Discord.2.12.0\lib\net45\Owin.Security.Providers.Discord.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.DoYouBuzz">
+      <HintPath>packages\Owin.Security.Providers.DoYouBuzz.2.12.0\lib\net45\Owin.Security.Providers.DoYouBuzz.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Dropbox">
+      <HintPath>packages\Owin.Security.Providers.Dropbox.2.12.0\lib\net45\Owin.Security.Providers.Dropbox.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.EVEOnline">
+      <HintPath>packages\Owin.Security.Providers.EVEOnline.2.12.0\lib\net45\Owin.Security.Providers.EVEOnline.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Fitbit">
+      <HintPath>packages\Owin.Security.Providers.Fitbit.2.12.0\lib\net45\Owin.Security.Providers.Fitbit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Flickr">
+      <HintPath>packages\Owin.Security.Providers.Flickr.2.12.0\lib\net45\Owin.Security.Providers.Flickr.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Foursquare">
+      <HintPath>packages\Owin.Security.Providers.Foursquare.2.12.0\lib\net45\Owin.Security.Providers.Foursquare.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Geni">
+      <HintPath>packages\Owin.Security.Providers.Geni.2.12.0\lib\net45\Owin.Security.Providers.Geni.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.GitHub">
+      <HintPath>packages\Owin.Security.Providers.GitHub.2.12.0\lib\net45\Owin.Security.Providers.GitHub.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Gitter">
+      <HintPath>packages\Owin.Security.Providers.Gitter.2.12.0\lib\net45\Owin.Security.Providers.Gitter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.GooglePlus">
+      <HintPath>packages\Owin.Security.Providers.GooglePlus.2.12.0\lib\net45\Owin.Security.Providers.GooglePlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.HealthGraph">
+      <HintPath>packages\Owin.Security.Providers.HealthGraph.2.12.0\lib\net45\Owin.Security.Providers.HealthGraph.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Imgur">
+      <HintPath>packages\Owin.Security.Providers.Imgur.2.12.0\lib\net45\Owin.Security.Providers.Imgur.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Instagram">
+      <HintPath>packages\Owin.Security.Providers.Instagram.2.12.0\lib\net45\Owin.Security.Providers.Instagram.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.LinkedIn">
+      <HintPath>packages\Owin.Security.Providers.LinkedIn.2.12.0\lib\net45\Owin.Security.Providers.LinkedIn.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.MyHeritage">
+      <HintPath>packages\Owin.Security.Providers.MyHeritage.2.12.0\lib\net45\Owin.Security.Providers.MyHeritage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Onshape">
+      <HintPath>packages\Owin.Security.Providers.Onshape.2.12.0\lib\net45\Owin.Security.Providers.Onshape.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.OpenID">
+      <HintPath>packages\Owin.Security.Providers.OpenID.2.12.0\lib\net45\Owin.Security.Providers.OpenID.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.OpenIDBase">
+      <HintPath>packages\Owin.Security.Providers.OpenIDBase.2.1\lib\net45\Owin.Security.Providers.OpenIDBase.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Orcid">
+      <HintPath>packages\Owin.Security.Providers.Orcid.2.12.0\lib\net45\Owin.Security.Providers.Orcid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.PayPal">
+      <HintPath>packages\Owin.Security.Providers.PayPal.2.12.0\lib\net45\Owin.Security.Providers.PayPal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Reddit">
+      <HintPath>packages\Owin.Security.Providers.Reddit.2.12.0\lib\net45\Owin.Security.Providers.Reddit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Salesforce">
+      <HintPath>packages\Owin.Security.Providers.Salesforce.2.12.0\lib\net45\Owin.Security.Providers.Salesforce.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Shopify">
+      <HintPath>packages\Owin.Security.Providers.Shopify.2.12.0\lib\net45\Owin.Security.Providers.Shopify.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Slack">
+      <HintPath>packages\Owin.Security.Providers.SlackProvider.2.12.0\lib\net45\Owin.Security.Providers.Slack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.SoundCloud">
+      <HintPath>packages\Owin.Security.Providers.SoundCloud.2.12.0\lib\net45\Owin.Security.Providers.SoundCloud.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Spotify">
+      <HintPath>packages\Owin.Security.Providers.Spotify.2.12.0\lib\net45\Owin.Security.Providers.Spotify.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.StackExchange">
+      <HintPath>packages\Owin.Security.Providers.StackExchange.2.12.0\lib\net45\Owin.Security.Providers.StackExchange.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Steam">
+      <HintPath>packages\Owin.Security.Providers.Steam.2.12.0\lib\net45\Owin.Security.Providers.Steam.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.TripIt">
+      <HintPath>packages\Owin.Security.Providers.TripIt.2.12.0\lib\net45\Owin.Security.Providers.TripIt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Twitch">
+      <HintPath>packages\Owin.Security.Providers.Twitch.2.12.0\lib\net45\Owin.Security.Providers.Twitch.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Untappd">
+      <HintPath>packages\Owin.Security.Providers.Untappd.2.12.0\lib\net45\Owin.Security.Providers.Untappd.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Vimeo">
+      <HintPath>packages\Owin.Security.Providers.Vimeo.2.12.0\lib\net45\Owin.Security.Providers.Vimeo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.VisualStudio">
+      <HintPath>packages\Owin.Security.Providers.VisualStudio.2.12.0\lib\net45\Owin.Security.Providers.VisualStudio.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.VKontakte">
+      <HintPath>packages\Owin.Security.Providers.VKontakte.2.12.0\lib\net45\Owin.Security.Providers.VKontakte.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Wargaming">
+      <HintPath>packages\Owin.Security.Providers.Wargaming.2.12.0\lib\net45\Owin.Security.Providers.Wargaming.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.WordPress">
+      <HintPath>packages\Owin.Security.Providers.WordPress.2.12.0\lib\net45\Owin.Security.Providers.WordPress.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OWin.Security.Providers.WSO2">
+      <HintPath>packages\Owin.Security.Providers.WSO2.2.12.0\lib\net45\OWin.Security.Providers.WSO2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Xing">
+      <HintPath>packages\Owin.Security.Providers.Xing.2.12.0\lib\net45\Owin.Security.Providers.Xing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Yahoo">
+      <HintPath>packages\Owin.Security.Providers.Yahoo.2.12.0\lib\net45\Owin.Security.Providers.Yahoo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.Yammer">
+      <HintPath>packages\Owin.Security.Providers.Yammer.2.12.0\lib\net45\Owin.Security.Providers.Yammer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid">
+      <HintPath>Lib\SendGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid.CSharp.HTTP.Client">
+      <HintPath>Lib\SendGrid.CSharp.HTTP.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid.SmtpApi">
+      <HintPath>Lib\SendGrid.SmtpApi.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGridMail">
+      <HintPath>Lib\SendGridMail.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor">
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="TweetSharp">
+      <HintPath>Lib\TweetSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Twitterizer2">
+      <HintPath>Lib\Twitterizer2.dll</HintPath>
+    </Reference>
+    <Reference Include="Twitterizer2.Asynchronous">
+      <HintPath>Lib\Twitterizer2.Asynchronous.dll</HintPath>
+    </Reference>
+    <Reference Include="Twitterizer2.Streaming">
+      <HintPath>Lib\Twitterizer2.Streaming.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AuthorizeUserAccess.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserRegQuestionController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\City.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CoachTaughtBy.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Country.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Course.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CourseCategory.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CourseCoach.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CourseDetail.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CourseLanguage.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CourseMaterialType.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CourseOutline.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EducationType.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Gender.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Helper.cs" />
+    <Compile Include="Models\IwillDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IwillDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IwillDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IwillDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IwillDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Language.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\MartialStatu.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelCourse.cs" />
+    <Compile Include="Models\ModelForgetPassword.cs" />
+    <Compile Include="Models\ModelUserRegister.cs" />
+    <Compile Include="Models\ModelUserRegQuestion.cs" />
+    <Compile Include="Models\ModelUserRole.cs" />
+    <Compile Include="Models\ModelUserProfile.cs" />
+    <Compile Include="Models\Model_FB_Register.cs" />
+    <Compile Include="Models\Question.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionsDetail.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionType.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Quiz.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spGetRegUserQuestion_Result.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spSearchUserRegestrationQuestions_Result.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spSearhUser_Result.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spViewRegQuestions_Result.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TempPic.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserEducation.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserEnrollCourse.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserExperience.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserFollower.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserGivenQuesAn.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserQuestion.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserQuestionDetail.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserQuizAnswer.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserQuizAttemp.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRole.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Year.cs">
+      <DependentUpon>IwillDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\EmailTemplates\PasswordReset.txt" />
+    <Content Include="Content\EmailTemplates\VerifyNewUser.txt" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="css\autoptimize_1.css" />
+    <Content Include="css\autoptimize_3.css" />
+    <Content Include="css\autoptimize_4.css" />
+    <Content Include="css\bootstrap-select.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\ExternalCss.css" />
+    <Content Include="css\Select2\select2.css" />
+    <Content Include="css\Select2\select2.min.css" />
+    <Content Include="css\siteorigin-panels.css" />
+    <Content Include="css\superslides.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\Pe-icon-7-stroke.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\1.jpg" />
+    <Content Include="Images\2.jpg" />
+    <Content Include="Images\21232f297a57a5a743894a0e4a801fc3.jpg" />
+    <Content Include="Images\3.jpg" />
+    <Content Include="Images\4.jpg" />
+    <Content Include="Images\5.jpg" />
+    <Content Include="Images\6.jpg" />
+    <Content Include="Images\7.jpg" />
+    <Content Include="Images\8.jpg" />
+    <Content Include="Images\9c081444f942cc8fe0ddf55631b584e2.jpg" />
+    <Content Include="Images\ad.jpg" />
+    <Content Include="Images\affinity.jpeg" />
+    <Content Include="Images\anthony-100x100.jpg" />
+    <Content Include="Images\anthony.jpg" />
+    <Content Include="Images\banner.jpeg" />
+    <Content Include="Images\banner2.jpg" />
+    <Content Include="Images\become-teacher.jpg" />
+    <Content Include="Images\bg-footer.jpg" />
+    <Content Include="Images\bg-newletter.png" />
+    <Content Include="Images\bg-page.jpg" />
+    <Content Include="Images\bg-parallax-about-us.jpg" />
+    <Content Include="Images\bg-register-now.jpg" />
+    <Content Include="Images\bg_lastest_new.jpg" />
+    <Content Include="Images\bg_register_now.jpg" />
+    <Content Include="Images\blankImage.png" />
+    <Content Include="Images\blog-1.jpg" />
+    <Content Include="Images\blog-2-300x153.jpg" />
+    <Content Include="Images\blog-2-450x267.jpg" />
+    <Content Include="Images\blog-2.jpg" />
+    <Content Include="Images\blog-3-150x150.jpg" />
+    <Content Include="Images\blog-3-300x153.jpg" />
+    <Content Include="Images\blog-3-450x267.jpg" />
+    <Content Include="Images\blog-3.jpg" />
+    <Content Include="Images\blog-4.jpg" />
+    <Content Include="Images\blog-5-150x150.jpg" />
+    <Content Include="Images\blog-5-300x153.jpg" />
+    <Content Include="Images\blog-5-450x267.jpg" />
+    <Content Include="Images\blog-5.jpg" />
+    <Content Include="Images\blog-7-300x153.jpg" />
+    <Content Include="Images\blog-7.jpg" />
+    <Content Include="Images\blog-8-150x150.jpg" />
+    <Content Include="Images\blog-8-300x153.jpg" />
+    <Content Include="Images\blog-8-450x267.jpg" />
+    <Content Include="Images\blog-8.jpg" />
+    <Content Include="Images\blog-9-300x153.jpg" />
+    <Content Include="Images\blog-9.jpg" />
+    <Content Include="Images\cinelli.jpeg" />
+    <Content Include="Images\course-1-150x150.jpg" />
+    <Content Include="Images\course-1-450x450.jpg" />
+    <Content Include="Images\course-1.jpg" />
+    <Content Include="Images\course-10-150x150.jpg" />
+    <Content Include="Images\course-10-300x172.jpg" />
+    <Content Include="Images\course-10-450x450.jpg" />
+    <Content Include="Images\course-10.jpg" />
+    <Content Include="Images\course-11-150x150.jpg" />
+    <Content Include="Images\course-11-300x172.jpg" />
+    <Content Include="Images\course-11-450x450.jpg" />
+    <Content Include="Images\course-11.jpg" />
+    <Content Include="Images\course-12-150x150.jpg" />
+    <Content Include="Images\course-12-300x172.jpg" />
+    <Content Include="Images\course-12-450x450.jpg" />
+    <Content Include="Images\course-12.jpg" />
+    <Content Include="Images\course-16-150x150.jpg" />
+    <Content Include="Images\course-16-300x172.jpg" />
+    <Content Include="Images\course-16-450x450.jpg" />
+    <Content Include="Images\course-16.jpg" />
+    <Content Include="Images\course-2-450x450.jpg" />
+    <Content Include="Images\course-2.jpg" />
+    <Content Include="Images\course-3-450x450.jpg" />
+    <Content Include="Images\course-3.jpg" />
+    <Content Include="Images\course-4-150x150.jpg" />
+    <Content Include="Images\course-4-440x440.jpg" />
+    <Content Include="Images\course-4-450x450.jpg" />
+    <Content Include="Images\course-4.jpg" />
+    <Content Include="Images\course-5-150x150.jpg" />
+    <Content Include="Images\course-5-300x172.jpg" />
+    <Content Include="Images\course-5-450x450.jpg" />
+    <Content Include="Images\course-5.jpg" />
+    <Content Include="Images\course-6-150x150.jpg" />
+    <Content Include="Images\course-6-300x172.jpg" />
+    <Content Include="Images\course-6-450x233.jpg" />
+    <Content Include="Images\course-6-450x450.jpg" />
+    <Content Include="Images\course-6.jpg" />
+    <Content Include="Images\course-7-450x233.jpg" />
+    <Content Include="Images\course-7-450x450.jpg" />
+    <Content Include="Images\course-7.jpg" />
+    <Content Include="Images\course-9-450x450.jpg" />
+    <Content Include="Images\course-9.jpg" />
+    <Content Include="Images\CourseBackPic.jpg" />
+    <Content Include="Images\CourseFrontPic.jpeg" />
+    <Content Include="Images\dark_syntax_php_11.png" />
+    <Content Include="Images\Down.png" />
+    <Content Include="Images\dummy.png" />
+    <Content Include="Images\edit-user.png" />
+    <Content Include="Images\editing-edit-icon.png" />
+    <Content Include="Images\elsie-100x100.jpg" />
+    <Content Include="Images\event-1-450x233.jpg" />
+    <Content Include="Images\event-1.jpg" />
+    <Content Include="Images\event-2-450x233.jpg" />
+    <Content Include="Images\event-2.jpg" />
+    <Content Include="Images\event-3-450x233.jpg" />
+    <Content Include="Images\event-3.jpg" />
+    <Content Include="Images\event-4-450x233.jpg" />
+    <Content Include="Images\event-4.jpg" />
+    <Content Include="Images\event-7-450x233.jpg" />
+    <Content Include="Images\event-7.jpg" />
+    <Content Include="Images\favicon.png" />
+    <Content Include="Images\feed.png" />
+    <Content Include="Images\follow.png" />
+    <Content Include="Images\follower.png" />
+    <Content Include="Images\Instructor1.jpg" />
+    <Content Include="Images\Instructor2.jpg" />
+    <Content Include="Images\intructor-account.jpg" />
+    <Content Include="Images\invalid.png" />
+    <Content Include="Images\john-doe-100x100.jpg" />
+    <Content Include="Images\kid-course-1-150x150.jpg" />
+    <Content Include="Images\kid-course-1-300x171.jpg" />
+    <Content Include="Images\kid-course-1.jpg" />
+    <Content Include="Images\kid-course-2-150x150.jpg" />
+    <Content Include="Images\kid-course-2-300x171.jpg" />
+    <Content Include="Images\kid-course-2.jpg" />
+    <Content Include="Images\kid-course-3-150x150.jpg" />
+    <Content Include="Images\kid-course-3-300x171.jpg" />
+    <Content Include="Images\kid-course-3-440x440.jpg" />
+    <Content Include="Images\kid-course-3.jpg" />
+    <Content Include="Images\kid-course-4-150x150.jpg" />
+    <Content Include="Images\kid-course-4-300x171.jpg" />
+    <Content Include="Images\kid-course-4.jpg" />
+    <Content Include="Images\kid-course-6-440x440.jpg" />
+    <Content Include="Images\learner-account.jpg" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\LoginImages\imgFacebookLogin.png" />
+    <Content Include="Images\LoginImages\imgGoogleLogin.png" />
+    <Content Include="Images\LoginImages\imgLinkedInLogin.png" />
+    <Content Include="Images\LoginImages\imgLoginTwitter.png" />
+    <Content Include="Images\LoginImages\social-image-sprites.png" />
+    <Content Include="Images\logo-sticky.png" />
+    <Content Include="Images\logo-top-1.png" />
+    <Content Include="Images\logo-top-2.png" />
+    <Content Include="Images\logo-top-3.png" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\logon.png" />
+    <Content Include="Images\manuel-100x100.jpg" />
+    <Content Include="Images\megamenu.jpg" />
+    <Content Include="Images\peter-100x100.jpg" />
+    <Content Include="Images\profile-pic.jpg" />
+    <Content Include="Images\profile2.jpg" />
+    <Content Include="Images\slider-1.jpg" />
+    <Content Include="Images\slider-2.jpg" />
+    <Content Include="Images\slider-3.jpg" />
+    <Content Include="Images\slide_5.jpg" />
+    <Content Include="Images\surly.jpeg" />
+    <Content Include="Images\team-1-110x110.jpg" />
+    <Content Include="Images\team-1-200x200.jpg" />
+    <Content Include="Images\team-2-110x110.jpg" />
+    <Content Include="Images\team-2-200x200.jpg" />
+    <Content Include="Images\team-3-110x110.jpg" />
+    <Content Include="Images\team-3-200x200.jpg" />
+    <Content Include="Images\team-4-110x110.jpg" />
+    <Content Include="Images\team-4-200x200.jpg" />
+    <Content Include="Images\team-5-110x110.jpg" />
+    <Content Include="Images\team-5-200x200.jpg" />
+    <Content Include="Images\team-6-110x110.jpg" />
+    <Content Include="Images\team-6-200x200.jpg" />
+    <Content Include="Images\team-7-110x110.jpg" />
+    <Content Include="Images\team-7-200x200.jpg" />
+    <Content Include="Images\team-8-110x110.jpg" />
+    <Content Include="Images\team-8-200x200.jpg" />
+    <Content Include="Images\top-slider.jpg" />
+    <Content Include="Images\Untitled-300x184.png" />
+    <Content Include="Images\up.png" />
+    <Content Include="Images\user.png" />
+    <Content Include="Images\valid.png" />
+    <Content Include="Images\woocommerce-plugin.jpg" />
+    <Content Include="js\autoptimize_12.js" />
+    <Content Include="js\bootstrap-select.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\CreateCourseUploadBackImage.js" />
+    <Content Include="js\jquery-1.7.2.min.js" />
+    <Content Include="js\NewProfile_Education.js" />
+    <Content Include="js\NewProfile_Employment.js" />
+    <Content Include="js\NewProfile_ImageUpload.js" />
+    <Content Include="js\Select2\select2.full.js" />
+    <Content Include="js\Select2\select2.full.min.js" />
+    <Content Include="js\Select2\select2.js" />
+    <Content Include="js\Select2\select2.min.js" />
+    <Content Include="js\TweenMax.min.js" />
+    <Content Include="js\Draggable.min.js" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\jquery-3.1.1.min.js" />
+    <Content Include="js\jquery.animate-enhanced.min.js" />
+    <Content Include="js\jquery.easing.1.3.js" />
+    <Content Include="js\jquery.superslides.min.js" />
+    <Content Include="js\MyJs.js" />
+    <Content Include="js\typehead.js" />
+    <Content Include="Lib\ASPSnippets.LinkedInAPI.dll" />
+    <Content Include="Lib\SendGrid.CSharp.HTTP.Client.dll" />
+    <Content Include="Lib\SendGrid.dll" />
+    <Content Include="Lib\SendGrid.SmtpApi.dll" />
+    <Content Include="Lib\SendGridMail.dll" />
+    <Content Include="Lib\TweetSharp.dll" />
+    <Content Include="Lib\TweetSharp.pdb" />
+    <Content Include="Lib\TweetSharp.Twitter.dll" />
+    <Content Include="Lib\TweetSharp.Twitter.pdb" />
+    <Content Include="Lib\TweetSharp.Twitter.xml" />
+    <Content Include="Lib\TweetSharp.xml" />
+    <Content Include="Lib\Twitterizer2.Asynchronous.dll" />
+    <Content Include="Lib\Twitterizer2.Asynchronous.XML" />
+    <Content Include="Lib\Twitterizer2.dll" />
+    <Content Include="Lib\Twitterizer2.Streaming.dll" />
+    <Content Include="Lib\Twitterizer2.Streaming.XML" />
+    <Content Include="Lib\Twitterizer2.XML" />
+    <Content Include="LoginCss\animate-custom.css" />
+    <Content Include="LoginCss\demo.css" />
+    <Content Include="LoginCss\fonts\BebasNeue-webfont.svg" />
+    <Content Include="LoginCss\fonts\Dharma Type Font License.txt" />
+    <Content Include="LoginCss\fonts\fontomas-webfont.svg" />
+    <Content Include="LoginCss\fonts\franchise-bold-webfont.svg" />
+    <Content Include="LoginCss\style.css" />
+    <Content Include="LoginCss\style2.css" />
+    <Content Include="LoginCss\style3.css" />
+    <Content Include="Models\IwillDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IwillDataModel.edmx</DependentUpon>
+      <LastGenOutput>IwillDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\IwillDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IwillDataModel.edmx</DependentUpon>
+      <LastGenOutput>IwillDataModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\IwillDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>IwillDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\IwillDataModel.edmx.diagram">
+      <DependentUpon>IwillDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="LoginCss\fonts\BebasNeue-webfont.eot" />
+    <Content Include="LoginCss\fonts\BebasNeue-webfont.ttf" />
+    <Content Include="LoginCss\fonts\BebasNeue-webfont.woff" />
+    <Content Include="LoginCss\fonts\fontomas-webfont.eot" />
+    <Content Include="LoginCss\fonts\fontomas-webfont.ttf" />
+    <Content Include="LoginCss\fonts\fontomas-webfont.woff" />
+    <Content Include="LoginCss\fonts\franchise-bold-webfont.eot" />
+    <Content Include="LoginCss\fonts\franchise-bold-webfont.ttf" />
+    <Content Include="LoginCss\fonts\franchise-bold-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\Pe-icon-7-stroke.eot" />
+    <Content Include="fonts\Pe-icon-7-stroke.ttf" />
+    <Content Include="fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="packages.config" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Properties\PublishProfiles\Imran.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Videos\intro.mp4" />
+    <Content Include="Views\Home\IwillHome.cshtml" />
+    <Content Include="Views\Users\main-profile.html" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\Users\_Register.cshtml" />
+    <Content Include="Views\Users\GmailLoginRedirect.cshtml" />
+    <Content Include="Views\Users\UserProfile.cshtml" />
+    <Content Include="Views\Users\ForgetEmail.cshtml" />
+    <Content Include="Views\Users\PasswordRest.cshtml" />
+    <Content Include="Views\Users\EditProfile.cshtml" />
+    <Content Include="Views\Error\UnAuthorizeUserView.cshtml" />
+    <Content Include="Views\Error\PageNotFound.cshtml" />
+    <Content Include="Views\Error\_ErrorMessage.cshtml" />
+    <Content Include="Views\Users\AssignUserRoles.cshtml" />
+    <Content Include="Views\UserRegQuestion\ViewCreateQuesForUserRegistration.cshtml" />
+    <Content Include="Views\UserRegQuestion\ViewUserQuestionsList.cshtml" />
+    <Content Include="Views\Home\Iindex.cshtml" />
+    <Content Include="Views\Error\NotFirstLoggedInView.cshtml" />
+    <Content Include="Views\Shared\pvTopToolBar.cshtml" />
+    <Content Include="Views\UserRegQuestion\ViewGetRegestrationQuestion.cshtml" />
+    <Content Include="Views\Home\Courses.cshtml" />
+    <Content Include="Views\Shared\pvToptNavigationMenu.cshtml" />
+    <Content Include="Views\Shared\pvFooter.cshtml" />
+    <Content Include="Views\Shared\pvMobileMenu.cshtml" />
+    <Content Include="Views\pvCourseFooter.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\UserRegQuestion\ViewUsersGivenRegQuestions.cshtml" />
+    <Content Include="Views\Home\CustomFileUpload.cshtml" />
+    <Content Include="Views\Shared\_MyIWillLayout.cshtml" />
+    <Content Include="Views\Users\Register.cshtml" />
+    <Content Include="Views\Users\VSuccessfullyRegistered.cshtml" />
+    <Content Include="Views\Users\NewUserProfile.cshtml" />
+    <Content Include="Views\Users\ViewUserProfile.cshtml" />
+    <Content Include="Views\Course\VCreateCourseCategory.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Images\UserImages\" />
+    <Folder Include="packages\" />
+    <Folder Include="Views\Authorize\" />
+    <Folder Include="Views\Register\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59563</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52507/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

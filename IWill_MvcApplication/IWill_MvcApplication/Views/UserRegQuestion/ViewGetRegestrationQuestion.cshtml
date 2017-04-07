@@ -1,0 +1,174 @@
+﻿@using IWill_MvcApplication.Models;
+@model IWill_MvcApplication.Models.ModelViewRegQuestion
+
+@{
+    ViewBag.Title = "Regestration Questions";
+    Layout = "~/Views/Shared/_MyIWillLayout.cshtml";
+}
+
+<style>
+    .Question {
+        margin-top: 10px;
+    }
+</style>
+<script src="~/js/MyJs.js"></script>
+<h2>Regestration Questions </h2>
+@{
+    Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+}
+
+@if (ViewBag.IsStudent == null || ViewBag.UserID == null)
+{
+    return;
+}
+@using (Html.BeginForm("AttempUserRegestrationQuestion", "UserRegQuestion", FormMethod.Post, new { @id = "frmAttempUserRegQues" }))
+{
+    try
+    {
+        Html.AntiForgeryToken();
+        @Html.Hidden("UserID", (object)ViewBag.UserID)
+
+        int i = 0;
+        //foreach (var QuesItem in (List<UserQuestion>)Helper.GetRegQuestions(ViewBag.IsStudent))
+        foreach (var QuesItem in Model.LstQuestion)
+        {
+
+            <div class="dvAttempUserRegQues">
+                <div class="Question">
+
+                    @*<input type="hidden" name='LstQuestion[@i].UQID' value="LstQuestion[@i].UQID" />*@
+                    @Html.Hidden("LstQuestion[" + i + "].UQID", QuesItem.UQID)
+                    @Html.Hidden("LstQuestion[" + i + "].FkUQType", QuesItem.FkUQType)
+                    @Html.Hidden("LstQuestion[" + i + "].UQuestion", QuesItem.UQuestion)
+
+                    @Html.DisplayFor(item => QuesItem.UQuestion, new { @class = "Ques" })
+                </div>
+                <div class="QuestionDetail">
+                    @if (QuesItem.FkUQType == 2)
+                    {
+                        <div class="TextType">
+
+                            @Html.TextBox("LstQuestion[" + i + "].Answer", "", new { @placeholder = "write your answer" })
+                        </div>
+                    }
+                    else
+                    {
+                        int j = 0;
+                        //foreach (var QuesItemOption in Helper.GetRegQuestionDetails(QuesItem.UQID))
+                        foreach (var QuesItemOption in QuesItem.UserQuestionDetail)
+                        {
+
+                            if (QuesItem.FkUQType == 1)
+                            {
+                                <div class="MCQzType">
+                                    @Html.Hidden("LstQuestion[" + i + "].UserQuestionDetail[" + j + "].UQDID", QuesItemOption.UQDID)
+                                    @Html.Hidden("LstQuestion[" + i + "].UserQuestionDetail[" + j + "].QuesOptionName", QuesItemOption.QuesOptionName)
+                                    @Html.DisplayFor(item => QuesItemOption.QuesOptionName, new { @class = "QuesOptionName" })
+
+                                    @Html.RadioButton(QuesItem.UQID.ToString(), false, new { @class = "check myradio", onclick = "radioSelected(this)" })
+                                    @Html.Hidden("LstQuestion[" + i + "].UserQuestionDetail[" + j + "].IsRight", false, new { @class = "Right" })
+
+                                </div>
+                            }
+
+                            else if (QuesItem.FkUQType == 3)
+                            {
+                                <div class="ChoiceType">
+                                    @Html.Hidden("LstQuestion[" + i + "].UserQuestionDetail[" + j + "].UQDID", QuesItemOption.UQDID)
+                                    @Html.Hidden("LstQuestion[" + i + "].UserQuestionDetail[" + j + "].QuesOptionName", QuesItemOption.QuesOptionName)
+                                    @Html.DisplayFor(item => QuesItemOption.QuesOptionName, new { @class = "QuesOptionName" })
+                                    <input type="checkbox" name="checkbox" class="check IsRight" onclick="CheckBoxSelected(this)" />
+                                    @Html.Hidden("LstQuestion[" + i + "].UserQuestionDetail[" + j + "].IsRight", false)
+                                </div>
+                            }
+
+                            j = j + 1;
+                        }
+                    }
+                </div>
+            </div>
+
+
+            i = i + 1;
+
+
+        }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" onclick="return ValidateQues()" />
+            </div>
+        </div>
+    }
+    catch (Exception ex)
+    {
+
+
+    }
+
+
+    @*@{ if (TempData["UQID"] != null)
+            {
+                <script>
+                    var id = @TempData["UQID"];
+                    changeRowColorAndFocus('tr#' + id);
+
+
+                </script>
+
+            }
+        }*@
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+
+    function radioSelected(obj) {
+
+        $(obj).parents(".QuestionDetail").find(':hidden.Right').val('false');
+        //obj.checked = true;
+        $(obj).next().val('true');
+    }
+
+    function CheckBoxSelected(obj) {
+
+        var isChecked = $(obj).prop('checked');
+        if (isChecked)
+            $(obj).next().val('true');
+        else $(obj).next().val('false');
+    }
+
+    function ValidateQues() {
+        var Isvalidate = true;
+        var count = 0;
+        var IsRadioSelected = 'false';
+
+        $(".dvAttempUserRegQues .QuestionDetail").each(function () {
+            
+            if ($(this).find('.check').length > 0) {
+                $(this).find('.check').each(function () {
+
+                    IsRadioSelected = $(this).prop('checked');
+                    if (IsRadioSelected.toString().toLowerCase() == "true") {
+                        count++;
+                    }
+                });
+
+                if (count <= 0) {
+                    changeRowColorAndFocus(this);
+                    Isvalidate = false;
+                    return false;
+                }
+                else count = 0;
+            }
+        });
+
+        if (Isvalidate) return Isvalidate;
+        return false;
+    }
+
+
+</script>

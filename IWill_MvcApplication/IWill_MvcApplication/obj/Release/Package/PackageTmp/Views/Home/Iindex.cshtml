@@ -1,0 +1,868 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>I Will &reg;</title>
+
+    <link rel='stylesheet' id='tf-google-webfont-roboto-css' href='http://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,400,italic,500,500italic,700,700italic,900,900italic&amp;subset=greek-ext,greek,cyrillic-ext,latin-ext,latin,vietnamese,cyrillic' type='text/css' media='all' />
+    <link rel='stylesheet' id='tf-google-webfont-roboto-slab-css' href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700&amp;subset=greek-ext,greek,cyrillic-ext,latin-ext,latin,vietnamese,cyrillic' type='text/css' media='all' />
+
+    <link rel="stylesheet" href="~/css/autoptimize_1.css">
+    <link rel="stylesheet" href="~/css/autoptimize_3.css">
+    <link rel="stylesheet" href="~/css/autoptimize_4.css">
+    <link rel="stylesheet" href="~/css/superslides.css">
+
+    @*<script src="~/js/jquery.min.js"></script>*@
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/siteorigin-panels.css" media="all" id="siteorigin-panels-grids-wp_head">
+    <script src="~/js/MyJs.js"></script>
+   
+
+    <link rel="icon" href="~/images/favicon.png" sizes="32x32" />
+    <link rel="icon" href="~/images/favicon.png" sizes="192x192" />
+    <style>
+        .SocialNetwork {
+            width: 240px !important;
+            padding-top: 11px !important;
+            padding-bottom: 11px !important;
+            margin-bottom: -1px !important;
+            border-radius: 4px !important;
+        }
+    </style>
+</head>
+
+@*<div class="success">
+        @{ if (TempData["Reg"] != null)
+                {
+                <div style="padding:5px;">you have successfully registered, we have send an email to your account for verification.  <br />please go to your Account to verify yourself</div>
+                    <script>
+                        setTimeout(function () {
+                            $('.success').fadeOut('slow');
+                        }, 5000);
+                    </script>
+            }
+
+
+        }
+
+    </div>*@
+
+
+<body class="home page-template page-template-page-templates page-template-homepage page-template-page-templateshomepage-php page page-id-12 thim-body-preload pmpro-body-has-access siteorigin-panels siteorigin-panels-home group-blog" id="thim-body">
+
+    <div id="preload">
+        <div class="cssload-loader-style-3">
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+        </div>
+    </div>
+    <div id="wrapper-container" class="wrapper-container">
+        <div class="content-pusher ">
+            <header id="masthead" class="site-header affix-top bg-custom-sticky sticky-header header_overlay header_v1">
+
+                @{
+                    Html.RenderPartial("pvTopToolBar");
+                }
+                <div class="container">
+                    <div class="row">
+                        @{
+                            Html.RenderPartial("pvToptNavigationMenu");
+                        }
+                    </div>
+                </div>
+            </header>
+
+
+            @{
+                Html.RenderPartial("pvMobileMenu");
+            }
+            @*<div id="slides" style="z-index:1;">
+                    <div class="slides-container">
+                        <img src="~/images/banner2.jpg" alt="Students in Class">
+                        <img src="~/images/banner.jpeg" alt="Students in Class">
+                    </div>
+
+                    <nav class="slides-navigation">
+                        <a href="#" class="control-navigation next"></a>
+                        <a href="#" class="control-navigation prev"></a>
+                    </nav>
+                </div>*@
+
+            <video width="100%" autoplay loop muted autobuffer preload="auto">
+                <source src="~/Videos/intro.mp4" type="video/mp4" />
+            </video>
+
+            <div class="visible-xs" style="height:30px;">&nbsp;</div>
+            <div id="main-content">
+                <div id="main-home-content" class="home-content home-page container" role="main">
+                    <div id="pl-12">
+
+
+                        @* <div class="panel-grid" id="pg-12-1">
+                                <div class="panel-row-style-thim-best-industry thim-best-industry panel-row-style">
+                                    <div class="panel-grid-cell" id="pgc-12-1-0">
+                                        <div class="so-panel widget widget_icon-box panel-first-child panel-last-child" id="panel-12-1-0-0" data-index="1">
+                                            <div class="thim-widget-icon-box thim-widget-icon-box-base">
+                                                <div class="wrapper-box-icon has_custom_image has_read_more text-left overlay " data-text-readmore="#ffb606">
+                                                    <div class="smicon-box iconbox-left">
+                                                        <div class="boxes-icon" style="width: 135px;height: 135px;">
+                                                            <span class="inner-icon"><span class="icon icon-images"><img src="~/images/logo-top-1.png" alt="logo-top-1" title="logo-top-1" width="61" height="52"></span></span>
+                                                        </div>
+                                                        <div class="content-inner" style="width: calc( 100% - 135px - 15px);">
+                                                            <div class="sc-heading article_heading">
+                                                                <h3 class="heading__primary">WHY I<br>WILL ?</h3>
+                                                            </div>
+                                                            <!--<a class="smicon-read sc-btn login" /* data-toggle="modal" data-target="#wiwModal" */ href="login-demo.html" style="color: #ffb606;">View More<i class="fa fa-chevron-right"></i></a>-->
+                                                        </div>
+                                                        <aside id="ModalPopup" class="widget widget_login-popup">
+                                                            <div class="thim-widget-login-popup thim-widget-login-popup-base">
+                                                                <div class="thim-link-login thim-login-popup"><a class="smicon-read sc-btn login" href="#">View More</a></div>
+                                                                <div id="thim-popup-banner-1" class="has-shortcode">
+
+                                                                </div>
+                                                            </div>
+                                                        </aside>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-grid-cell" id="pgc-12-1-1">
+                                        <div class="so-panel widget widget_icon-box panel-first-child panel-last-child" id="panel-12-1-1-0" data-index="2">
+                                            <div class="thim-widget-icon-box thim-widget-icon-box-base">
+                                                <div class="wrapper-box-icon has_custom_image has_read_more text-left overlay " data-text-readmore="#ffb606">
+                                                    <div class="smicon-box iconbox-left">
+                                                        <div class="boxes-icon" style="width: 132px;height: 132px;">
+                                                            <span class="inner-icon"><span class="icon icon-images"><img src="~/images/logo-top-2.png" alt="logo-top-2" title="logo-top-2" width="66" height="51"></span></span>
+                                                        </div>
+                                                        <div class="content-inner" style="width: calc( 100% - 132px - 15px);">
+                                                            <div class="sc-heading article_heading">
+                                                                <h3 class="heading__primary">I WILL<br>SOLVE</h3>
+                                                            </div><a class="smicon-read sc-btn" target="_self" href="#" style="color: #ffb606;">View More<i class="fa fa-chevron-right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-grid-cell" id="pgc-12-1-2">
+                                        <div class="so-panel widget widget_icon-box panel-first-child panel-last-child" id="panel-12-1-2-0" data-index="3">
+                                            <div class="thim-widget-icon-box thim-widget-icon-box-base">
+                                                <div class="wrapper-box-icon has_custom_image has_read_more text-left overlay " data-text-readmore="#ffb606">
+                                                    <div class="smicon-box iconbox-left">
+                                                        <div class="boxes-icon" style="width: 135px;height: 135px;">
+                                                            <span class="inner-icon"><span class="icon icon-images"><img src="~/images/logo-top-3.png" alt="logo-top-3" title="logo-top-3" width="59" height="50"></span></span>
+                                                        </div>
+                                                        <div class="content-inner" style="width: calc( 100% - 135px - 15px);">
+                                                            <div class="sc-heading article_heading">
+                                                                <h3 class="heading__primary">I WILL<br>GROW</h3>
+                                                            </div><a class="smicon-read sc-btn" target="_self" href="#" style="color: #ffb606;">View More<i class="fa fa-chevron-right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+
+
+
+
+                        <div class="panel-grid" id="pg-12-2">
+                            <div class="panel-grid-cell" id="pgc-12-2-0">
+                                <div class="so-panel widget widget_heading panel-first-child" id="panel-12-2-0-0" data-index="4">
+                                    <div class="thim-widget-heading thim-widget-heading-base">
+                                        <div class="sc_heading text-left">
+                                            <h3 class="title">Popular Courses</h3><span class="line"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="so-panel widget widget_courses panel-last-child" id="panel-12-2-0-1" data-index="5">
+                                    <div class="thim-widget-courses thim-widget-courses-base">
+                                        <div class="thim-carousel-wrapper thim-course-carousel thim-course-grid" data-visible="4" data-pagination="0" data-navigation="1" data-autoplay="0">
+                                            <div class="course-item">
+                                                <div class="course-thumbnail">
+                                                    <a href="#"><img src="~/images/course-4-450x450.jpg" alt="Introduction LearnPress &#8211; LMS plugin" title="course-4" width="450" height="450"></a><a class="course-readmore" href="#">Read More</a>
+                                                </div>
+                                                <div class="thim-course-content">
+                                                    <div class="course-author" itemscope itemtype="http://schema.org/Person">
+                                                        <img alt="Admin bar avatar" src="~/images/9c081444f942cc8fe0ddf55631b584e2.jpg" class="avatar avatar-40 photo" height="40" width="40" />
+                                                        <div class="author-contain">
+                                                            <label itemprop="jobTitle">Teacher</label>
+                                                            <div class="value" itemprop="name"> <a href="#"> Keny White </a></div>
+                                                        </div>
+                                                    </div>
+                                                    <h2 class="course-title"> <a href="#"> Introduction LearnPress &#8211; LMS plugin</a></h2>
+                                                    <div class="course-meta">
+                                                        <div class="course-students">
+                                                            <label>Students</label>
+                                                            <div class="value"><i class="fa fa-group"></i> 389</div>
+                                                        </div>
+                                                        <div class="course-comments-count">
+                                                            <div class="value"><i class="fa fa-comment"></i>3</div>
+                                                        </div>
+                                                        <div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                                            <div class="value free-course" itemprop="price" content="Free"> Free</div>
+                                                            <meta itemprop="priceCurrency" content="&#36;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="course-item">
+                                                <div class="course-thumbnail">
+                                                    <a href="#"><img src="~/images/course-1-450x450.jpg" alt="From Zero to Hero with Nodejs" title="course-1" width="450" height="450"></a><a class="course-readmore" href="#">Read More</a>
+                                                </div>
+                                                <div class="thim-course-content">
+                                                    <div class="course-author" itemscope itemtype="http://schema.org/Person">
+                                                        <img alt="Admin bar avatar" src="~/images/9c081444f942cc8fe0ddf55631b584e2.jpg" class="avatar avatar-40 photo" height="40" width="40" />
+                                                        <div class="author-contain">
+                                                            <label itemprop="jobTitle">Teacher</label>
+                                                            <div class="value" itemprop="name"> <a href="#"> Keny White </a></div>
+                                                        </div>
+                                                    </div>
+                                                    <h2 class="course-title"> <a href="#"> From Zero to Hero with Nodejs</a></h2>
+                                                    <div class="course-meta">
+                                                        <div class="course-students">
+                                                            <label>Students</label>
+                                                            <div class="value"><i class="fa fa-group"></i> 292</div>
+                                                        </div>
+                                                        <div class="course-comments-count">
+                                                            <div class="value"><i class="fa fa-comment"></i>1</div>
+                                                        </div>
+                                                        <div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                                            <div class="value free-course" itemprop="price" content="Free"> Free</div>
+                                                            <meta itemprop="priceCurrency" content="&#36;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="course-item">
+                                                <div class="course-thumbnail">
+                                                    <a href="#"><img src="~/images/course-16-450x450.jpg" alt="Learn Python &#8211; Interactive Python" title="course-16" width="450" height="450"></a><a class="course-readmore" href="#">Read More</a>
+                                                </div>
+                                                <div class="thim-course-content">
+                                                    <div class="course-author" itemscope itemtype="http://schema.org/Person">
+                                                        <img alt="Admin bar avatar" src="~/images/21232f297a57a5a743894a0e4a801fc3.jpg" class="avatar avatar-40 photo" height="40" width="40" />
+                                                        <div class="author-contain">
+                                                            <label itemprop="jobTitle">Teacher</label>
+                                                            <div class="value" itemprop="name"> <a href="#"> Hinata Hyuga </a></div>
+                                                        </div>
+                                                    </div>
+                                                    <h2 class="course-title"> <a href="#"> Learn Python &#8211; Interactive Python</a></h2>
+                                                    <div class="course-meta">
+                                                        <div class="course-students">
+                                                            <label>Students</label>
+                                                            <div class="value"><i class="fa fa-group"></i> 51</div>
+                                                        </div>
+                                                        <div class="course-comments-count">
+                                                            <div class="value"><i class="fa fa-comment"></i>1</div>
+                                                        </div>
+                                                        <div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                                            <div class="value " itemprop="price" content="&#036;69.00"> &#036;69.00</div>
+                                                            <meta itemprop="priceCurrency" content="&#36;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="course-item">
+                                                <div class="course-thumbnail">
+                                                    <a href="#"><img src="~/images/course-9-450x450.jpg" alt="Your Complete Guide to Photography" title="course-9" width="450" height="450"></a><a class="course-readmore" href="#">Read More</a>
+                                                </div>
+                                                <div class="thim-course-content">
+                                                    <div class="course-author" itemscope itemtype="http://schema.org/Person">
+                                                        <img alt="Admin bar avatar" src="~/images/21232f297a57a5a743894a0e4a801fc3.jpg" class="avatar avatar-40 photo" height="40" width="40" />
+                                                        <div class="author-contain">
+                                                            <label itemprop="jobTitle">Teacher</label>
+                                                            <div class="value" itemprop="name"> <a href="#"> Hinata Hyuga </a></div>
+                                                        </div>
+                                                    </div>
+                                                    <h2 class="course-title"> <a href="#"> Your Complete Guide to Photography</a></h2>
+                                                    <div class="course-meta">
+                                                        <div class="course-students">
+                                                            <label>Students</label>
+                                                            <div class="value"><i class="fa fa-group"></i> 46</div>
+                                                        </div>
+                                                        <div class="course-comments-count">
+                                                            <div class="value"><i class="fa fa-comment"></i>1</div>
+                                                        </div>
+                                                        <div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                                            <div class="value " itemprop="price" content="&#036;60.00"> &#036;60.00</div>
+                                                            <meta itemprop="priceCurrency" content="&#36;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="course-item">
+                                                <div class="course-thumbnail">
+                                                    <a href="#"><img src="~/images/course-5-450x450.jpg" alt="Learning jQuery Mobile for Beginners" title="course-5" width="450" height="450"></a><a class="course-readmore" href="#">Read More</a>
+                                                </div>
+                                                <div class="thim-course-content">
+                                                    <div class="course-author" itemscope itemtype="http://schema.org/Person">
+                                                        <img alt="Admin bar avatar" src="~/images/21232f297a57a5a743894a0e4a801fc3.jpg" class="avatar avatar-40 photo" height="40" width="40" />
+                                                        <div class="author-contain">
+                                                            <label itemprop="jobTitle">Teacher</label>
+                                                            <div class="value" itemprop="name"> <a href="#"> Hinata Hyuga </a></div>
+                                                        </div>
+                                                    </div>
+                                                    <h2 class="course-title"> <a href="#"> Learning jQuery Mobile for Beginners</a></h2>
+                                                    <div class="course-meta">
+                                                        <div class="course-students">
+                                                            <label>Students</label>
+                                                            <div class="value"><i class="fa fa-group"></i> 32</div>
+                                                        </div>
+                                                        <div class="course-comments-count">
+                                                            <div class="value"><i class="fa fa-comment"></i>1</div>
+                                                        </div>
+                                                        <div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                                            <div class="value " itemprop="price" content="&#036;30.00"> &#036;30.00</div>
+                                                            <meta itemprop="priceCurrency" content="&#36;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="course-item">
+                                                <div class="course-thumbnail">
+                                                    <a href="#"><img src="~/images/course-2-450x450.jpg" alt="Become a PHP Master and Make Money" title="course-2" width="450" height="450"></a><a class="course-readmore" href="#">Read More</a>
+                                                </div>
+                                                <div class="thim-course-content">
+                                                    <div class="course-author" itemscope itemtype="http://schema.org/Person">
+                                                        <img alt="Admin bar avatar" src="~/images/9c081444f942cc8fe0ddf55631b584e2.jpg" class="avatar avatar-40 photo" height="40" width="40" />
+                                                        <div class="author-contain">
+                                                            <label itemprop="jobTitle">Teacher</label>
+                                                            <div class="value" itemprop="name"> <a href="#"> Keny White </a></div>
+                                                        </div>
+                                                    </div>
+                                                    <h2 class="course-title"> <a href="#"> Become a PHP Master and Make Money</a></h2>
+
+                                                    <div class="course-meta">
+                                                        <div class="course-students">
+                                                            <label>Students</label>
+                                                            <div class="value"><i class="fa fa-group"></i> 30</div>
+                                                        </div>
+                                                        <div class="course-comments-count">
+                                                            <div class="value"><i class="fa fa-comment"></i>1</div>
+                                                        </div>
+                                                        <div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                                            <div class="value " itemprop="price" content="&#036;69.00"> &#036;69.00<span class="course-origin-price">&#36;80.00</span></div>
+                                                            <meta itemprop="priceCurrency" content="&#36;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-grid" id="pg-12-3">
+                            <div class="panel-row-style-thim-bg-overlay siteorigin-panels-stretch thim-bg-overlay panel-row-style" style="min-height: 615px;background-image: url(../../Images/bg_register_now.jpg); margin-left: -351.5px; margin-right: -351.5px; padding-left: 351.5px; padding-right: 351.5px;border-left: 0px; border-right: 0px; background-size: 2264.67px 1118.18px; background-position: center center; background-repeat: no-repeat;" data-stretch-type="full" data-siteorigin-parallax="{&quot;backgroundUrl&quot;:&quot;../../Images/bg_register_now.jpg&quot;,&quot;backgroundSize&quot;:[1600,790],&quot;backgroundSizing&quot;:&quot;scaled&quot;,&quot;limitMotion&quot;:&quot;auto&quot;}">
+                                <div class="panel-grid-cell" id="pgc-12-3-0">
+                                    <div class="so-panel widget widget_text panel-first-child" id="panel-12-3-0-0" data-index="6">
+                                        <div class="textwidget">
+                                            <div class="thim-get-100s">
+                                                <p class="get-100s">Get 100s of online <span class="thim-color">Courses For Free</span></p>
+                                                <h2>Register Now</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="so-panel widget widget_countdown-box panel-last-child" id="panel-12-3-0-1" data-index="7">
+                                        <div class="thim-widget-countdown-box thim-widget-countdown-box-base">
+                                            <div class="text-left color-white" id="coming-soon-counter58987237e1b4b"></div>
+                                            <script type="text/javascript">
+                                                jQuery(function () {
+                                                    jQuery(document).ready(function () {
+                                                        jQuery("#coming-soon-counter58987237e1b4b").mbComingsoon({
+                                                            expiryDate: new Date(2017, 1, 20, 1),
+                                                            localization: {
+                                                                days: "days",
+                                                                hours: "hours",
+                                                                minutes: "minutes",
+                                                                seconds: "seconds"
+                                                            },
+                                                            speed: 100
+                                                        });
+                                                        setTimeout(function () {
+                                                            jQuery(window).resize();
+                                                        }, 200);
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-grid-cell" id="pgc-12-3-1">
+                                    <div class="so-panel widget widget_text panel-first-child panel-last-child" id="panel-12-3-1-0" data-index="8">
+                                        <div class="textwidget">
+                                            <div class="thim-register-now-form">
+                                                <h3 class="title"><span>Create your free account now and get immediate access to 100s of online courses.</span></h3>
+                                                <div role="form" class="wpcf7" id="wpcf7-f85-p12-o1" lang="en-US" dir="ltr">
+                                                    <div class="screen-reader-response"></div>
+                                                    <form action="http://educationwp.thimpress.com/#wpcf7-f85-p12-o1" method="post" class="wpcf7-form" novalidate>
+                                                        <div style="display: none;">
+                                                            <input type="hidden" name="_wpcf7" value="85" />
+                                                            <input type="hidden" name="_wpcf7_version" value="4.6.1" />
+                                                            <input type="hidden" name="_wpcf7_locale" value="en_US" />
+                                                            <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f85-p12-o1" />
+                                                            <input type="hidden" name="_wpnonce" value="1b090243d2" />
+                                                        </div>
+                                                        <p><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Your Name *" /></span></p>
+                                                        <p><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email *" /></span></p>
+                                                        <p><span class="wpcf7-form-control-wrap phone"><input type="tel" name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-required wpcf7-validates-as-tel" aria-required="true" aria-invalid="false" placeholder="Phone *" /></span></p>
+                                                        <p>
+                                                            <input type="submit" value="Get It Now" class="wpcf7-form-control wpcf7-submit" />
+                                                        </p>
+                                                        <div class="wpcf7-response-output wpcf7-display-none"></div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-grid" id="pg-12-4">
+                            <div class="panel-grid-cell" id="pgc-12-4-0">
+                                <div class="so-panel widget widget_heading panel-first-child" id="panel-12-4-0-0" data-index="9">
+                                    <div class="thim-widget-heading thim-widget-heading-base">
+                                        <div class="sc_heading text-left">
+                                            <h3 class="title">Events</h3>
+                                            <p class="sub-heading" style="">Upcoming Education Events to feed your brain.</p><span class="line"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="so-panel widget widget_list-event panel-last-child" id="panel-12-4-0-1" data-index="10">
+                                    <div class="thim-widget-list-event thim-widget-list-event-base">
+                                        <div class="thim-list-event">
+                                            <a class="view-all" href="#">View All</a>
+                                            <div class="item-event post-2951 tp_event type-tp_event status-tp-event-happenning has-post-thumbnail hentry pmpro-has-access">
+                                                <div class="time-from">
+                                                    <div class="date"> 15</div>
+                                                    <div class="month"> February</div>
+                                                </div>
+                                                <div class="image"><img src="~/images/event-2-450x233.jpg" alt="event-2" title="event-2" width="450" height="233"></div>
+                                                <div class="event-wrapper">
+                                                    <h5 class="title"> <a href="#"> Happy New Year 2017</a></h5>
+                                                    <div class="meta">
+                                                        <div class="time"> <i class="fa fa-clock-o"></i> 8:00 am - 5:00 pm</div>
+                                                        <div class="location"> <i class="fa fa-map-marker"></i> Paris, French</div>
+                                                    </div>
+                                                    <div class="description">
+                                                        <p>Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris itae erat conuat</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item-event post-2953 tp_event type-tp_event status-tp-event-upcoming has-post-thumbnail hentry pmpro-has-access">
+                                                <div class="time-from">
+                                                    <div class="date"> 20</div>
+                                                    <div class="month"> March</div>
+                                                </div>
+                                                <div class="image"><img src="~/images/event-4-450x233.jpg" alt="event-4" title="event-4" width="450" height="233"></div>
+                                                <div class="event-wrapper">
+                                                    <h5 class="title"> <a href="#"> Build Education Website</a></h5>
+                                                    <div class="meta">
+                                                        <div class="time"> <i class="fa fa-clock-o"></i> 8:00 am - 5:00 pm</div>
+                                                        <div class="location"> <i class="fa fa-map-marker"></i> Chicago, US</div>
+                                                    </div>
+                                                    <div class="description">
+                                                        <p>Tech you how to build a complete Learning Management System.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-grid" id="pg-12-5">
+                            <div class="panel-row-style-thim-bg-overlay siteorigin-panels-stretch thim-bg-overlay panel-row-style" style="padding-bottom: 85px;background-image: url(../../Images/bg_lastest_new.jpg);background-size: cover;" data-stretch-type="full">
+                                <div class="panel-grid-cell" id="pgc-12-5-0">
+                                    <div class="so-panel widget widget_heading panel-first-child" id="panel-12-5-0-0" data-index="11">
+                                        <div class="panel-widget-style">
+                                            <div class="thim-widget-heading thim-widget-heading-base">
+                                                <div class="sc_heading text-left">
+                                                    <h3 style="color:#ffffff;" class="title">Latest News</h3>
+                                                    <p class="sub-heading" style="color:#ffffff;">Education news all over the world.</p><span style="background-color:#ffffff" class="line"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="so-panel widget widget_carousel-post panel-last-child" id="panel-12-5-0-1" data-index="12">
+                                        <div class="thim-widget-carousel-post thim-widget-carousel-post-base">
+                                            <div class="thim-owl-carousel-post thim-carousel-wrapper" data-visible="3" data-pagination="0" data-navigation="1" data-autoplay="0">
+                                                <div class="item">
+                                                    <div class="image">
+                                                        <a href="#"> <img src="~/images/blog-8-450x267.jpg" alt="Online Learning Glossary" title="blog-8" width="450" height="267"> </a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <div class="info">
+                                                            <div class="author"> <span>Anthony</span></div>
+                                                            <div class="date"> 20/01/2016</div>
+                                                        </div>
+                                                        <h4 class="title"> <a href="#">Online Learning Glossary</a></h4>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="image">
+                                                        <a href="#"> <img src="~/images/blog-5-450x267.jpg" alt="Tips to Succeed in an Online Course" title="blog-5" width="450" height="267"> </a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <div class="info">
+                                                            <div class="author"> <span>Anthony</span></div>
+                                                            <div class="date"> 20/01/2016</div>
+                                                        </div>
+                                                        <h4 class="title"> <a href="#">Tips to Succeed in an Online Course</a></h4>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="image">
+                                                        <a href="#"> <img src="~/images/blog-3-450x267.jpg" alt="Introducing: Dr. Deniz Zeynep" title="blog-3" width="450" height="267"> </a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <div class="info">
+                                                            <div class="author"> <span>Hinata Hyuga</span></div>
+                                                            <div class="date"> 20/10/2015</div>
+                                                        </div>
+                                                        <h4 class="title"> <a href="#">Introducing: Dr. Deniz Zeynep</a></h4>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="image">
+                                                        <a href="#"> <img src="~/images/blog-2-450x267.jpg" alt="LMS WordPress plugin" title="blog-2" width="450" height="267"> </a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <div class="info">
+                                                            <div class="author"> <span>Hinata Hyuga</span></div>
+                                                            <div class="date"> 20/10/2015</div>
+                                                        </div>
+                                                        <h4 class="title"> <a href="#">LMS WordPress plugin</a></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-grid" id="pg-12-6">
+                            <div class="panel-grid-cell" id="pgc-12-6-0">
+                                <div class="so-panel widget widget_heading panel-first-child" id="panel-12-6-0-0" data-index="13">
+                                    <div class="thim-widget-heading thim-widget-heading-base">
+                                        <div class="sc_heading text-center">
+                                            <h3 class="title">What People Say</h3>
+                                            <p class="sub-heading" style="">How real people said about I will <sup>&reg;</sup>.</p><span class="line"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="so-panel widget widget_testimonials panel-last-child" id="panel-12-6-0-1" data-index="14">
+                                    <div class="thim-widget-testimonials thim-widget-testimonials-base">
+                                        <div class="thim-testimonial-slider" data-visible="5" data-auto="0" data-mousewheel="0">
+                                            <div class="item">
+                                                <div class="image"><img src="~/images/peter-100x100.jpg" alt="peter" title="peter" width="100" height="100"></div>
+                                                <div class="content">
+                                                    <h3 class="title">Peter Packer</h3>
+                                                    <div class="regency">Front-end Developer</div>
+                                                    <div class="description">“ LearnPress WordPress LMS Plugin designed with flexible & scalable eLearning system in mind. This WordPress eLearning Plugin comes up with 10+ addons (and counting) to extend the ability of this WordPress Learning Management System. This is incredible. ”</div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="image"><img src="~/images/manuel-100x100.jpg" alt="manuel" title="manuel" width="100" height="100"></div>
+                                                <div class="content">
+                                                    <h3 class="title">Manuel</h3>
+                                                    <div class="regency">Designer</div>
+                                                    <div class="description">“ LearnPress is a comprehensive LMS solution for WordPress. This WordPress LMS Plugin can be used to easily create & sell courses online. Each course curriculum can be made with lessons & quizzes which can be managed with easy-to-use user interface, it never gets easier with LearnPress. ”</div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="image"><img src="~/images/john-doe-100x100.jpg" alt="john-doe" title="john-doe" width="100" height="100"></div>
+                                                <div class="content">
+                                                    <h3 class="title">John Doe</h3>
+                                                    <div class="regency">Art director</div>
+                                                    <div class="description">“ LearnPress is a WordPress complete solution for creating a Learning Management System (LMS). It can help me to create courses, lessons and quizzes and manage them as easy as I want. I've learned a lot, and I highly recommend it. Thank you. ”</div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="image"><img src="~/images/elsie-100x100.jpg" alt="elsie" title="elsie" width="100" height="100"></div>
+                                                <div class="content">
+                                                    <h3 class="title">Elsie</h3>
+                                                    <div class="regency">Copyrighter</div>
+                                                    <div class="description">“ You don't need a whole ecommerce system to sell your online courses. Paypal, Stripe payment methods integration can help you sell your courses out of the box. In the case you wanna use WooCommerce, this awesome WordPress LMS Plugin will serve you well too. ”</div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="image"><img src="~/images/anthony-100x100.jpg" alt="anthony" title="anthony" width="100" height="100"></div>
+                                                <div class="content">
+                                                    <h3 class="title">Anthony</h3>
+                                                    <div class="regency">CEO at Thimpress</div>
+                                                    <div class="description">“ Education WP Theme is a comprehensive LMS solution for WordPress Theme. This beautiful theme based on LearnPress - the best WordPress LMS plugin. Education WP theme will bring you the best LMS experience ever with super friendly UX and complete eLearning features. ”</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-grid" id="pg-12-7">
+                            <div class="panel-grid-cell" id="pgc-12-7-0">
+                                <div class="so-panel widget widget_text panel-first-child panel-last-child" id="panel-12-7-0-0" data-index="15">
+                                    <div class="textwidget">
+                                        <div class="thim-newlleter-homepage">
+                                            <p class="description">Subscribe now and receive weekly newsletter with educational materials, new courses, interesting posts, popular books and much more!</p>
+                                            <script type="text/javascript">
+                                                (function () {
+                                                    if (!window.mc4wp) {
+                                                        window.mc4wp = {
+                                                            listeners: [],
+                                                            forms: {
+                                                                on: function (event, callback) {
+                                                                    window.mc4wp.listeners.push({
+                                                                        event: event,
+                                                                        callback: callback
+                                                                    });
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                })();
+                                            </script>
+                                            <form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-3101 mc4wp-form-basic" method="post" data-id="3101" data-name="Default sign-up form">
+                                                <div class="mc4wp-form-fields">
+                                                    <input type="email" id="mc4wp_email" name="EMAIL" placeholder="Your email here" required />
+                                                    <input type="submit" value="Subscribe" />
+                                                    <div style="display: none;">
+                                                        <input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off" />
+                                                    </div>
+                                                    <input type="hidden" name="_mc4wp_timestamp" value="1486385720" />
+                                                    <input type="hidden" name="_mc4wp_form_id" value="3101" />
+                                                    <input type="hidden" name="_mc4wp_form_element_id" value="mc4wp-form-1" />
+                                                </div>
+                                                <div class="mc4wp-response"></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer id="colophon" class="site-footer has-footer-bottom">
+                    @{
+                        Html.RenderPartial("pvFooter");
+                    }
+                </footer>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <aside id="siteorigin-panels-builder-7" class="widget widget_siteorigin-panels-builder footer_bottom_widget">
+                        <div id="pl-w57babc3f18d14">
+                            <style scoped>
+                                /*<!-- Style 01 -->*/
+                            </style>
+                            <div class="panel-grid" id="pg-w57babc3f18d14-0">
+                                <div class="panel-row-style-thim-bg-overlay-color-half siteorigin-panels-stretch thim-bg-overlay-color-half panel-row-style" style="min-height: 450px;background-image: url(../../Images/bg-footer.jpg);background-size: cover;" data-stretch-type="full">
+                                    <div class="panel-grid-cell" id="pgc-w57babc3f18d14-0-0">
+                                        <div class="so-panel widget widget_heading panel-first-child" id="panel-w57babc3f18d14-0-0-0" data-index="0">
+                                            <div class="thim-widget-heading thim-widget-heading-base">
+                                                <div class="sc_heading text-center">
+                                                    <h3 style="color:#333333;" class="title">Become an instructor?</h3>
+                                                    <p class="sub-heading" style="color:#333333;">Join thousand of instructors and earn money hassle free!</p><span class="line"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="so-panel widget widget_button panel-last-child" id="panel-w57babc3f18d14-0-0-1" data-index="1">
+                                            <div class="thim-widget-button thim-widget-button-base"><a class="widget-button  normal" href="#" style="" data-hover="">Get Started Now</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+        <a href="#" id="back-to-top"> <i class="fa fa-chevron-up"></i> </a>
+    </div>
+    <script type="text/javascript" id="modal">
+        jQuery(window).on('load', function () {
+            startclock();
+        });
+
+        function stopclock() {
+            if (timerRunning) clearTimeout(timerID);
+            timerRunning = false;
+            document.cookie = "time=0";
+        }
+
+        function showtime() {
+            var now = new Date();
+            var my = now.getTime();
+            now = new Date(my - diffms);
+            document.cookie = "time=" + now.toLocaleString();
+            timerID = setTimeout('showtime()', 10000);
+            timerRunning = true;
+        }
+
+        function startclock() {
+            stopclock();
+            showtime();
+        }
+        var timerID = null;
+        var timerRunning = false;
+        var x = new Date();
+        var now = x.getTime();
+        var gmt = 1486385720 * 1000;
+        var diffms = (now - gmt);
+    </script>
+    <script type="text/javascript" id="info-bar">
+        jQuery(window).on('load', function () {
+            startclock();
+        });
+
+        function stopclock() {
+            if (timerRunning) clearTimeout(timerID);
+            timerRunning = false;
+            document.cookie = "time=0";
+        }
+
+        function showtime() {
+            var now = new Date();
+            var my = now.getTime();
+            now = new Date(my - diffms);
+            document.cookie = "time=" + now.toLocaleString();
+            timerID = setTimeout('showtime()', 10000);
+            timerRunning = true;
+        }
+
+        function startclock() {
+            stopclock();
+            showtime();
+        }
+        var timerID = null;
+        var timerRunning = false;
+        var x = new Date();
+        var now = x.getTime();
+        var gmt = 1486385720 * 1000;
+        var diffms = (now - gmt);
+    </script>
+    <script type="text/javascript" id="slidein">
+        jQuery(window).on('load', function () {
+            startclock();
+        });
+
+        function stopclock() {
+            if (timerRunning) clearTimeout(timerID);
+            timerRunning = false;
+            document.cookie = "time=0";
+        }
+
+        function showtime() {
+            var now = new Date();
+            var my = now.getTime();
+            now = new Date(my - diffms);
+            document.cookie = "time=" + now.toLocaleString();
+            timerID = setTimeout('showtime()', 10000);
+            timerRunning = true;
+        }
+
+        function startclock() {
+            stopclock();
+            showtime();
+        }
+        var timerID = null;
+        var timerRunning = false;
+        var x = new Date();
+        var now = x.getTime();
+        var gmt = 1486385720 * 1000;
+        var diffms = (now - gmt);
+    </script>
+    <script type="text/javascript">
+        (function () {
+            function addEventListener(element, event, handler) {
+                if (element.addEventListener) {
+                    element.addEventListener(event, handler, false);
+                } else if (element.attachEvent) {
+                    element.attachEvent('on' + event, handler);
+                }
+            }
+
+            function maybePrefixUrlField() {
+                if (this.value.trim() !== '' && this.value.indexOf('http') !== 0) {
+                    this.value = "http://" + this.value;
+                }
+            }
+
+            var urlFields = document.querySelectorAll('.mc4wp-form input[type="url"]');
+            if (urlFields && urlFields.length > 0) {
+                for (var j = 0; j < urlFields.length; j++) {
+                    addEventListener(urlFields[j], 'blur', maybePrefixUrlField);
+                }
+            } /* test if browser supports date fields */
+            var testInput = document.createElement('input');
+            testInput.setAttribute('type', 'date');
+            if (testInput.type !== 'date') {
+
+                /* add placeholder & pattern to all date fields */
+                var dateFields = document.querySelectorAll('.mc4wp-form input[type="date"]');
+                for (var i = 0; i < dateFields.length; i++) {
+                    if (!dateFields[i].placeholder) {
+                        dateFields[i].placeholder = 'YYYY-MM-DD';
+                    }
+                    if (!dateFields[i].pattern) {
+                        dateFields[i].pattern = '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])';
+                    }
+                }
+            }
+
+        })();
+    </script>
+    <script data-cfasync="false" type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                var body = document.getElementById("thim-body"),
+                    thim_preload = document.getElementById("preload"),
+                    len = body.childNodes.length,
+                    class_name = body.className.replace(/(?:^|\s)thim-body-preload(?!\S)/, '').replace(/(?:^|\s)thim-body-load-overlay(?!\S)/, '');
+
+                body.className = class_name;
+                if (typeof thim_preload !== 'undefined' && thim_preload !== null) {
+                    for (var i = 0; i < len; i++) {
+                        if (body.childNodes[i].id !== 'undefined' && body.childNodes[i].id == "preload") {
+                            body.removeChild(body.childNodes[i]);
+                            break;
+                        }
+                    }
+                }
+            }, 500);
+        };
+    </script>
+    <script src="~/js/jquery.min.js"></script>
+    @*<script language="javascript" src="~/js/jquery-3.1.1.min.js"></script>*@
+    <script language="javascript" src="~/js/bootstrap.min.js"></script>
+    <script language="javascript" src="~/js/autoptimize_12.js"></script>
+    <script language="javascript" src="~/js/jquery.superslides.min.js"></script>
+    <script language="javascript" src="~/js/jquery.animate-enhanced.min.js"></script>
+    <script language="javascript" src="~/js/jquery.easing.1.3.js"></script>
+    <script>
+        $('#slides').superslides({
+            animation: 'fade',
+            play: 5000
+        });
+    </script>
+
+    <script>
+        //$('#WiwModalid').on('click', function (e) {
+        //$('#wiwModal').modal('show')
+        //})
+
+    </script>
+
+</body>
+</html>

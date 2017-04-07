@@ -1,0 +1,1002 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using IWill_MvcApplication.Models;
+
+@model  IWill_MvcApplication.Models.ModelUserRegQuestion
+
+@{
+    ViewBag.Title = "ViewUserQuestionsList";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_MyIWillLayout.cshtml";
+}
+<script src="~/js/MyJs.js"></script>
+<style>
+    /*filter CSS*/
+    .mar {
+        margin-top: 20px;
+    }
+
+    .row {
+        margin-top: 20px;
+    }
+
+        .row > div {
+            margin-left: 20px;
+            float: left;
+        }
+    /***************/
+    .innertable {
+        width: 80%;
+        margin-left: 30px;
+        background-color: rgba(173, 173, 173, 0.21);
+    }
+
+    textarea {
+        max-width: 600px !important;
+        height: 80px !important;
+    }
+
+    #questiontype select {
+        width: 150px;
+    }
+
+    #ListQuestion tr th {
+        background-color: rgba(66, 139, 202, 0.85);
+        color: white;
+    }
+</style>
+
+
+<h2>View User Questions List</h2>
+
+@{
+    Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+}
+
+<p>
+    @Html.ActionLink("Create New Question", "ViewCreateQuesForUserRegistration", "UserRegQuestion")
+</p>
+
+
+
+<div id="SearchUsers" class="form-horizontal col-md-12" style="margin:40px;">
+    @using (Html.BeginForm("ViewUserQuestionsList", "UserRegQuestion", FormMethod.Get))
+    {
+        <div id="SearchingFilter">
+            <div class="row">
+                <div>
+                    <label for="username" class="control-label" data-icon="u"> Question Name</label>
+
+                </div>
+                <div style="max-width:800px !important">
+                    @Html.TextBox("Question", "", new { @class = "form-control",@id = "txtQuesitonName", @placeholder = "Question Name" })
+                    
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div>
+                    <label>Select Criteria</label>
+
+                </div>
+                <div class="">
+                    <select class="form-control" id="ddlCriteria" name="Criteria">
+                        <option value="0">ALL</option>
+                        <option value="1">Student</option>
+                        <option value="2">Coach</option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+                    <label for="username" class="control-label" data-icon="u"> Question Type</label>
+
+                </div>
+                <div>
+                    @Html.DropDownList("QuestionTyp", Helper.GetQuestionairTypes(), "All Types", new { @id = "QuestionTyp", @class = "form-control" })
+                </div>
+                <div>
+                    <label for="IsActiv" class="control-label" data-icon="u"> Is Active</label>
+
+                </div>
+                <div>
+
+                    <select class="form-control" id="ddlActive_Deactive" name="IsActiv">
+                        <option value="0">ALL</option>
+                        <option value="1">Active</option>
+                        <option value="2">Deactive</option>
+
+                    </select>
+                </div>
+                <div>
+                    <input type="submit" value="Search" class="btn btn-primary" onclick="return load()" />
+                </div>
+            </div>
+
+        </div>
+    }
+        <table id="ListQuestion" class="table" style="margin-top:20px;">
+            <tr>
+
+                <th>
+                    Question
+                </th>
+                <th>
+                    Question Type
+                </th>
+                <th>
+                    Criteria
+                </th>
+                <th>
+                    Is Active
+                </th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in (IPagedList<spSearchUserRegestrationQuestions_Result>)ViewData["UserQuestions"])
+            {
+
+                <tr id='@item.UQID'>
+
+                    <td class="parent">
+                        @Html.HiddenFor(modelItem => item.UQID, new { @class = "QID" })
+                        @Html.HiddenFor(modelItem => item.UQuestion, new { @class = "Ques" })
+                        @Html.HiddenFor(modelItem => item.FkUQType, new { @class = "Qtype" })
+                        @Html.HiddenFor(modelItem => item.IsStudent, new { @class = "IsStudent" })
+                        @Html.HiddenFor(modelItem => item.IsStudent, new { @class = "IsActve" })
+                        
+                        @if (item.UQuestion.Length > 20)
+                        {
+                            @Html.DisplayFor(modelItem => item.UQuestion).ToString().Substring(0, 20) ; <span style="font-weight:bold"> ...</span>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.UQuestion).ToString();
+                        }
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.QTName)
+                    </td>
+                    <td>
+                        @{
+                            if (Convert.ToBoolean(item.IsStudent))
+                            {<div>Student</div>
+                            }
+                            else
+                            { <div> Coach </div>
+                            }
+                        }
+                    </td>
+                    <td class="Active">
+                        @{
+                            if (Convert.ToBoolean(item.IsActive))
+                            {
+                                <div>Activate</div>
+                            }
+                            else
+                            { <div>Not Active</div>
+
+                            }
+                        }
+
+                    </td>
+                    <td>
+                        <a href="#" data-toggle="modal" data-target="#ModelEditQuestion" onclick="return EditQuestion(this)"> Edit Question</a> |
+                        @*<a href="#" onclick="return Details(this)"> Details</a> |*@
+
+                        @{
+                            if (Convert.ToBoolean(item.IsActive))
+                            {
+                                <a href="#" onclick="return DeactivateQuestion(@item.UQID)"> Deactivate </a>
+                            }
+                            else
+                            {
+                                <a href="#" onclick="return ActivateQuestion(@item.UQID)">Activate </a>
+                            }
+                        }
+
+                        <a style="float:right;height:6px; margin-right:20px;" id="showUp" href="#" onclick="return ShowDown(this)"> <img src="~/Images/Down.png" /></a>
+                        <a style="float:right;height:6px; margin-right:20px;display:none" id="showDown" href="#" onclick="return ShowUp(this)"> <img src="~/Images/Up.png" style="height:10px" /></a>
+
+
+                    </td>
+                </tr>
+                <tr id="innertable" class="@item.UQID" style="display:none;background-color:antiquewhite;">
+                    <td colspan="5">
+
+                        <table class="table" style="width:90%;" align="center">
+                            <tr>
+
+                                <th>
+                                    Option Name
+                                </th>
+                                <th>
+                                    Is Right
+                                </th>
+                                <th>
+                                    Is Active
+                                </th>
+
+                                <th colspan="2">
+                                    Action
+                                    @{
+                                        if (item.FkUQType.ToString().Trim() == "1")
+                                        {
+                                    <input type="button" onclick='OpenAddMZQzPopup(@item.UQID)' data-toggle="modal" data-target="#ModelAddQuestionOptionMCQz" id="btnAddMZQz" value="Add MCQz" class="btn btn-default" style="margin-left:30px;" />
+                                        }
+                                        if (item.FkUQType.ToString().Trim() == "3")
+                                        {
+                                    <input type="button" onclick='OpenAddChoicesPopup(@item.UQID)' data-toggle="modal" data-target="#ModelAddQuestionOptionChoices" id="btnAddChoices" value="Add Choice" class="btn btn-default" style="margin-left:30px;" />
+
+                                        }
+                                    }
+
+                                </th>
+
+                            </tr>
+                            @{
+                                foreach (var inneritem in Helper.GetQuestionDetaills(item.UQID))
+                                {
+
+                            <tr id="@inneritem.UQDID">
+
+                                <td>
+                                    @Html.HiddenFor(modelItem => inneritem.UQDID, new { @class = "UQDID" })
+                                    @Html.HiddenFor(modelItem => inneritem.QuesOptionName, new { @class = "QuesOptionName" })
+                                    @Html.HiddenFor(modelItem => inneritem.IsRight, new { @class = "IsRight" })
+
+                                    @if (inneritem.QuesOptionName.Length > 20)
+                                            {
+                                            @Html.DisplayFor(modelItem => inneritem.QuesOptionName).ToString().Substring(0, 20) ; <span style="font-weight:bold"> ...</span>
+                                            }
+                                            else
+                                            {
+                                            @Html.DisplayFor(modelItem => inneritem.QuesOptionName).ToString();
+                                            }
+
+                                </td>
+                                <td>@inneritem.IsRight</td>
+                                <td>
+                                    @{
+                                                if (Convert.ToBoolean(inneritem.IsActive))
+                                                {
+                                            <div>Activate</div>
+                                                }
+                                                else
+                                                { <div>Not Active</div>
+
+                                                }
+                                    }
+
+                                </td>
+                                <td colspan="2">
+                                    <a href="#" data-toggle="modal" data-target="#ModelEditQuestionOption" onclick="return EditQuestionOption(this)"> Edit Question Option</a> |
+
+                                    @{
+                                                if (Convert.ToBoolean(inneritem.IsActive))
+                                                {
+                                            <a href="#" onclick="return DeactivateQuestionOption(@inneritem.UQDID)"> Deactivate </a>
+                                                }
+                                                else
+                                                {
+                                            <a href="#" onclick="return ActivateQuestionOption(@inneritem.UQDID)">Activate </a>
+                                                }
+                                    }
+                                </td>
+                            </tr>
+                                                }
+                            }
+
+                        </table>
+
+                    </td>
+                </tr>
+
+                                        }
+
+        </table>
+                                        
+
+    <div id="ManagePaging">
+        @{
+
+            if ((IPagedList<spSearchUserRegestrationQuestions_Result>)ViewData["UserQuestions"] != null)
+            {
+                if (((IPagedList<spSearchUserRegestrationQuestions_Result>
+                    )ViewData["UserQuestions"]).Count == 0)
+                {
+                    <div>
+                        No Record found
+                    </div>
+                }
+            }
+            if ((IPagedList<spSearchUserRegestrationQuestions_Result>)ViewData["UserQuestions"] != null)
+            {
+                @Html.PagedListPager((IPagedList<spSearchUserRegestrationQuestions_Result>)ViewData["UserQuestions"],
+                                              PageNumber => Url.Action("ViewUserQuestionsList", "UserRegQuestion", new
+                                              {
+                                                  PageNumber,
+                                                  Question = Request.QueryString["Question"],
+                                                  Criteria = Request.QueryString["Criteria"],
+                                                  QuestionTyp = Request.QueryString["QuestionTyp"],
+                                                  IsActiv = Request.QueryString["IsActiv"]
+                                                  //, sortOrder = TempData["sortOrder"],
+
+                                              }),
+                                                 new PagedListRenderOptions()
+                                                 {
+                                                     Display = PagedListDisplayMode.IfNeeded,
+                                                     DisplayPageCountAndCurrentLocation = true
+                                                 })
+            }
+
+        }
+    </div>
+
+    <div id="ModelEditQuestion" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" style="width:650px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Question</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+
+                        @Html.HiddenFor(model => model.UQID, htmlAttributes: new { @id = "hdnUQID" })
+                        @Html.LabelFor(model => model.UQuestion, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div>
+                            @Html.TextAreaFor(model => model.UQuestion, new { @id = "txtQuestion", @class = "form-control ", @placeholder = "Write a question here", required = "required" })
+                        </div>
+                    </div>
+
+                    <div id="questiontype" class="form-group">
+                        @Html.LabelFor(model => model.FkUQType, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+
+                            @Html.DropDownListFor(model => model.FkUQType, Helper.GetQuestionairTypes(), "Select Type", new { @id = "ddlQtype", @class = "form-control", @disabled = "true", @onchange = "QtypeChanged()" })
+                            @Html.ValidationMessageFor(model => model.FkUQType, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-5">
+                            @Html.LabelFor(model => model.IsStudent, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.CheckBoxFor(model => model.IsStudent, new { @id = "chkIsStudent", @class = "col-md-2 " })
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onkeydown="">Close</button>
+                        <button id="btnUpdate" type="button" class="btn btn-default" onclick="return UpdateQuestion()">Update Question</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="ModelEditQuestionOption" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" style="width:650px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Question Option</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+
+                        @Html.HiddenFor(model => model.UQID, htmlAttributes: new { @id = "hdnUQDID" })
+                        @Html.LabelFor(model => model.UQuestion, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div>
+                            @Html.TextAreaFor(model => model.UQuestion, new { @id = "txtQuestionOption", @class = "form-control ", @placeholder = "Write a question here", required = "required" })
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onkeydown="">Close</button>
+                        <button id="btnUpdate" type="button" class="btn btn-default" onclick="return UpdateQuestionOtion()">Update Question</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="ModelAddQuestionOptionMCQz" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            @using (Html.BeginForm("AddQuestionOptionMcqz", "UserRegQuestion",FormMethod.Post))
+            {
+            <!-- Modal content-->
+            <div class="modal-content" style="width:680px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Question Option </h4>
+                </div>
+                <input id="hdnUQIDForAddMCQzOption" type="hidden" name="UQID" value="" />
+
+                <div id="QuestionDetailMCQZ" class="form-group modal-body" style="margin-top:20px">
+                    <div>
+                        <label class="control-label col-md-2">Name </label>
+                        <input type="text" name="UserQuestionDetail[0].QuesOptionName" class="form-control col-md-2" required />
+
+                        <label class="control-label col-md-2">Right</label>
+                        <input type="radio" name="radio" class="myradio" onclick="radioSelected(this)" />
+                        <input type="hidden" name="UserQuestionDetail[0].IsRight" value="false" />
+                        <input type="button" onclick='AddMCQ()' id="btnAddMCQ" value="Add" class="btn btn-primary" style="margin-left:30px;" />
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onkeydown="">Close</button>
+                    <button id="btnAddQuestionOptionMcqz" type="submit" class="btn btn-default" onclick="return AddQuestionOptionMcqz()">Add MCQz</button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+    <div id="ModelAddQuestionOptionChoices" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            @using (Html.BeginForm("AddQuestionOptionChoices", "UserRegQuestion", FormMethod.Post))
+            {
+            <!-- Modal content-->
+                <div class="modal-content" style="width:680px;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Question Option </h4>
+                    </div>
+                    <input id="hdnUQIDForAddCHoiceOption" type="hidden" name="UQID" value="" />
+
+                    <div id="QuestionDetailChoices" class="form-group modal-body" style="margin-top:20px">
+                        <div>
+                            <label class="control-label col-md-2">Name </label>
+                            <input type="text" name="UserQuestionDetail[0].QuesOptionName" class="form-control col-md-2" required />
+
+                            <label class="control-label col-md-2">Right</label>
+                            <input type="checkbox"  onclick= "CheckBoxSelected(this)"  />
+                            <input type="hidden" name="UserQuestionDetail[0].IsRight" value="false" />
+                            <input type="button" onclick='AddChoices()' id="btnAddChoices" value="Add" class="btn btn-primary" style="margin-left:30px;" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onkeydown="">Close</button>
+                        <button id="btnAddQuestionOptionMcqz" type="submit" class="btn btn-default" onclick="return AddQuestionOptionMcqz()">Add MCQz</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+    @{ if (TempData["UQID"] != null)
+        {
+            <script>
+                var id = @TempData["UQID"];
+                changeRowColorAndFocus('tr#' + id);
+
+         
+            </script>
+
+        }
+    }
+    @{ if (TempData["option"] != null)
+        {
+
+            <script>
+                var id = @TempData["option"];
+                $('tr#' + id).parents('tr#innertable').show();
+                changeRowColorAndFocus('tr#' + id);
+            </script>
+
+        }
+    }
+
+
+    @{ if (TempData["UQDID"] != null)
+        {
+
+            <script>
+                var id = @TempData["UQDID"];
+                $('tr#' + id).parents('tr#innertable').show();
+                changeRowColorAndFocus('tr#' + id);
+         
+            
+            </script>
+
+        }
+    }
+
+</div>
+
+<script>
+
+ 
+
+    var  i =1 ;
+    var  j =1 ;
+
+    $().ready(function () {
+
+
+    });
+
+    function ShowDown(obj) {
+
+        //$(obj).parents('tr').find('#innertable').fadeOut();
+
+        $(obj).parents('table').find('tr#innertable').fadeOut();
+        $(obj).parents('table').find('a#showUp').show();
+        $(obj).parents('table').find('a#showDown').hide();
+
+        $(obj).next().show();
+        $(obj).parents('tr').next().fadeIn();
+        $(obj).hide();
+
+
+
+
+    }
+
+    function ShowUp(obj) {
+
+        $(obj).parents('tr').next().fadeOut('slow');
+        $(obj).hide();
+        $(obj).prev().show();
+
+
+
+    }
+
+    function ValidateControl(obj) {
+        if ($(obj).val().length == 0) {
+            $(obj).css('border', '1px solid red');
+            $(obj).focus();
+            return false;
+        }
+        else {
+            $(obj).css('border', '');
+            return true;
+        }
+    }
+
+    function EditQuestion(obj) {
+
+        var QID;//= $(obj).parents('tr').find('td.parent').find(':hidden.QID').val();
+        var Ques;// = $(obj).parents('tr').children('td.parent').find(':hidden.Ques').val();
+        var Qtype; //= $(obj).parents('tr').children('td.parent').find(':hidden.Qtype').val();
+        var IsStudent;
+
+        $(obj).closest('tr').children('td.parent').find(':hidden').each(function () {
+
+            if ($(this).is(".QID"))
+                QID = $(this).val();
+
+            if ($(this).is(".Ques"))
+                Ques = $(this).val();
+
+            if ($(this).is(".Qtype"))
+                Qtype = $(this).val();
+
+            if ($(this).is(".IsStudent"))
+                IsStudent = $(this).val();
+
+        });
+
+        //alert(QID + ' ' + Ques + ' ' + Qtype + ' ' + IsStudent)
+
+        $('#hdnUQID').val(QID)
+        $('#txtQuestion').val(Ques);
+        $('#ddlQtype').val(Qtype);
+        if (IsStudent.toLowerCase() == "false")
+            $('#chkIsStudent').attr('checked', false);
+        else
+            $('#chkIsStudent').attr('checked', true);
+
+    }
+
+    function UpdateQuestion() {
+
+        if (ValidateControl('#txtQuestion') == false) {
+            return false;
+        }
+        $(".loader").show();
+        var obj = {
+            UQID: $('#hdnUQID').val(),
+            UQuestion: $('#txtQuestion').val(),
+            IsStudent: $('#chkIsStudent').prop('checked')
+        }
+
+        $.ajax({
+
+            url: "/UserRegQuestion/UpdateUserRegesterQuestion",
+            type: "POST",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r != null) {
+                    if (r.indexOf('Updated') >= 0) {
+                        $(".loader").hide();
+                        location.reload();
+                        //$("#17").css("background-color", "yellow");
+                    }
+                    //$.post('/Users/Index')
+                    if (r.indexOf('Error')) {
+                        $("div.error").fadeIn();
+                        $("div.error").html(ex.responseText)
+                        setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                        $(".loader").hide();
+                    }
+                }
+                else {
+                    alert("there is no record");
+                }
+                $('#ModelEditQuestion').modal('hide');
+                $(".loader").hide();
+            },
+            error: function (ex) {
+                $(".loader").hide();
+                alert(ex.responseText)
+            }
+        });
+
+    }
+
+
+    function ActivateQuestion(UQID) {
+        $(".loader").show();
+        $.ajax({
+
+            url: "/UserRegQuestion/ActivateQuestion/" + UQID,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r.indexOf('No Record Found') >= 0) {
+                    alert(r);
+
+                }
+                else if (r.indexOf('Activated Successfully') >= 0) {
+
+                    location.reload();
+                }
+                $(".loader").hide();
+            },
+            error: function (ex) {
+                $("div.error").fadeIn();
+                $("div.error").html(ex.responseText)
+                setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                $(".loader").hide();
+            }
+        });
+
+    }
+
+    function DeactivateQuestion(UQID) {
+        $(".loader").show();
+        $.ajax({
+
+            url: "/UserRegQuestion/DeactivateQuestion/" + UQID,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r.indexOf('No Record Found') >= 0) {
+                    alert(r);
+                }
+                else if (r.indexOf('Deactivated Successfully')) {
+                    location.reload();
+                }
+                $(".loader").hide();
+            },
+            error: function (ex) {
+                $("div.error").fadeIn();
+                $("div.error").html(ex.responseText)
+                setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                $(".loader").hide();
+            }
+        });
+
+
+    }
+
+    function ActivateQuestionOption(UQDID) {
+        
+       var QuesOptLength =  $('tr#'+UQDID).parents('tr#innertable table tbody ').find('tr').length
+       var QuesType= $('tr#'+UQDID).parents('tr#innertable').prev('tr').find(':hidden.Qtype').val()
+       var IsRight = $('tr#'+UQDID).closest('tr').find(':hidden.IsRight').val()
+     
+       if (QuesType == "1" && IsRight.toLowerCase().indexOf("true")>=0 )
+       {
+           $("div.error").fadeIn();
+               $("div.error").html("Cannot Activated, because its value is true")
+               setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+               return;
+       }
+           
+       //if (QuesOptLength <=3)
+       //{
+       //    $("div.error").fadeIn();
+       //    $("div.error").html("Cannot Activated, because there are only two items ramining")
+       //    setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+       //    return;
+       //}
+
+        $(".loader").show();
+        
+        $.ajax({
+
+            url: "/UserRegQuestion/ActivateQuestionDetailOption/" + UQDID,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r.indexOf('No Record Found') >= 0) {
+                    alert(r);
+                }
+                else if (r.indexOf('Successfully Activated') >= 0) {
+                    location.reload();
+                }
+                $(".loader").hide();
+            },
+            error: function (ex) {
+                $("div.error").fadeIn();
+                $("div.error").html(ex.responseText)
+                setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                $(".loader").hide();
+            }
+        });
+
+    }
+
+    function DeactivateQuestionOption(UQDID) {
+        
+        var QuesOptLength =  $('tr#'+UQDID).parents('tr#innertable table tbody ').find('tr').length
+        var QuesType= $('tr#'+UQDID).parents('tr#innertable').prev('tr').find(':hidden.Qtype').val()
+        var IsRight = $('tr#'+UQDID).closest('tr').find(':hidden.IsRight').val()
+     
+        if (QuesType == "1" && IsRight.toLowerCase().indexOf("true")>=0 )
+        {
+            $("div.error").fadeIn();
+            $("div.error").html("Cannot Deactivated MCQz Option, because its value is true")
+            setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+            return;
+        }
+           
+        if (QuesOptLength <=3)
+        {
+            ErrorMsgTimeOut("Cannot Activated, because there are only two items ramining");
+            //$("div.error").fadeIn();
+            //$("div.error").html("Cannot Activated, because there are only two items ramining")
+            //setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+            return;
+        }
+
+
+        $(".loader").show();
+        $.ajax({
+
+            url: "/UserRegQuestion/DeactivateQuestionDetailOption/" + UQDID,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r.indexOf('No Record Found') >= 0) {
+                    alert(r);
+                }
+                else if (r.indexOf('Deactivated Successfully')) {
+                    location.reload();
+                }
+                $(".loader").hide();
+            },
+            error: function (ex) {
+                $("div.error").fadeIn();
+                $("div.error").html(ex.responseText)
+                setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                $(".loader").hide();
+            }
+        });
+
+
+    }
+
+
+    function EditQuestionOption(obj)
+    {
+
+        var QID;
+        var Ques;
+
+        $(obj).closest('tr').find('td:first').find(':hidden').each(function () {
+
+            if ($(this).is(".UQDID"))
+                QID = $(this).val();
+
+            if ($(this).is(".QuesOptionName"))
+                Ques = $(this).val();
+
+        });
+
+        $('#hdnUQDID').val(QID)
+        $('#txtQuestionOption').val(Ques);
+    }
+
+
+    function UpdateQuestionOtion()
+    {
+        if (ValidateControl('#txtQuestionOption') == false) {
+            return false;
+        }
+        $(".loader").show();
+        var obj = {
+            UQDID: $('#hdnUQDID').val(),
+            QuesOptionName: $('#txtQuestionOption').val(),
+        }
+
+        $.ajax({
+
+            url: "/UserRegQuestion/UpdateUserRegesterQuestionOption",
+            type: "POST",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r != null) {
+                    if (r.indexOf('Updated') >= 0) {
+                        $(".loader").hide();
+                        location.reload();
+                        //$("#17").css("background-color", "yellow");
+                    }
+                    //$.post('/Users/Index')
+                    if (r.indexOf('Error')) {
+                        $("div.error").fadeIn();
+                        $("div.error").html(ex.responseText)
+                        setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                        $(".loader").hide();
+                    }
+                }
+                else {
+                    alert("there is no record");
+                }
+                $('#ModelEditQuestionOption').modal('hide');
+                $(".loader").hide();
+            },
+            error: function (ex) {
+                $(".loader").hide();
+                alert(ex.responseText)
+            }
+        });
+    }
+
+    function radioSelected(obj) {
+
+        $(obj).closest('#QuestionDetailMCQZ').children().find(':hidden').val('false')
+        $(obj).next().val('true');
+    }
+
+    function CheckBoxSelected(obj) {
+
+        var isChecked = $(obj).prop('checked');
+        if (isChecked)
+            $(obj).next().val('true');
+        else $(obj).next().val('false');
+    }
+
+
+    function OpenAddMZQzPopup(id)
+    {
+        i=1 ;
+        $('#hdnUQIDForAddMCQzOption').val(id);
+    }
+
+    function AddMCQ() {
+        //var dvQuestionDetailMCQZ = $('#QuestionDetailMCQZ');
+        if (i==10)
+        {
+            alert("you can only add 10 option 1 time");
+            return;
+        }
+        var dvMCQz = '<div   style="margin-top:20px;">' +
+                        '<input type="text" name="UserQuestionDetail[' + i + '].QuesOptionName" required="required" class="form-control col-md-2" style="margin-left: 111px;" />' +
+                        '<input type="radio" name="radio" class="myradio" onclick="radioSelected( this)" style="margin-left: 111px;" />' +
+                        '<input type="hidden" class="hidden" name="UserQuestionDetail[' + i + '].IsRight" value="false" />' +
+                        '<a  type="button" onclick="RemoveMCQ(this)" id="btnRemoveMCQ"  class="btn active" style="margin-left:30px;" > Remove</a>' +
+                      '</div>'
+        $('#QuestionDetailMCQZ').append(dvMCQz);
+        i++;
+    }
+
+    function RemoveMCQ(id) {
+
+        $(id).parent().remove();
+        var l = 0;
+
+
+        $('#QuestionDetailMCQZ div').each(function () {
+
+            $.each($(this).find(':input'), function (i, val) {
+                var suffix = String($(this).attr('name')).match(/\d+/)
+                var oldID = $(this).attr('name')
+                var NewID = String(oldID).replace('[' + suffix + ']', '[' + l + ']');
+                $(this).attr('name', NewID);
+
+            });
+            l++;
+        });
+
+        i = l;
+
+
+    }
+
+    
+
+    function OpenAddChoicesPopup(id)
+    {
+        j=1 ;
+        $('#hdnUQIDForAddCHoiceOption').val(id);
+    }
+
+    function AddChoices() {
+        //var dvQuestionDetailMCQZ = $('#QuestionDetailMCQZ');
+        if (j==10)
+        {
+            alert("you can only add 10 option 1 time");
+            return;
+        }
+        var dvChoice = '<div   style="margin-top:20px;">' +
+                        '<input type="text" name="UserQuestionDetail[' + j + '].QuesOptionName" required="required" class="form-control col-md-2" style="margin-left: 111px;" />' +
+                        '<input type="checkbox"  onclick= "CheckBoxSelected(this)"  style="margin-left: 111px;" />' +
+                        '<input type="hidden" class="hidden" name="UserQuestionDetail[' + j + '].IsRight" value="false" />' +
+                        '<a  type="button" onclick="RemoveChoices(this)" id="btnRemoveMCQ"  class="btn active" style="margin-left:30px;" > Remove</a>' +
+                      '</div>'
+        $('#QuestionDetailChoices').append(dvChoice);
+        j++;
+    }
+
+    function RemoveChoices(obj) {
+
+        $(obj).parent().remove();
+        var l = 0;
+
+
+        $('#QuestionDetailChoices div').each(function () {
+
+            $.each($(this).find(':input'), function (i, val) {
+                var suffix = String($(this).attr('name')).match(/\d+/)
+                var oldID = $(this).attr('name')
+                var NewID = String(oldID).replace('[' + suffix + ']', '[' + l + ']');
+                $(this).attr('name', NewID);
+
+            });
+            l++;
+        });
+
+        j = l;
+
+    }
+
+
+</script>

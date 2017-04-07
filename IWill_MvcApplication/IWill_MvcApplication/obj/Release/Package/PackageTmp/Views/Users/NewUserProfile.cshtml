@@ -1,0 +1,1492 @@
+﻿@using IWill_MvcApplication.Models;
+@model IWill_MvcApplication.Models.ModelUserRegister
+
+@{
+    ViewBag.Title = "NewUserProfile";
+    Layout = "~/Views/Shared/_MyIWillLayout.cshtml";
+}
+<script src="~/js/tweenmax.min.js"></script>
+<script src="~/js/draggable.min.js"></script>
+
+@{
+    Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+}
+
+@Html.HiddenFor(i => i.BackFileName, new { @id = "hdnBackgroundFileName" })
+@Html.HiddenFor(i => i.BackImgTop, new { @id = "hdnBackTop" })
+@Html.HiddenFor(i => i.BackImgLeft, new { @id = "hdnBackLeft" })
+@Html.Hidden("IsBackPicEdit", false, new { @id = "IsBackPicEdit" })
+
+@Html.HiddenFor(i => i.fileName, new { @id = "hdnFrontFileName" })
+@Html.Hidden("IsFrontPicEdit", false, new { @id = "IsFrontPicEdit" })
+
+<!-- Profile Start -->
+
+<div id="dvBackgroundPic" class="dp-bg">
+    <div class="dvBack">
+
+        <div id="dvImageBackground">
+            <img id="imgBackUpload" alt="Uploaded Thumbnail" src="~/Images/blankImage.png" style="position:absolute;max-width:none !important; top:0;left:0;" />
+        </div>
+
+        <div id="dvfuBackgroundImage" style="top:2%;left:90%;position:absolute;z-index:10000">
+            @*<input type="file" class="form-control fileUpload " name='file' id="fuBackgroundImage" multiple />*@
+
+            <a href="#" class="image-upload">
+                <label for="fuBackgroundImage"><i class="fa fa-upload" aria-hidden="true"></i> Upload Image</label>
+                <input id="fuBackgroundImage" type="file" />
+            </a>&nbsp;&nbsp;
+        </div>
+
+        <div id="BackImgDragPostionText" style="top:48%;left:41%;position:absolute;display:none;color:white !important; font-size:large; text-shadow: 2px 2px black">
+            Drag to Reposition Cover
+        </div>
+
+
+        <div class="progress" style="height:10px; display:none;">
+            <div id="ProgressBar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                @*0%*@
+            </div>
+        </div>
+
+        <div id="dvEditIcon" style="position:absolute;top:2%;left:90%;display:none; z-index:10000;">
+            <a id="EditBackImageIcon" href="#">
+                @*<img src="~/Images/editing-edit-icon.png" style="width:20px;height:20px;" />*@
+                <i class="fa fa-pencil" aria-hidden="true"></i> Edit Image
+            </a>
+        </div>
+    </div>
+
+    <div id="dvEditBackImageOptions" style="position:absolute;top:50%;left:35%; display:none; font-size:19px;z-index:10000">
+        <a id="ECancle" href="#" style="float:left;color:white!important;">
+            Cancle
+        </a>
+        <a id="ERemove" href="#" style="float:left;margin-left:10px;color:white!important;" onclick="RevomebackgroundPic()">
+            Remove
+        </a>
+        <a id="ERepositioning" href="#" style="float:left;margin-left:10px;color:white!important;">
+            Repositioning
+        </a>
+    </div>
+
+    <div id="dvBackImgOptions" style="display:none; position:absolute;top:70%; left:45%;z-index:9999;">
+
+        <a style="color:white !important; font-size:large; text-shadow: 2px 2px black" href="#" id="removeBackgroundpic" onclick="RevomebackgroundPic()">
+            Cancel
+        </a>
+        <a style="color:white !important; font-size:large; text-shadow: 2px 2px black" href="#" id="SaveBackgroundPic" onclick="SaveBackgroundPic()">
+            Save
+
+        </a>
+    </div>
+
+    <div id="dvEditBackImgDragOptions" style="display:none; position:absolute;top:70%; left:45%; z-index:9999;">
+        <a style="color:white !important; font-size:large; text-shadow: 2px 2px black" href="#" id="RemoveEditDraggedIcon">
+            Cancel
+        </a>
+        <a style="color:white !important; font-size:large; text-shadow: 2px 2px black" href="#" id="SaveEditDraggedIcon">
+            Save
+
+        </a>
+    </div>
+
+    <div id="dvFrontPicAndData" class="container dvFront" style="left:10%; position:absolute ;z-index:9999;">
+        <div class="row">
+            <div style="height: 120px; margin-top: 130px; background-color: rgba(255,255,255,.5);">
+
+                <div id="dvFrontImage" class="col-lg-2 col-md-2 col-sm-2 col-xs-12 text-center">
+
+                    <div class="profile-image">
+                        <img id="imgUploadThumbnail" src="~/images/blankImage.png">
+                        @*<a id="EditFrontImageIcon" href="#" onclick="EditFrontPic()"><div class="profile-img-edit">Edit</div></a>*@
+                    </div>
+
+                    <div id="dvfuFrontImage">
+                        <a href="#" class="image-upload" style="top:53%;position:absolute; color:#fff;">
+                            <label for="fuFrontImage"><i class="fa fa-upload" aria-hidden="true"></label></i>
+                            <input id="fuFrontImage" type="file" />
+                        </a>&nbsp;&nbsp;
+                    </div>
+                    @*<a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
+
+                        @*<span class="profile-image-opt">
+                            <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </span>*@
+                </div>
+
+                <div id="dvEditFrontPicIcon" style="position:absolute; color:#fff !important; padding:2px 5px; background-color:rgba(247, 147, 57,1); display:none; top:72%;left:12%; z-index:99999;">
+                    <a id="EditFrontImageIcon" href="#" onclick="EditFrontPic()">
+                        @*<img src="~/Images/editing-edit-icon.png" style="width:20px;height:20px;" />*@
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <div id="dvEditFrontPicOptions" style="display:none;position:absolute;top:63%;left:6%">
+                    <div id="dvEditCancel" style="float:left">
+                        <a href="#" id="EditCancel" style="color:white !important; background: #f79339; padding: 3px 5px; margin-right: 5px;"><i class="fa fa-times" style="display:inline;" aria-hidden="true"></i></a>
+                    </div>
+
+                    <div id="dvRemovepicPermanent" style="float:left">
+                        <a href="#" id="RemovepicPermanent" style="color:white !important; background: #f79339; padding: 3px 5px; margin-left: 5px;" onclick="RemoveFrontPic()">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+
+                    <div style="clear:both"> </div>
+
+                </div>
+
+                <div id="dvFrontPicUploadOptions" style="display:none;position:absolute;top:63%;left:6%">
+                    <div id="dvRemovepicTemp" style="float:left">
+                        <a href="#" id="RemovepicTemp" style="color:white !important; background: #f79339; padding: 3px 5px; margin-left: 5px;" onclick="RemoveTempFrontPic()">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <div id="dvSaveFrontPic" style="float:left;margin-left:10px;">
+                        <a href="#" id="SaveFrontPic" onclick="SaveFrontPic()" style="color:white !important; background: #f79339; padding: 3px 5px; margin-right: 5px;">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        </a>
+
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+
+
+                @*Profile name details*@
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                    <h1 class="profile-name"> @Model.FirstName @Model.LastName   </h1>
+                    <h4 class="profile-desig">
+                        @Model.Designation
+                    </h4>
+                    <span class="profile-head-follow">
+
+
+                        @{
+                            var Folwers = Helper.GetUserFollowers(Helper.User.UID).Count;
+                            if (Folwers >= 1000)
+                            {
+                                Folwers = (Folwers / 1000);
+                            }
+                            else
+                            {
+                                Folwers = 0;
+                            }
+                            <span>
+
+
+                                <span class="follow-number">
+                                    @Folwers.ToString()
+                                </span>  Followers
+                            </span>
+                        }
+                        <span class="profile-head-follow">
+
+
+                            @{
+                                var Folwing = Helper.GetUserFollowing(Helper.User.UID).Count;
+                                if (Folwing >= 1000)
+                                {
+                                    Folwers = (Folwers / 1000);
+                                }
+                                else
+                                {
+                                    Folwing = 0;
+                                }
+                                <span>
+
+
+                                    <span class="follow-number">
+                                        @Folwers.ToString()
+                                    </span>  Following
+                                </span>
+                            }
+
+
+
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 profile-head-btn">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 profile-head-btn-lt">
+                        <button class="btn btn-iwill-white">Follow Me</button>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 profile-head-btn-rt">
+                        <button class="btn btn-iwill-white"><i class="fa fa-envelope"></i> Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div>
+                <div class="side-container">
+                    <div id="dvEditIconSocialLinks">
+                        <a id="EditIconSocialLinks" href="#" onclick="EditIconSocialLinks()" data-toggle="modal" data-target="#modalSocialLinksAndLocation" data-backdrop="static" data-keyboard="false">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="address-container">
+                        <span class="address-icon"><i class="fa fa-map-marker fa-fw fa-lg" aria-hidden="true"></i></span>
+                        <span class="address-text spnUserLocation">
+                            @{
+                                if (Model.CityName.Length > 0)
+                                {
+                                    <span>@Model.CityName , </span>
+                                }
+                            }
+
+                            @Model.CountryName
+                        </span>
+                    </div>
+                    <div class="address-container">
+                        <span class="address-icon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+                        <span class="address-text">@Model.EmailAddress</span>
+                    </div>
+                    <div class="address-container">
+                        <span class="address-icon"><i class="fa fa-phone fa-fw fa-lg" aria-hidden="true"></i></span>
+                        <span class="address-text spnUserContact">@Model.ContactNumber</span>
+                    </div>
+
+                    <div class="social-container">
+                        @{
+                            if (Model.FacebookUrl != null)
+                            {
+                                <a href="@Model.FacebookUrl" class="aFacebookUrl" target="_blank"><div class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></div></a>
+                                <input type="hidden" value="@Model.FacebookUrl" id="hdnFacebookUrl" />
+                            }
+                            else
+                            {
+                                <a href="#" class="aFacebookUrl" target="_blank"><div class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></div></a>
+                            }
+
+
+                            if (Model.TwitterUrl != null)
+                            {
+                                <a href="@Model.TwitterUrl" class="aTwitterUrl" target="_blank"><div class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></div></a>
+                                <input type="hidden" value="@Model.FacebookUrl" id="hdnTwitterUrl" />
+                            }
+                            else
+                            {
+                                <a href="#" class="aTwitterUrl"><div class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></div></a>
+                            }
+
+
+                            if (Model.PlusGoogleUrl != null)
+                            {
+                                <a href="@Model.PlusGoogleUrl" class="aPlusGoogleUrl" target="_blank"><div class="googleplus"><i class="fa fa-google-plus" aria-hidden="true"></i></div></a>
+                                <input type="hidden" value="@Model.FacebookUrl" id="hdnPlusGoogleUrl" />
+                            }
+                            else
+                            {
+                                <a href="#" class="aPlusGoogleUrl"><div class="googleplus"><i class="fa fa-google-plus" aria-hidden="true"></i></div></a>
+                            }
+
+
+                            if (Model.LinkedInUrl != null)
+                            {
+                                <a href="@Model.LinkedInUrl" class="aLinkedInUrl" target="_blank"><div class="linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></div></a>
+                                <input type="hidden" value="@Model.FacebookUrl" id="hdnLinkedInUrl" />
+                            }
+                            else
+                            {
+                                <a href="#" class="aLinkedInUrl"><div class="linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></div></a>
+                            }
+
+                        }
+                    </div>
+
+                </div>
+
+                <div class="side-container action-panel">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <img src="~/Images/feed.png"><br>
+                            <span>My Feed</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <img src="~/Images/user.png"><br>
+                            <span>My Profile</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <img src="~/Images/follower.png"><br>
+                            <span>Follower</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <img src="~/Images/follow.png"><br>
+                            <span>Following</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <img src="~/Images/edit-user.png"><br>
+                            <span>Edit Profile</span>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="side-container ineed-panel">
+                    <p class="need-bg">I Need to...</p>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-play"></i>List icons</li>
+                        <li><i class="fa-li fa fa-play"></i>can be used</li>
+                        <li><i class="fa-li fa fa-play"></i>as bullets</li>
+                        <li><i class="fa-li fa fa-play"></i>in lists</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <div class="learn-press">
+                <div class="course-tabs">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                        <li role="presentation" class="active"><a href="#profile-iwill-tab" aria-controls="profile-iwill-tab" role="tab" data-toggle="tab">IWill</a></li>
+                        <li role="presentation"><a href="#profile-iwillgrow-tab" aria-controls="profile-iwillgrow-tab" role="tab" data-toggle="tab">IWill Grow</a></li>
+                        <li role="presentation"><a href="#profile-iwillsolve-tab" aria-controls="profile-iwillsolve-tab" role="tab" data-toggle="tab">IWill Solve</a></li>
+                        <li role="presentation"><a href="#profile-iwillwork-tab" aria-controls="profile-iwillwork-tab" role="tab" data-toggle="tab">IWill Work</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content thim-login">
+                        <div role="tabpanel" class="tab-pane active" id="profile-iwill-tab">
+                            <div class="panel panel-default iwill-panel-default">
+                                <div class="panel-heading iwill-panel-heading">
+                                    <h3 class="panel-title iwill-panel-title">About Me <a href="#" data-toggle="modal" data-target="#modAboutMe" id="aEditAboutme" style="float:right;"><i class="fa fa-pencil" aria-hidden="true"></i></a></h3>
+                                </div>
+                                <div class="panel-body dvAboutMe" style="text-align:justify;">
+                                    @{
+                                        if (Model.AboutMe == null)
+                                        {
+                                            <div class="AboutMeDefault"> Describe about yourself !</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="AboutMe">@Model.AboutMe.Replace("\r\n", "\n\r") </div>
+                                        }
+                                    }
+
+
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default iwill-panel-default" id="dvEmployment">
+                                <div class="panel-heading iwill-panel-heading">
+                                    <h3 class="panel-title iwill-panel-title">Employment<a href="#" style="float:right;"><i class="fa fa-plus" aria-hidden="true"></i></a></h3>
+                                </div>
+                                <div class="panel-body" style="text-align:justify;">
+                                    <div class="row employ-row">
+                                        <div class="col-lg-11 col-md-11">
+                                            <h4 class="employ-desig">head UI / UX Designer</h4>
+                                            <h5 class="employ-addres">Brain Crop, Karachi</h5>
+                                            <h6 class="employ-date">2005 - Present</h6>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium est at tempor auctor. Nullam congue enim a urna dignissim venenatis. </p>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 employ-edit"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></div>
+                                    </div>
+                                    <div class="row employ-row">
+                                        <div class="col-lg-11 col-md-11">
+                                            <h4 class="employ-desig">senior UI / UX Designer</h4>
+                                            <h5 class="employ-addres">Brain Crop, Karachi</h5>
+                                            <h6 class="employ-date">2000 - 2005</h6>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium est at tempor auctor. Nullam congue enim a urna dignissim venenatis. </p>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 employ-edit"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></div>
+                                    </div>
+                                    <div class="row employ-row">
+                                        <div class="col-lg-11 col-md-11">
+                                            <h4 class="employ-desig">UI / UX Designer</h4>
+                                            <h5 class="employ-addres">Brain Crop, Karachi</h5>
+                                            <h6 class="employ-date">1996 - 2000</h6>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium est at tempor auctor. Nullam congue enim a urna dignissim venenatis. </p>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 employ-edit"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default iwill-panel-default" id="dvEducation">
+                                <div class="panel-heading iwill-panel-heading">
+                                    <h3 class="panel-title iwill-panel-title">Education<a href="#" style="float:right;"><i class="fa fa-plus" aria-hidden="true"></i></a></h3>
+                                </div>
+                                <div class="panel-body" style="text-align:justify;">
+                                    <div class="row employ-row">
+                                        <div class="col-lg-11 col-md-11">
+                                            <h4 class="employ-desig">Master of Computer sciences</h4>
+                                            <h5 class="employ-addres">Karachi University</h5>
+                                            <h6 class="employ-date">1994 - 1996</h6>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium est at tempor auctor. Nullam congue enim a urna dignissim venenatis. </p>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 employ-edit"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></div>
+                                    </div>
+                                    <div class="row employ-row">
+                                        <div class="col-lg-11 col-md-11">
+                                            <h4 class="employ-desig">Becholer of Computer Sciences</h4>
+                                            <h5 class="employ-addres">Karachi University</h5>
+                                            <h6 class="employ-date">1992 - 1994</h6>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium est at tempor auctor. Nullam congue enim a urna dignissim venenatis. </p>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 employ-edit"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></div>
+                                    </div>
+                                    <div class="row employ-row">
+                                        <div class="col-lg-11 col-md-11">
+                                            <h4 class="employ-desig">Matriculation</h4>
+                                            <h5 class="employ-addres">city grammar school, Karachi</h5>
+                                            <h6 class="employ-date">1990 - 1992</h6>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium est at tempor auctor. Nullam congue enim a urna dignissim venenatis. </p>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 employ-edit"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile-iwillgrow-tab">
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile-iwillsolve-tab">
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile-iwillwork-tab">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 scrollspy">
+            <div>
+                <div class="side-container-rt">
+                    <div class="follower-panel">
+                        <div class="head-follower">
+                            <span>Followers</span>
+                        </div>
+                        <div class="followers-body">
+                            <div class="user-img"><img src="~/Images/anthony.jpg"></div>
+                            <div class="user-info">
+                                <div class="user-name">Micheal Jordan</div>
+                                <div class="user-desig">UI / UX Designer</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="followers-body">
+                            <div class="user-img"><img src="~/Images/profile-pic.jpg"></div>
+                            <div class="user-info">
+                                <div class="user-name">Randy Ordan</div>
+                                <div class="user-desig">.NET Developer</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="followers-body">
+                            <div class="user-img"><img src="~/Images/profile2.jpg"></div>
+                            <div class="user-info">
+                                <div class="user-name">Tiger Wood</div>
+                                <div class="user-desig">PHP Developer</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="footer-follower">
+                            <a href="#"><span>See All</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="side-container-rt">
+                    <div class="follower-panel">
+                        <div class="head-follower">
+                            <span>Followings</span>
+                        </div>
+                        <div class="followers-body">
+                            <div class="user-img"><img src="~/Images/anthony.jpg"></div>
+                            <div class="user-info">
+                                <div class="user-name">Micheal Jordan</div>
+                                <div class="user-desig">UI / UX Designer</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="followers-body">
+                            <div class="user-img"><img src="~/Images/profile-pic.jpg"></div>
+                            <div class="user-info">
+                                <div class="user-name">Randy Ordan</div>
+                                <div class="user-desig">.NET Developer</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="followers-body">
+                            <div class="user-img"><img src="~/Images/profile2.jpg"></div>
+                            <div class="user-info">
+                                <div class="user-name">Tiger Wood</div>
+                                <div class="user-desig">PHP Developer</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="footer-follower">
+                            <a href="#"><span>See All</span></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Profile End -->
+@section popupModal
+{
+    <div class="modal fade" id="education-modal" tabindex="-1" role="dialog" aria-labelledby="education-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header edit-modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    Naveed
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-iwill-white-sm">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modAboutMe" tabindex="-1" role="dialog" aria-labelledby="modAboutMe">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header edit-modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">About Me</h4>
+                </div>
+
+                <div class="modal-body">
+                    <textarea id="txtaAboutMe" style="margin: 0px; width: 570px; height: 159px; resize:none">@Model.AboutMe</textarea>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnAboutMeSave" type="button" class="btn btn-iwill-white-sm" onclick="UpdateAboutMe()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalSocialLinksAndLocation" tabindex="-1" role="dialog" aria-labelledby="modalSocialLinksAndLocation">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header edit-modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditSocialLinks">
+                        <div class="col-lg-6 col-md-6">
+
+                            @Html.DropDownListFor(model => model.CTRYID, (IEnumerable<SelectListItem>)ViewBag.Country, "Select Country", new { @id = "ddlCountry", @onchange = "changeCountry()", @class = "iwill-input" })
+
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            @if (ViewBag.City != null)
+                            {
+                                @Html.DropDownListFor(model => model.CTID, (IEnumerable<SelectListItem>)ViewBag.CIty, "Select City", new { @id = "ddlCity", @class = "iwill-input" })
+                            }
+                            else
+                            {
+                                <select id="ddlCity" class="iwill-input" disabled name="CTID">
+                                    <option value="0"> Select City </option>
+                                </select>
+                            }
+
+
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+                            <input type="text" class="iwill-input" name="ContactNumber" value="@Model.ContactNumber" placeholder="Facebook Url" />
+
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <input type="text" class="iwill-input" name="FacebookUrl" value="@Model.FacebookUrl" placeholder="Facebook Url" />
+
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <input type="text" class="iwill-input" name="TwitterUrl" value="@Model.TwitterUrl" placeholder="Twitter Url" />
+
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <input type="text" class="iwill-input" name="PlusGoogleUrl" value="@Model.PlusGoogleUrl" placeholder="PlusGoogle Url" />
+
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <input type="text" class="iwill-input" name="LinkedInUrl" value="@Model.LinkedInUrl" placeholder="LinkedIn Url" />
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSubmitSocialLinksAndLocation" type="button" class="btn btn-iwill-white-sm" onclick="SubmitSocialLinksAndLocation()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+    $('#main-home-content').removeClass("container");
+    $('#myAffix').affix({
+        offset: {
+            offset: {
+                top: 0
+            },
+            bottom: 461
+        }
+    }),
+$('#myAffix1').affix({
+    offset: {
+        offset: {
+            top: 0
+        },
+        bottom: 461
+    }
+})
+</script>
+
+<script>
+    //$('#scJquParent').removeAttr();
+
+
+    var elemBack = $('#dvBackgroundPic .dvBack');
+    var elemFront = $('#dvBackgroundPic #dvFrontImage');
+
+
+    $().ready(function () {
+
+
+        var BackTop = $("#hdnBackTop").val();
+        var BackLeft = $("#hdnBackLeft").val();
+
+        $('#dvImageBackground img').css({
+            transform: "translate3d(" + BackLeft + "px, " + BackTop + "px, 0px)"
+        });
+
+        var hdnFrontFileName = $("#hdnFrontFileName").val();
+        var hdnBackgroundFileName = $("#hdnBackgroundFileName").val();
+
+        //show User Front Pic
+        if (hdnBackgroundFileName == null || hdnBackgroundFileName == "" || hdnBackgroundFileName.length == 0)
+            $("#imgBackUpload").attr("src", "../Images/blankImage.png");
+        else {
+            $("#imgBackUpload").attr("src", "../Images/UserImages/" + hdnBackgroundFileName);
+            //$("#fuBackgroundImage").hide();
+            $("#dvfuBackgroundImage").hide();
+            $(".progress").hide();
+            $("#dvEditIcon").show();
+
+        }
+
+        //show User Front Pic
+        if (hdnFrontFileName == null || hdnFrontFileName == "" || hdnFrontFileName.length == 0)
+            $("#imgUploadThumbnail").attr("src", "../Images/blankImage.png");
+        else {
+            $("#imgUploadThumbnail").attr("src", "../Images/UserImages/" + hdnFrontFileName);
+            $("#dvEditFrontPicIcon").fadeIn();
+            $("#dvfuFrontImage").fadeOut();
+
+        }
+
+
+
+    });
+
+    function EnableBackgroundDraggable() {
+        Draggable.create("#dvImageBackground img", {
+            type: "x,y",
+            bounds: "#dvBackgroundPic"
+        });
+    }
+
+    function DiableBackgroundDraggable() {
+        Draggable.get("#dvImageBackground img").disable();
+    }
+
+    //*******************************************************************************************************************************************
+    //**************************************************Upload background Image Code*************************************************************
+    //*******************************************************************************************************************************************
+
+    $("#fuBackgroundImage").change(function () {
+
+        $("#imgBackUpload").css('opacity', '0.3');
+        ShowLoading(elemBack);
+
+        var fileName = $("#fuBackgroundImage").val();
+        var maxFileSize = 2 * 1024 * 1024;
+
+
+        if (fileName.length > 0) {
+            var ext = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert('invalid file type!');
+                HideLoading(elemBack);
+                return;
+            }
+
+            if ($("#fuBackgroundImage")[0].files[0].size > maxFileSize) {
+                alert('only 2 MB file could be uploaded');
+                HideLoading(elemBack);
+                return;
+            }
+            var fileUpload = document.getElementById("fuBackgroundImage");
+            var reader = new FileReader();
+            reader.readAsDataURL(fileUpload.files[0]);
+            var IsHeightandWidthExceeded = false;
+            reader.onload = function (e) {
+                //Initiate the JavaScript Image object.
+                var image = new Image();
+
+                //Set the Base64 string return from FileReader as source.
+                image.src = e.target.result;
+
+                //Validate the File Height and Width.
+                image.onload = function () {
+                    var height = this.height;
+                    var width = this.width;
+                    if (height < 300 || width < 1000) {
+                        alert("Height and Width must be atleast 1000px wide and 300px in height .");
+                        if ($("#IsBackPicEdit").val().toLowerCase() == 'false') {
+                            $("#imgBackUpload").css('opacity', '1');
+
+                        }
+                        //else {
+                        //    $("#dvEditIcon").fadeIn();
+                        //    $("#fuBackgroundImage").fadeOut();
+                        //}
+                        $("#dvEditIcon").fadeOut();
+                        //$("#fuBackgroundImage").fadeIn();
+                        $("#dvfuBackgroundImage").fadeIn();
+
+                        HideLoading(elemBack);
+                        $("#fuBackgroundImage").val('');
+                        return;
+                    }
+
+                    else {
+                        UploadBackgroundImage(elemBack);
+                    }
+                };
+
+            }
+
+
+        }
+
+    });
+
+    function UploadBackgroundImage(elemBack) {
+
+        var formData = new FormData();
+        var totalFiles = document.getElementById("fuBackgroundImage").files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("fuBackgroundImage").files[i];
+
+            formData.append("fuBackgroundImage", file);
+        }
+
+        $.ajax({
+
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener('progress', function (e) {
+                    if (e.lengthComputable) {
+                        console.log('bytes loaded: ' + e.loaded);
+                        console.log('total size : ' + e.total);
+                        console.log('percentage: ' + e.loaded / e.total);
+                        var percentage = Math.round((e.loaded / e.total) * 100);
+                        $("#ProgressBar").attr('aria-valuenow', percentage).css('width', percentage + '%').text(percentage + '%');
+                    }
+                });
+
+                return xhr;
+            },
+            url: "/Users/UserBackgroundFileUpload",
+            type: 'POST',
+            data: formData,
+            //dataType: 'json',
+            contentType: false,
+            processData: false,
+
+            success: function (data) {
+                var IsSaved = data.split('^')[0];
+                if (IsSaved == 'saved') {
+                    var FileName = data.split('^')[1];
+
+                    $("#imgBackUpload").attr("src", "../Images/Temp/" + FileName);
+
+                    HideLoading(elemBack); $("#dvFrontPicAndData").fadeOut();
+                    //$("#fuBackgroundImage").fadeOut();
+                    $("#dvfuBackgroundImage").fadeOut();
+
+                    //$("#dvSaveBackgroundPic").fadeIn();
+                    // $("#dvBackgroundRemovepic").fadeIn();
+                    $("#dvBackImgOptions").fadeIn();
+
+                    $("#BackImgDragPostionText").fadeIn();
+
+                    //$("#fuBackgroundImage").prop('disabled', true);
+                    //$("#fuBackgroundImage").fadeOut();
+
+                    $("#hdnBackgroundFileName").val(FileName);
+
+                    if ($("#IsBackPicEdit").val().toLocaleLowerCase() == "true")
+                        $("#dvEditBackImageOptions").fadeOut();
+
+
+                    EnableBackgroundDraggable();
+
+
+                }
+                else {
+
+                    if (data.indexOf("notsaved") == 0) {
+                        alert("picture is not saved")
+                    }
+
+                    if (data.indexOf("exists") >= 0) {
+                        alert("this file already exists");
+                    }
+
+                    if (data.indexOf("limit exceeded") >= 0) {
+                        alert(data);
+                    }
+                    $("#fuBackgroundImage").val('');
+                    $("#imgBackUpload").css('opacity', '1');
+                    $(".progress").fadeOut();
+                    HideLoading(elemBack);
+                }
+
+            },
+            error: function (ex) {
+                HideLoading(elemBack);
+                alert(ex.responseText)
+            }
+
+        });
+    }
+
+    function RevomebackgroundPic() {
+
+        ShowLoading(elemBack);
+
+        var file = $("#hdnBackgroundFileName").val();
+        var IsBackPicEdit = $("#IsBackPicEdit").val();
+
+        $.ajax({
+            url: "/Users/RemoveBackgroundPic",
+            type: 'GET',
+            data: { FileName: file, IsBackPicEdit: IsBackPicEdit },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "deleted") {
+                    $("#dvBackImgOptions").fadeOut();
+                    $("#dvFrontPicAndData").fadeIn();
+                    //$("#dvBackgroundRemovepic").fadeOut();
+                    //$("#dvSaveBackgroundPic").fadeOut();
+                    $("#BackImgDragPostionText").fadeOut();
+
+                    if (IsBackPicEdit.toLocaleLowerCase() == "false") {
+                        DiableBackgroundDraggable();
+                    }
+
+                    //$("#fuBackgroundImage").fadeIn();
+                    $("#dvfuBackgroundImage").fadeIn();
+                    $("#imgBackUpload").css('opacity', '1');
+                    $("#imgBackUpload").attr("src", "../Images/blankImage.png")
+
+                    $("#fuBackgroundImage").val('')
+
+                    $("#ProgressBar").attr('aria-valuenow', 0).css('width', 0 + '%').text(0 + '%');
+                    $('#dvImageBackground img').css({
+                        transform: "translate3d(0px,0px, 0px)"
+                    });
+
+                    $("#dvEditBackImageOptions").fadeOut();
+
+                }
+                //$("#loadingBackgroundPic").fadeOut();
+                $("#IsBackPicEdit").val(false);
+                HideLoading(elemBack);
+            },
+            error: function (ex) { alert(ex.responseText); $("#loadingBackgroundPic").fadeOut(); }
+        });
+
+
+    }
+
+    function SaveBackgroundPic() {
+
+        ShowLoading(elemBack);
+
+        var file = $("#hdnBackgroundFileName").val();
+        var imageTrans = $('#imgBackUpload').css("-webkit-transform");
+        var results = imageTrans.match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}.+))(?:, (-{0,1}.+))\))/);
+
+        var BCimgTOP = results[6];
+        var BCimgLeft = results[5];
+        var IsEditPic = $("#IsBackPicEdit").val();
+        //if (IsEditPic == null)
+        //alert("BCimgTOP =" + BCimgTOP + "     BCimgLeft = " + BCimgLeft );
+
+        $.ajax({
+            url: "/Users/SaveBackgroundPic",
+            type: 'GET',
+            data: { FileName: file, BCimgTOP: BCimgTOP, BCimgLeft, BCimgLeft, IsBackPicEdit: IsEditPic },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "saved") {
+                    $("#dvBackImgOptions").fadeOut();
+                    $("#dvFrontPicAndData").fadeIn();
+                    $("#fuBackgroundImage").val('')
+                    $("#fuBackgroundImage").fadeOut();
+                    $("#BackImgDragPostionText").fadeOut();
+
+
+                    $("#imgBackUpload").css('opacity', '1');
+                    $("#imgBackUpload").attr("src", "../Images/UserImages/" + file)
+
+                    $("#dvEditIcon").fadeIn();
+
+                }
+                else
+                    if (r.indexOf("Error") >= 0) {
+                        alert(r);
+                    }
+                $("#IsBackPicEdit").val(false);
+                HideLoading(elemBack);
+            },
+            error: function (ex) { alert(ex.responseText); HideLoading(elemBack); }
+        });
+        DiableBackgroundDraggable();
+    }
+
+    $("#EditBackImageIcon").click(function () {
+        $("#imgBackUpload").css('opacity', '0.3');
+        $(this).parent().fadeOut();
+        // $("#fuBackgroundImage").fadeIn();
+        $("#dvfuBackgroundImage").fadeIn();
+        $("#IsBackPicEdit").val(true);
+        $("#dvEditBackImageOptions").fadeIn();
+        $("#dvFrontPicAndData").fadeOut();
+    });
+
+    $("#ECancle").click(function () {
+        // $("#fuBackgroundImage").fadeOut();
+        $("#dvfuBackgroundImage").fadeOut();
+        $("#dvEditBackImageOptions").fadeOut();
+        $("#imgBackUpload").css('opacity', '1');
+        $("#dvEditIcon").fadeIn();
+        $("#dvFrontPicAndData").fadeIn();
+
+    });
+
+    $("#ERepositioning").click(function () {
+        EnableBackgroundDraggable();
+
+
+        // $("#fuBackgroundImage").fadeOut();
+        $("#dvfuBackgroundImage").fadeOut();
+        $("#dvEditBackImageOptions").fadeOut();
+        $("#BackImgDragPostionText").fadeIn();
+        $("#dvEditBackImgDragOptions").fadeIn();
+
+    });
+
+    $("#RemoveEditDraggedIcon").click(function () {
+        $("#dvEditBackImgDragOptions").fadeOut();
+        //$("#dvEditBackImageOptions").fadeOut();
+        $("#imgBackUpload").css('opacity', '1');
+        $("#dvEditIcon").fadeIn();
+        DiableBackgroundDraggable();
+        $("#BackImgDragPostionText").fadeOut();
+        $("#dvFrontPicAndData").fadeIn();
+    });
+
+    $("#SaveEditDraggedIcon").click(function () {
+
+
+        ShowLoading(elemBack);
+
+        var file = $("#hdnBackgroundFileName").val();
+        var imageTrans = $('#imgBackUpload').css("-webkit-transform");
+        var results = imageTrans.match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}.+))(?:, (-{0,1}.+))\))/);
+
+        var BCimgTOP = results[6];
+        var BCimgLeft = results[5];
+
+        $.ajax({
+            url: "/Users/UpdateBackImagePostion",
+            type: 'GET',
+            data: { FileName: file, BCimgTOP: BCimgTOP, BCimgLeft: BCimgLeft },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "updated") {
+                    $("#dvFrontPicAndData").fadeIn();
+                    $("#dvEditBackImgDragOptions").fadeOut();
+                    $("#BackImgDragPostionText").fadeOut();
+                    $("#imgBackUpload").css('opacity', '1');
+                    $("#dvEditIcon").fadeIn();
+
+                    DiableBackgroundDraggable();
+
+                }
+                else {
+                    if (r.indexOf('Error')) {
+                        $("div.error").fadeIn();
+                        $("div.error").html(ex.responseText)
+                        setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                        $(".loader").fadeOut();
+                    }
+                }
+                $("#IsBackPicEdit").val(false);
+                HideLoading(elemBack);
+            },
+            error: function (ex) {
+                alert(ex.responseText);
+                $("#loadingBackgroundPic").fadeOut();
+            }
+        });
+    });
+
+
+    //********************************************************************ENDED***********************************************************************
+
+
+    //*******************************************************************************************************************************************
+    //**************************************************Upload Front Image Code*************************************************************
+    //*******************************************************************************************************************************************
+
+
+
+
+    $("#fuFrontImage").change(function () {
+
+        var fileName = $("#fuFrontImage").val();
+        var maxFileSize = 2 * 1024 * 1024;
+        ShowLoading(elemFront);
+        if (fileName.length > 0) {
+            var ext = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert('invalid file type!');
+                return;
+            }
+            if ($("#fuFrontImage")[0].files[0].size > maxFileSize) {
+                alert('only 2 MB file could be uploaded');
+                return;
+            }
+
+            var fileUpload = document.getElementById("fuFrontImage");
+            var reader = new FileReader();
+            reader.readAsDataURL(fileUpload.files[0]);
+            var IsHeightandWidthExceeded = false;
+            reader.onload = function (e) {
+                //Initiate the JavaScript Image object.
+                var image = new Image();
+
+                //Set the Base64 string return from FileReader as source.
+                image.src = e.target.result;
+
+                //Validate the File Height and Width.
+                image.onload = function () {
+                    var height = this.height;
+                    var width = this.width;
+                    if (height < 150 || width < 150) {
+                        alert("Front Image Height and Width must be atleast 150 px wide and 150px in height .");
+
+                        // if ($("#IsFrontPicEdit").val().toLowerCase() == 'false') {
+                        $("#imgUploadThumbnail").css('opacity', '1');
+
+                        //  }
+
+                        $("#dvEditFrontPicOptions").fadeOut();
+                        $("#dvfuFrontImage").fadeIn();
+
+                        HideLoading(elemFront);
+                        $("#fuFrontImage").val('');
+                        return;
+                    }
+                    if (height > 400 || width > 400) {
+                        alert("Front Image Height and Width not more than 300px wide and 300px in height .");
+
+                        // if ($("#IsFrontPicEdit").val().toLowerCase() == 'false') {
+                        $("#imgUploadThumbnail").css('opacity', '1');
+
+                        //  }
+
+                        $("#dvEditFrontPicOptions").fadeOut();
+                        $("#dvfuFrontImage").fadeIn();
+
+                        HideLoading(elemFront);
+                        $("#fuFrontImage").val('');
+                        return;
+                    }
+
+                    else {
+
+                        var formData = new FormData();
+                        var totalFiles = document.getElementById("fuFrontImage").files.length;
+                        for (var i = 0; i < totalFiles; i++) {
+                            var file = document.getElementById("fuFrontImage").files[i];
+
+                            formData.append("fuFrontImage", file);
+                        }
+
+                        $.ajax({
+                            url: "/Users/FrontPicUpload",
+                            type: 'POST',
+                            data: formData,
+                            dataType: 'json',
+                            contentType: false,
+                            processData: false,
+
+                            success: function (data) {
+                                var IsSaved = data.split('^')[0];
+
+                                if (IsSaved == 'saved') {
+                                    var FileName = data.split('^')[1];
+
+                                    $("#imgUploadThumbnail").attr("src", "../Images/Temp/" + FileName);
+                                    $("#dvFrontPicUploadOptions").fadeIn();
+
+                                    $("#fuFrontImage").fadeOut();
+                                    $("#hdnFrontFileName").val(FileName);
+                                    if ($("#IsFrontPicEdit").val().toLocaleLowerCase() == "true")
+                                        $("#dvEditFrontPicOptions").hide();
+                                    $("#imgUploadThumbnail").css('opacity', '0.6');
+
+
+                                    HideLoading(elemFront);
+                                }
+                                else {
+                                    if (data.indexOf("notsaved") == 0) {
+                                        $("#dvRemovepicTemp").fadeIn();
+
+                                        $("#dvfuFrontImage").fadeOut();
+                                        alert("picture is not saved")
+                                    }
+
+                                    if (data.indexOf("exists") >= 0) {
+                                        alert("this file already exists");
+                                    }
+
+                                    HideLoading(elemFront);
+
+                                }
+
+                            },
+                            error: function (ex) {
+
+                                alert(ex.responseText)
+                                HideLoading(elemFront);
+                            }
+
+                        });
+                    }
+                };
+
+
+
+
+
+            }
+        }
+        //submit the form here
+    });
+
+    function RemoveTempFrontPic() {
+
+        ShowLoading(elemFront);
+        var FileName = $("#hdnFrontFileName").val();
+        $.ajax({
+            url: "/Users/RemoveTempFrontPic",
+            type: 'GET',
+            data: { FileName: FileName },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "deleted") {
+                    $("#dvFrontPicUploadOptions").fadeOut();
+                    $("#dvfuFrontImage").fadeIn();
+                    $("#imgUploadThumbnail").attr("src", "../Images/blankImage.png")
+                    $("#fuFrontImage").val('');
+
+                }
+                HideLoading(elemFront);
+            },
+            error: function (ex) {
+                HideLoading(elemFront);
+                alert(ex.responseText)
+            }
+        });
+
+
+    }
+
+    function SaveFrontPic() {
+
+        ShowLoading(elemFront);
+        $("#imgUploadThumbnail").css('opacity', '0.5');
+        var file = $("#hdnFrontFileName").val();
+        //var imageTrans = $('#imgBackUpload').css("-webkit-transform");
+        //var results = imageTrans.match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}.+))(?:, (-{0,1}.+))\))/);
+
+        //var BCimgTOP = results[6];
+        //var BCimgLeft = results[5];
+        //var IsEditPic = $("#IsBackPicEdit").val();
+        //alert("BCimgTOP =" + BCimgTOP + "     BCimgLeft = " + BCimgLeft );
+
+        $.ajax({
+            url: "/Users/SaveFrontPic",
+            type: 'GET',
+            //data: { FileName: file, BCimgTOP: BCimgTOP, BCimgLeft, BCimgLeft, IsBackPicEdit: IsEditPic },
+            data: { FileName: file },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "saved") {
+                    $("#dvFrontPicUploadOptions").fadeOut();
+
+                    $("#imgUploadThumbnail").css('opacity', '1');
+                    $("#imgUploadThumbnail").attr("src", "../Images/UserImages/" + file)
+
+                    $("#dvfuFrontImage").fadeOut();
+                    $("#dvEditFrontPicIcon").fadeIn();
+
+                }
+                $("#IsFrontPicEdit").val(false);
+                HideLoading(elemFront);
+            },
+            error: function (ex) { alert(ex.responseText); HideLoading(elemBack); }
+        });
+        //DiableBackgroundDraggable();
+
+
+    }
+
+
+
+    function RemoveFrontPic() {
+        $("#imgUploadThumbnail").css('opacity', '0.5');
+        ShowLoading(elemFront);
+
+        var FileName = $("#hdnFrontFileName").val();
+        var EmailAddress = $("#txtEmail").val();
+
+
+
+        $.ajax({
+            url: "/Users/RemoveFrontPic",
+            type: 'GET',
+            data: { FileName: FileName, Email: EmailAddress },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r == "deleted") {
+                    $("#dvFrontPicUploadOptions").hide();
+                    $("#dvEditFrontPicIcon").hide();
+                    $("#dvfuFrontImage").show();
+                    $("#imgUploadThumbnail").attr("src", "../Images/blankImage.png")
+                    $("#imgUploadThumbnail").css('opacity', '1');
+                    $("#fuFrontImage").val('');
+                    $("#dvEditFrontPicOptions").hide();
+
+                }
+                HideLoading(elemFront);
+            },
+            error: function (ex) {
+                HideLoading(elemFront);
+                alert(ex.responseText)
+            }
+        });
+
+
+    }
+
+
+    $("#EditFrontImageIcon").click(function () {
+        $("#imgUploadThumbnail").css('opacity', '0.6');
+        $(this).parent().fadeOut();
+        $("#dvEditFrontPicOptions").show();
+        $("#fuFrontImage").val('');
+        $("#dvfuFrontImage").show();
+        $("#IsFrontPicEdit").val(true);
+
+    });
+
+    $("#EditCancel").click(function () {
+        $("#imgUploadThumbnail").css('opacity', '1');
+        $("#dvEditFrontPicIcon").show();
+        $("#dvEditFrontPicOptions").hide();
+        $("#dvfuFrontImage").hide();
+        $("#IsFrontPicEdit").val(false);
+    });
+
+
+
+    //https://www.youtube.com/watch?v=f-wXTpbNWoM
+    //https://css-tricks.com/examples/DragAndDropFileUploading/
+
+
+    function SubmitSocialLinksAndLocation() {
+
+        if (ValidateControl($("#ddlCountry")) == false)
+            return false;
+
+        if ($("#ddlCity > option").length > 2 && $('#ddlCity').val() == "0") {
+            $("#ddlCity").focus();
+            $("#ddlCity").css("border", "1px solid red");
+            return false;
+        }
+        else
+            $("#ddlCity").css("border", "");
+
+        var elem = $('#formEditSocialLinks');
+        elem.css("opacity", "0.5");
+        ShowLoading(elem);
+        $("#btnSubmitSocialLinksAndLocation").attr("disabled", true);
+
+
+        $.ajax({
+            url: "/Users/UpdateUserSocialLinksLocationContact",
+            data: $('form[id="formEditSocialLinks"]').serialize(),
+            type: 'POST',
+            success: function (data) {
+
+                if (data.CTRYID != null) {
+
+                    $(".aFacebookUrl").attr("href", data.FacebookUrl);
+                    $(".aTwitterUrl").attr("href", data.TwitterUrl);
+                    $(".aPlusGoogleUrl").attr("href", data.PlusGoogleUrl);
+                    $(".aLinkedInUrl").attr("href", data.LinkedInUrl);
+
+                    $(".spnUserLocation").html('');
+                    if (data.CityName.length > 0)
+                        $(".spnUserLocation").html(data.CityName + ", " + data.CountryName);
+                    else
+                        $(".spnUserLocation").html(data.CountryName);
+                    $(".spnUserContact").html(data.ContactNumber);
+
+                    //window.location.href = "/Users/VSuccessfullyRegistered?Reg=Reg"
+                }
+
+                if (data.toString().indexOf("Error") >= 0) {
+                    ErrorMsgTimeOut(data);
+
+                }
+                $("#btnSubmitSocialLinksAndLocation").attr("disabled", false);
+                $('#modalSocialLinksAndLocation').modal('hide');
+                HideLoading(elem);
+                elem.css("opacity", "1");
+
+            },
+            error: function (e) {
+                ErrorMsgTimeOut(e.error);
+                HideLoading(elem);
+                elem.css("opacity", "1");
+                $("#btnSubmitSocialLinksAndLocation").attr("disabled", false);
+            }
+        });
+
+
+
+    }
+
+    function changeCountry() {
+        // $("#loadingCities").show();
+        var Cid = $('#ddlCountry').val();
+        $("#ErrDdlCity").hide();
+        var data = { id: Cid };
+        $.getJSON('/Users/GetAllCities', data,
+            function success(data) {
+
+                if (data.length > 0) {
+                    $("#ddlCity").attr("disabled", false);
+                    var i = 0;
+                    $(data).each(function (index, optionText) {
+                        $("#ddlCity").append($('<option />').attr('value', data[i].CTID).text(data[i].CName));
+                        i++;
+                    });
+
+
+                }
+                else {
+                    $('#ddlCity option').remove();
+                    $("#ddlCity").append($('<option />').attr('value', "0").text("Select City"));
+                    $("#ddlCity").attr("disabled", true);
+                    $("#ddlCity").css("border", "");
+                }
+
+            });
+        //$("#loadingCities").hide();
+        //GetAllCities
+    }
+
+    //$("#ddlCountry").trigger("onchange")
+
+
+    function UpdateAboutMe() {
+        var txtAboutMe = $("#txtaAboutMe").val();
+        if (txtAboutMe.length > 0 && txtAboutMe.length < 80) {
+            alert('please write at least 80 character about yourself');
+            return false;
+        }
+
+        var elem = $('#modAboutMe');
+        ShowLoading(elem);
+        $("#btnAboutMeSave").attr("disabled", true);
+
+
+
+        $.ajax({
+            url: "/Users/UpdateAboutMe",
+            type: 'POST',
+            data: { AboutMe: txtAboutMe },
+            dataType: "json",
+            success: function (data) {
+                var status = data.split('^')[0];
+                var text = data.split('^')[1];
+
+                if (status.indexOf('updated') >= 0) {
+                    $(".dvAboutMe").empty();
+                    if (text.length > 0) {
+
+                        $(".dvAboutMe").append(' <div class="AboutMe"> ' + text + '</div>');
+                    }
+                    else {
+
+                        $(".dvAboutMe").append(' <div class="AboutMeDefault"> Describe about yourself !</div>');
+                    }
+                }
+                $("#btnAboutMeSave").attr("disabled", false);
+                $('#modAboutMe').modal('hide');
+                HideLoading(elem);
+            },
+            error: function (ex) {
+                HideLoading(elem);
+                alert(ex.responseText)
+            }
+        });
+
+
+
+    }
+</script>

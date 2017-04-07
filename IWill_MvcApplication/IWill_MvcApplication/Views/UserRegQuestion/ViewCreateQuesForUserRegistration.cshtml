@@ -1,0 +1,392 @@
+﻿@using IWill_MvcApplication.Models
+@model IWill_MvcApplication.Models.ModelUserRegQuestion
+
+@{
+    ViewBag.Title = "Create Question For User Registration";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_MyIWillLayout.cshtml";
+}
+
+<style>
+    textarea {
+        max-width: 600px !important;
+        height: 80px !important;
+    }
+
+    #questiontype select {
+        width: 150px;
+    }
+</style>
+
+<style type="text/css">
+    input:required:invalid, input:focus:invalid {
+        background-image: url('../../Images/invalid.png');
+        background-position: right top;
+        background-repeat: no-repeat;
+        -moz-box-shadow: none;
+    }
+
+    input:required:valid {
+        background-image: url('../../Images/valid.png');
+        background-position: right top;
+        background-repeat: no-repeat;
+    }
+</style>
+
+
+
+<h2>Create Questionairs For User Registration</h2>
+
+@{
+    Html.RenderPartial("~/Views/Error/_ErrorMessage.cshtml");
+}
+
+@using (Html.BeginForm("InsertQuesForUserRegistration", "UserRegQuestion", FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+
+    <div class="form-horizontal" role="radiogroup" aria-labelledby="alert2">
+
+        @*<h4>ModelUserRegQuestion</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UQuestion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.UQuestion, new { @id = "txtQuestion", @class = "form-control ", @placeholder = "Write a question here", required = "required" })
+                @*<span class="spnerror" id="spnerrQuesiton"  > question field can not be empty</span>*@
+                @*@Html.ValidationMessageFor(model => model.UQuestion, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div id="questiontype" class="form-group">
+            @Html.LabelFor(model => model.FkUQType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+
+                @Html.DropDownListFor(model => model.FkUQType, Helper.GetQuestionairTypes(), "Select Type", new { @id = "ddlQtype", @class = "form-control", @onchange = "QtypeChanged()" })
+                @Html.ValidationMessageFor(model => model.FkUQType, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-5">
+                @Html.LabelFor(model => model.IsStudent, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.CheckBoxFor(model => model.IsStudent, new { htmlAttributes = new { @class = "form-control col-md-2 checkbox-inline" } })
+            </div>
+        </div>
+
+        <div id="QuestionDetailMCQZ" class="form-group" style="margin-top:20px; display:none ; border:1px solid #929292; border-radius:10px 10px; padding:20px;">
+
+            @*<div>
+                    <label class="control-label col-md-2">Name </label>
+                    <input type="text" name="UserQuestionDetail[0].QuesOptionName" class="form-control col-md-2" required />
+
+                    <label class="control-label col-md-2">Right Answer</label>
+                    <input type="radio" name="UserQuestionDetail[0].IsRight" class="myradio" onclick="radioSelected(this)" />
+                    <input type="hidden" name="UserQuestionDetail[0].IsRight" value="false" />
+
+                    <input type="button" onclick='AddMCQ()' id="btnAddMCQ" value="Add MCQs" class="btn btn-primary" style="margin-left:30px;" />
+                </div>
+
+
+                <div style="margin-top:20px;">
+                    <input type="text" name="UserQuestionDetail[1].QuesOptionName" class="form-control col-md-2" required style="margin-left: 186px;" />
+                    <input type="radio" name="UserQuestionDetail[1].IsRight" class="myradio" onclick="radioSelected( this)" style="margin-left: 191px;" />
+                    <input type="hidden" name="UserQuestionDetail[].IsRight" value="false" />
+                </div>*@
+
+
+        </div>
+
+        <div id="QuestionDetailChoices" class="form-group" style="margin-top:20px; display:none ; border:1px solid #929292; border-radius:10px 10px; padding:20px;">
+
+            @*<div>
+                    <label class="control-label col-md-2">Name </label>
+                    <input type="text" name="UserQuestionDetail[0].QuesOptionName" class="form-control col-md-2" required />
+
+                    <label class="control-label col-md-2">Right Answer</label>
+                    <input type="checkbox" name="UserQuestionDetail[0].IsRight" class="myradio" onclick="radioSelected( this)" />
+                    <input type="hidden" name="UserQuestionDetail[0].IsRight" value="false" />
+
+                    <input type="button" onclick='AddChoices()' id="btnAddChoiced" value="Add Choice" class="btn btn-primary" style="margin-left:30px;" />
+                </div>
+
+
+                <div style="margin-top:20px;">
+
+
+                    <input type="text" name="UserQuestionDetail[1].QuesOptionName" aria-describedby="name-format" required class="form-control col-md-2" style="margin-left: 186px;" />
+                    <input type="checkbox" name="UserQuestionDetail[1].IsRight" style="margin-left: 277px;" />
+                    <input type="hidden" name="UserQuestionDetail[1].IsRight" value="false" />
+
+                </div>*@
+
+
+        </div>
+
+        <div class="form-group" style="margin-top:20px;">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" onclick="return ValidateForm()" />
+            </div>
+        </div>
+
+    </div>
+
+
+
+}
+
+<div style="margin-top:20px;">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+<script>
+    var i = 2; // for MCQZ iteration
+    var j = 2;// for multiple choices iteration
+
+    function ValidateForm() {
+
+        var txtQuestion = $('#txtQuestion');
+        var SelctdVal = $('#ddlQtype').val();
+        var dvMCQz = $('#QuestionDetailMCQZ');
+        var dvOptional = $('#QuestionDetailChoices')
+
+        if (txtQuestion.val().length == 0) {
+            $("div.error").fadeIn();
+            $("div.error").html("Question field can not be empty")
+            setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+
+            txtQuestion.focus();
+            return false;
+        }
+
+        if (SelctdVal == "" || SelctdVal == "0") {
+            $("div.error").fadeIn();
+            $("div.error").html("Select Question Type")
+            setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+            $('#ddlQtype').focus();
+            return false;
+        }
+
+
+        if (SelctdVal == "1" && dvMCQz.css('display') == "block") {
+
+            var a = false;
+            $('#QuestionDetailMCQZ div input[type="text"]').each(function () {
+                if ($(this).val().length == 0) {
+                    $(this).focus();
+                    a = true;
+                }
+            });
+            if (a) {
+                $("div.error").fadeIn();
+                $("div.error").html("Option Name field can not be empty")
+                setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                return false;
+            }
+            if ($("#QuestionDetailMCQZ input:checked").length == 0) {
+                $("div.error").fadeIn();
+                $("div.error").html("please select the right answer")
+                setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                return false;
+
+            }
+
+        }
+
+        if (SelctdVal == "3" && dvOptional.css('display') == "block") {
+
+            var a = false;
+            $('#QuestionDetailChoices div input[type="text"]').each(function () {
+                if ($(this).val().length == 0) {
+                    $(this).focus();
+                    a = true;
+                }
+            });
+            if (a) {
+                $("div.error").fadeIn();
+                $("div.error").html("Option Name field can not be empty")
+                setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                return false;
+            }
+            if ($("#QuestionDetailChoices input:checked").length == 0) {
+                $("div.error").fadeIn();
+                $("div.error").html("please select at least one check option")
+                setTimeout(function () { $('.error').fadeOut('slow'); }, 5000);
+                return false;
+
+            }
+
+        }
+
+
+
+
+
+        return true;
+    }
+
+    function QtypeChanged() {
+        var SelctdVal = $('#ddlQtype').val();
+        var dvMCQz = $('#QuestionDetailMCQZ');
+        var dvOptional = $('#QuestionDetailChoices')
+        i = j = 2;
+
+        if (SelctdVal == "1") {
+            CreateMcqzDiv();
+            $('#QuestionDetailMCQZ').slideDown('slow');
+            $('#QuestionDetailChoices').slideUp('slow');
+            $('#QuestionDetailChoices div').remove();
+
+        }
+
+        else if (SelctdVal == "3") {
+            CreateDetailDiv();
+            $('#QuestionDetailChoices').slideDown('slow');
+            $('#QuestionDetailMCQZ').slideUp('slow');
+            $('#QuestionDetailMCQZ div').remove();
+
+        }
+
+        else {
+            $('#QuestionDetailMCQZ').slideUp('slow');
+            $('#QuestionDetailChoices').slideUp('slow');
+            $('#QuestionDetailChoices div').remove();
+            $('#QuestionDetailMCQZ div').remove();
+        }
+
+    }
+
+    function radioSelected(obj) {
+        //$(".myradio").prop('checked', false);
+        //$(obj).parent().parent().find(':radio').checked = false
+        $(obj).parent().parent().find(':hidden').val('false');
+        //obj.checked = true;
+        $(obj).next().val('true');
+    }
+
+    function CheckBoxSelected(obj) {
+
+        var isChecked = $(obj).prop('checked');
+        if (isChecked)
+            $(obj).next().val('true');
+        else $(obj).next().val('false');
+    }
+
+
+    function AddMCQ() {
+        //var dvQuestionDetailMCQZ = $('#QuestionDetailMCQZ');
+        var dvMCQz = '<div   style="margin-top:20px;">' +
+                        '<input type="text" name="UserQuestionDetail[' + i + '].QuesOptionName" required="required" class="form-control col-md-2" style="margin-left: 186px;" />' +
+                        '<input type="radio" name="radio" class="myradio" onclick="radioSelected( this)" style="margin-left: 191px;" />' +
+                        '<input type="hidden" class="hidden" name="UserQuestionDetail[' + i + '].IsRight" value="false" />' +
+                        '<a  type="button" onclick="RemoveMCQ(this)" id="btnRemoveMCQ"  class="btn active" style="margin-left:30px;" > Remove MCQs</a>' +
+                      '</div>'
+        $('#QuestionDetailMCQZ').append(dvMCQz);
+        i++;
+    }
+
+
+    function RemoveMCQ(id) {
+
+        $(id).parent().remove();
+        var l = 0;
+
+
+        $('#QuestionDetailMCQZ div').each(function () {
+
+            $.each($(this).find(':input'), function (i, val) {
+                var suffix = String($(this).attr('name')).match(/\d+/)
+                var oldID = $(this).attr('name')
+                var NewID = String(oldID).replace('[' + suffix + ']', '[' + l + ']');
+                $(this).attr('name', NewID);
+
+            });
+            l++;
+        });
+
+        i = l;
+        //var Rowcount = $('#QuestionDetailMCQZ').length;
+        //if (Rowcount == 0)
+        //    $('#btnAddItem').show('slow');
+
+    }
+
+
+
+    function AddChoices() {
+        //var dvQuestionDetailMCQZ = $('#QuestionDetailMCQZ');
+        var dvchoices = '<div   style="margin-top:20px;">' +
+                        '<input type="text" name="UserQuestionDetail[' + j + '].QuesOptionName" required="required" class="form-control col-md-2" style="margin-left: 186px;" />' +
+                        '<input type="checkbox" name=""  style="margin-left: 193px;" onclick= "CheckBoxSelected(this)" />' +
+                        '<input type="hidden" class="hidden"  name="UserQuestionDetail[' + j + '].IsRight" value="false" />' +
+                        '<a  type="button" onclick="RemoveChoices(this)" id="btnRemoveChoices"  class="btn active" style="margin-left:30px;" > Remove Choices</a>' +
+                      '</div>'
+        $('#QuestionDetailChoices').append(dvchoices);
+        j++;
+    }
+
+    function RemoveChoices(obj) {
+
+        $(obj).parent().remove();
+        var l = 0;
+
+
+        $('#QuestionDetailChoices div').each(function () {
+
+            $.each($(this).find(':input'), function (i, val) {
+                var suffix = String($(this).attr('name')).match(/\d+/)
+                var oldID = $(this).attr('name')
+                var NewID = String(oldID).replace('[' + suffix + ']', '[' + l + ']');
+                $(this).attr('name', NewID);
+
+            });
+            l++;
+        });
+
+        j = l;
+
+    }
+
+
+    function CreateDetailDiv() {
+        var dvOptional = $('#QuestionDetailChoices');
+        var html =
+                    '<div>' +
+                        '<label class="control-label col-md-2">Name </label>' +
+        '<input type="text" name="UserQuestionDetail[0].QuesOptionName" class="form-control col-md-2" required />' +
+        '<label class="control-label col-md-2">Right Answer</label>' +
+        '<input type="checkbox" name="" onclick="CheckBoxSelected(this)" />' +
+                        '<input type="hidden" name="UserQuestionDetail[0].IsRight" value="false" />' +
+                        '<input type="button" onclick="AddChoices()" id="btnAddMCQ" value="Add Choices" class="btn btn-primary" style="margin-left:30px;" />' +
+        '</div>' +
+        '<div style="margin-top:20px;">' +
+        '<input type="text" name="UserQuestionDetail[1].QuesOptionName" class="form-control col-md-2" required style="margin-left: 186px;" />' +
+        '<input type="checkbox" name=""  onclick="CheckBoxSelected(this)" style="margin-left: 191px;" />' +
+                        '<input type="hidden" name="UserQuestionDetail[1].IsRight" value="false" />' +
+                    '</div>';
+        dvOptional.append(html);
+
+    }
+
+
+    function CreateMcqzDiv() {
+        var dvMCQz = $('#QuestionDetailMCQZ');
+
+        var html =
+                    '<div>' +
+                        '<label class="control-label col-md-2">Name </label>' +
+        '<input type="text" name="UserQuestionDetail[0].QuesOptionName" class="form-control col-md-2" required />' +
+        '<label class="control-label col-md-2">Right Answer</label>' +
+        '<input type="radio" name="radio" class="myradio" onclick="radioSelected(this)" />' +
+                        '<input type="hidden" name="UserQuestionDetail[0].IsRight" value="false" />' +
+                        '<input type="button" onclick="AddMCQ()" id="btnAddMCQ" value="Add MCQs" class="btn btn-primary" style="margin-left:30px;" />' +
+        '</div>' +
+        '<div style="margin-top:20px;">' +
+        '<input type="text" name="UserQuestionDetail[1].QuesOptionName" class="form-control col-md-2" required style="margin-left: 186px;" />' +
+        '<input type="radio" name="radio" class="myradio" onclick="radioSelected( this)" style="margin-left: 191px;" />' +
+                        '<input type="hidden" name="UserQuestionDetail[1].IsRight" value="false" />' +
+                    '</div>';
+        dvMCQz.append(html);
+    }
+</script>
